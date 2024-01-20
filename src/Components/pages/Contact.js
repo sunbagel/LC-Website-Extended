@@ -1,5 +1,6 @@
 import React from 'react'
 import { Button, Form, Container, Col, Row } from 'react-bootstrap';
+import EmailForm from '../EmailForm';
 
 const Contact = () => {
   return (
@@ -16,29 +17,11 @@ const Contact = () => {
       <h2>Phone Number:</h2>
       <p>(905) 696-0378</p>
 
+      <h2>Our Email:</h2>
+      <p>Lcindustrialservices@gmail.com</p>
+
       <h2>Get a Quote:</h2>
-      <Form>
-        {/* <Form.Group>
-          <Form.Label>Sending To:</Form.Label>
-          <Form.Control readOnly defaultValue="lcindustrialservices@gmail.com"/>
-        </Form.Group> */}
-
-        <Form.Group className="mb-3" controlId="formBasicEmail">
-          <Form.Label>Email address:</Form.Label>
-          <Form.Control type="email" placeholder="Enter your email" />
-          {/* <Form.Text className="text-muted">
-            We'll never share your email with anyone else.
-          </Form.Text> */}
-        </Form.Group>
-
-        <Form.Group className="mb-3" controlID="formTextBox">
-          <Form.Control as="textarea" rows={10} placeholder="How can we help you?"/>
-        </Form.Group>
-        
-        <Button variant="primary" type="submit">
-          Submit
-        </Button>
-      </Form>
+      <EmailForm/>
       </Col>
       </Container>
     </div>

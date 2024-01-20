@@ -37,7 +37,7 @@ const HeroSection = () => {
             <Col lg={6}>
               <div className='image-container'>
                 <Image
-                    src="/images/img-home.jpg"
+                    src="/images/LC_Store_Front_Edited.jpg"
                     className='hero-image'
                     fluid
                     rounded
@@ -54,22 +54,29 @@ const HeroSection = () => {
             <p>Our expert service team has over 30 years of experience in industrial electronic repair for a wide range of machines, including all major brands such as Fanuc, Siemens, Okuma, Heidenheim, Mitsubishi, Yaskawa, and more! We stock parts for many makes and models and can repair or provide custom solutions as needed. Our advantage is at the component-level repairing and reverse engineering – which enables us to repair obsolete or hard to find parts. We have a reputation for providing alternative solutions in creative ways.
             </p>
             <p>We've worked with:</p>
-            <ul>
-              <li>CNC, EDM, Encoders & Machine Controls</li>
-              <li>QC Lab Equipment</li>
-              <li>AC/DC Drives</li>
-              <li>Servo Amplifiers Logic Controllers</li>
-              <li>PLC, HMI, Touch Screen Monitors, CRT to LCD</li>
-              <li>Industrial Computers, Networking</li>
-              <li>Process Controllers and Sensors</li>
-              <li>Custom and Obsolete circuit boards</li>
-              <li>Power Supplies</li>
-              <li>Weld Controllers</li>
-              <li>And many more!</li>
-            </ul>
             <Col>
-              <p>If you have any industrial electronics problems, contact us.</p>
+            
+              <ul>
+                <li>CNC, EDM, Encoders & Machine Controls</li>
+                <li>QC Lab Equipment</li>
+                <li>AC/DC Drives</li>
+                <li>Servo Amplifiers Logic Controllers</li>
+                <li>PLC, HMI, Touch Screen Monitors, CRT to LCD</li>
+              </ul>
             </Col>
+            <Col>
+              <ul>
+                <li>Industrial Computers, Networking</li>
+                <li>Process Controllers and Sensors</li>
+                <li>Custom and Obsolete circuit boards</li>
+                <li>Power Supplies</li>
+                <li>Weld Controllers</li>
+                <li>And many more!</li>
+              </ul>
+            </Col>
+
+            <p>If you have any industrial electronics problems, contact us.</p>
+
             
           </Row>
         </Col>
