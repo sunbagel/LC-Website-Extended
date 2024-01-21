@@ -1,0 +1,71 @@
+import SearchBar from '../components/SearchBar'
+import { useState } from 'react';
+import { Part, PartValues } from '@/types';
+import { columns } from '@/components/Table/PartColumn';
+import { PartDataTable } from '@/components/Table/PartDataTable';
+
+import EditForm from '@/components/EditForm';
+
+
+
+const SearchPage = () => {
+
+    // part object with string names
+    const [partList, setPartList] = useState<Part[]>([]);
+    // part object with key values
+    const [partValuesList, setPartValues ] = useState<PartValues[]>([]);
+
+    
+    const [showEditForm, setShowEditForm] = useState(false);
+
+    const [currentRow, setCurrentRow] = useState("");
+
+    // searchFunction so we can restart the search when an item is updated
+    const [ searchFunction, setSearchFunction ] = useState(() => ()=>{});
+    const updateSearchFunction = ( newSearchFunction : () => void) =>{
+        setSearchFunction(()=>{
+            return newSearchFunction;
+        })
+    }
+
+    const updateParts = (newPartList : Part[]) =>{
+        setPartList(newPartList);
+    }
+
+    const updatePartValues = (newPartValues : PartValues[]) =>{
+        setPartValues(newPartValues);
+    }
+
+    const openEditForm = (rowId : string) => {
+        setShowEditForm(true);
+        setCurrentRow(rowId);
+        // console.log(showEditForm);
+        // console.log(rowId);
+    }
+
+    const closeEditForm = () => {
+        setShowEditForm(false);
+    }
+
+
+    return (
+        <div>
+            <h3 className="text-left">Enter Part Number</h3>
+            <SearchBar 
+                updateParts={updateParts} 
+                updatePartValues={updatePartValues} 
+                updateSearchFunction={updateSearchFunction}
+            />
+            <PartDataTable columns={columns} data={partList} openEditForm={openEditForm}/>
+            <EditForm 
+                showEditForm={showEditForm} 
+                closeEditForm={closeEditForm} 
+                defaultValues={partValuesList[Number(currentRow)]}
+                searchFunction={searchFunction}
+            />
+        </div>
+        
+    )
+}
+
+export default SearchPage

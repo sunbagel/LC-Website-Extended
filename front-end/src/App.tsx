@@ -3,10 +3,10 @@
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 
-import NavBar from './Components/NavBar';
-import Home from './Components/pages/Home'
-import Contact from './Components/pages/Contact';
-import FooterV2 from './Components/FooterV2';
+import NavBar from './og-components/NavBar';
+import Home from './og-components/pages/Home'
+import Contact from './og-components/pages/Contact';
+import FooterV2 from './og-components/FooterV2';
 
 import './App.css';
 
