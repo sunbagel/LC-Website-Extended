@@ -1,57 +1,25 @@
-import { useState, useEffect} from "react"
-import {LinkContainer} from 'react-router-bootstrap'
-import { Link, NavLink } from 'react-router-dom'
-import './NavBarV2.css'
+import Navbar from "react-bootstrap/Navbar";
+import Container from "react-bootstrap/Container";
+import Nav from "react-bootstrap/Nav";
+
+import { NavLink } from 'react-router-dom';
 
 
-
-import { Container, Nav, Navbar, NavDropdown, Button } from 'react-bootstrap';
-
-
-const NavBar = () => {
-
+const NavBar2 = () => {
     return (
-    <>
+        <div>
+            <Navbar collapseOnSelect expand="lg" data-bs-theme="dark">
+                <Container className="d-flex flex-row">
 
-        <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-            <Container className="d-flex flex-row">
-                <LinkContainer to="/">
-                    <Navbar.Brand className="navbar-brand"> 
-                        <img className="d-inline-block align-to"
-                        src="/images/LC_Logo_Transparent.png" alt="LC Logo"
-                        width="80" height="80"/>
-                        {' '}
-                        LC Industrial
-                        
-                    </Navbar.Brand>
-                    
-                </LinkContainer>
-                {/* <Navbar.Text className="logo-text">
-                    LC Industrial
-                </Navbar.Text> */}
-
-                <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-
-                <Navbar.Collapse id="responsive-navbar-nav">
-                    <Nav className="ms-auto">
-
-                        <Nav.Link  as={NavLink} to="/" eventKey="1">Home</Nav.Link>
-                        
-                        <Nav.Link  as={NavLink} to="/contact_us" eventKey="2">Contact Us</Nav.Link>
-                        
-
-                        {/* <Nav.Link eventKey="3">
-                            Get a Quote
-                        </Nav.Link> */}
-                        <Link to="/contact_us" >
-                            <Button id="quote-button">Get a Quote</Button>
-                        </Link>
+                    <Nav>
+                        <Nav.Link  as={NavLink} to="/search-page" eventKey="1">Search for Part</Nav.Link>
+                        <Nav.Link  as={NavLink} to="/add-parts" eventKey="2">Add a Part</Nav.Link>
                     </Nav>
-                </Navbar.Collapse>
-            </Container>
-        </Navbar>
-    </>
+
+                </Container>
+            </Navbar>
+        </div>
     )
 }
 
-export default NavBar
+export default NavBar2;

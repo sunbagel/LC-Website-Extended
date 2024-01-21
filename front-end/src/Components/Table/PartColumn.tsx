@@ -1,0 +1,60 @@
+
+
+import { Part } from "@/types"
+import { ColumnDef } from "@tanstack/react-table"
+
+
+export const columns: ColumnDef<Part>[] = [
+  {
+    accessorKey: "part_number",
+    header: () => <div className="text-left">Part Number</div>,
+  },
+  {
+    accessorKey: "part_name",
+    header: "Part Name",
+  },
+  {
+    accessorKey: "description",
+    header: "Description",
+  },
+  {
+    accessorKey: "quantity",
+    header: "Quantity",
+  },
+  {
+    accessorKey: "price",
+    header: "Price",
+  },
+  {
+    accessorKey: "part_type",
+    header: "Part Type",
+  },
+  {
+    accessorKey: "supplier",
+    header: "Supplier",
+  },
+  {
+    accessorKey: "manufacturer",
+    header: "Manufacturer",
+  },
+  {
+    accessorKey: "location",
+    header: "Location",
+  },
+  // {
+  //   accessorKey: "amount",
+  //   header: () => <div className="text-left">Amount</div>,
+  //   cell: ({ row }) => {
+  //     const amount = parseFloat(row.getValue("amount"))
+  //     const formatted = new Intl.NumberFormat("en-US", {
+  //       style: "currency",
+  //       currency: "USD",
+  //     }).format(amount)
+ 
+  //     return <div className="text-right font-medium">{formatted}</div>
+  //   },
+  // },
+  {
+    id: 'edit'
+  }
+]

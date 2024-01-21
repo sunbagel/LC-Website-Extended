@@ -1,0 +1,9 @@
+.errorMsg {
+    color: rgb(250, 98, 98);
+    font-size: small;
+    text-align: left;
+}
+
+.inputHeader {
+    font-size: 1.1rem;
+}
