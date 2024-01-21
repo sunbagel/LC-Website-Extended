@@ -5,14 +5,14 @@ import Nav from "react-bootstrap/Nav";
 import { NavLink } from 'react-router-dom';
 
 
-const NavBar = () => {
+const NavBar2 = () => {
     return (
         <div>
             <Navbar collapseOnSelect expand="lg" data-bs-theme="dark">
                 <Container className="d-flex flex-row">
 
                     <Nav>
-                        <Nav.Link  as={NavLink} to="/" eventKey="1">Search for Part</Nav.Link>
+                        <Nav.Link  as={NavLink} to="/search-page" eventKey="1">Search for Part</Nav.Link>
                         <Nav.Link  as={NavLink} to="/add-parts" eventKey="2">Add a Part</Nav.Link>
                     </Nav>
 
@@ -22,4 +22,4 @@ const NavBar = () => {
     )
 }
 
-export default NavBar;
+export default NavBar2;

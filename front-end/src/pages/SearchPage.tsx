@@ -6,7 +6,7 @@ import { PartDataTable } from '@/components/Table/PartDataTable';
 
 import EditForm from '@/components/EditForm';
 
-
+import '@/styles/SearchPage.css'
 
 const SearchPage = () => {
 
@@ -49,7 +49,7 @@ const SearchPage = () => {
 
 
     return (
-        <div>
+        <div className='search-container'>
             <h3 className="text-left">Enter Part Number</h3>
             <SearchBar 
                 updateParts={updateParts} 

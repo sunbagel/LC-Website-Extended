@@ -4,6 +4,7 @@ import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 
+import '@/styles/AddPage.css'
 
 const AddPartPage = () => {
 
@@ -57,7 +58,7 @@ const AddPartPage = () => {
     }
 
     return (
-        <div>
+        <div className="addpage-container">
             {isSubmitted ? (<Button onClick={openForm}>Submit another part</Button>)
             : (
             <Card style={{width: '32rem'}} className="bg-light  ">
