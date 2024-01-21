@@ -8,12 +8,10 @@ import Home from './og-components/pages/Home'
 import Contact from './og-components/pages/Contact';
 import FooterV2 from './og-components/FooterV2';
 
-import SearchPage from './pages/SearchPage';
-import AddPartPage from './pages/AddPartPage';
-import NavBar2 from './components/NavBar';
-import EditForm from "./components/EditForm";
-
 import './App.css';
+import InventoryAppMain from "./pages/InventoryAppMain";
+import SearchPage from "./pages/SearchPage";
+import AddPartPage from "./pages/AddPartPage";
 
 function App() {
   return ( <>
@@ -21,14 +19,17 @@ function App() {
        <div className = 'content-wrap'> */}
         <Router>
           <NavBar/>
-          <NavBar2/>
           <Routes>
             <Route path = '/' element = {<Home/>}/>
             <Route path = '/contact_us' element = {<Contact/>}/>
 
-            <Route path = '/search-page' element = {<SearchPage/>}/>
-            <Route path = '/add-parts' element = {<AddPartPage/>}/>
-            <Route path = 'edit-part' element = {<EditForm/>}/>
+            <Route path = 'app-home' element = {<InventoryAppMain/>}>
+                <Route index element={<SearchPage/>}/>
+                <Route path='search-page' element={<SearchPage/>}/>
+                <Route path ='add-parts' element = {<AddPartPage/>}/>
+            </Route>
+            
+            
         
           </Routes>
           

@@ -1,7 +1,7 @@
 import { useState, useEffect} from "react"
 import {LinkContainer} from 'react-router-bootstrap'
 import { Link, NavLink } from 'react-router-dom'
-import './NavBarV2.css'
+import './NavBar.css'
 
 
 
@@ -39,6 +39,7 @@ const NavBar = () => {
                         
                         <Nav.Link  as={NavLink} to="/contact_us" eventKey="2">Contact Us</Nav.Link>
                         
+                        <Nav.Link as={NavLink} to="/app-home" eventKey="3">Inventory App</Nav.Link>
 
                         {/* <Nav.Link eventKey="3">
                             Get a Quote
