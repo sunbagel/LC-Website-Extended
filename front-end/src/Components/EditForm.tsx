@@ -53,8 +53,8 @@ const EditForm = ({showEditForm, closeEditForm, defaultValues, searchFunction} :
         console.log(searchFunction);
     }
     return(
-        <Modal show={showEditForm} onHide={closeEditForm}>
-            <Card className="mx-auto w-auto">
+        <Modal dialogClassName="w-full max-w-2xl" show={showEditForm} onHide={closeEditForm}>
+            <Card className="">
                 <h3 className="text-left">Edit Part:</h3>
                 <PartForm sendPart={sendPart} closeForm={closeEditForm} defaultValues={defaultValues}/>
             </Card>
