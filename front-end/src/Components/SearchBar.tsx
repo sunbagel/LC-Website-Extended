@@ -311,54 +311,56 @@ const SearchBar = ({updateParts, updatePartValues, updateSearchFunction} : Searc
             <Form onSubmit={onSubmit} onChange={onChange}>
                 <Form.Group className="mb-3" controlId="formPartID">
                     
-                            <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4">
+                            <div className="max-w-4xl grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4 gap-x-0.5">
 
                             
-                                <Form.Control className="max-w-sm my-3" name="part_number" type="text" placeholder="Enter Part Number" />
-                                {/* need to make dropdown form */}
-                                <Form.Control className="max-w-sm my-3" name="part_name" type="text" placeholder="Enter Part Name" />
+                                
+                                    <Form.Control className="max-w-sm my-3" name="part_number" type="text" placeholder="Enter Part Number" />
+                                    {/* need to make dropdown form */}
+                                    <Form.Control className="max-w-sm my-3" name="part_name" type="text" placeholder="Enter Part Name" />
+                                
 
 
-                                <Select
-                                    className="py-2" 
-                                    placeholder="Select a Supplier"
-                                    onChange={(option : tableType) => {setSelectedSupplier(option ? option.name : '');}}
-                                    styles={customStyles}
-                                    options={supplierList}
-                                    getOptionLabel={(option : tableType) => option.name}
-                                    getOptionValue={(option: tableType) => option.id.toString()}
-                                    isClearable
-                                />
-                                {/* hidden input field */}
-                                <Form.Control
-                                    readOnly
-                                    className="hidden"
-                                    name="suppliers"
-                                    type="text"
-                                    value={selectedSupplier}
-                                />
-
+                                
+                                    <Select
+                                        className="py-2 max-w-sm col-span-1"
+                                        placeholder="Select a Supplier"
+                                        onChange={(option : tableType) => {setSelectedSupplier(option ? option.name : '');}}
+                                        styles={customStyles}
+                                        options={supplierList}
+                                        getOptionLabel={(option : tableType) => option.name}
+                                        getOptionValue={(option: tableType) => option.id.toString()}
+                                        isClearable
+                                    />
+                                    {/* hidden input field */}
+                                    <Form.Control
+                                        readOnly
+                                        className="hidden"
+                                        name="suppliers"
+                                        type="text"
+                                        value={selectedSupplier}
+                                    />
+                                    <Select
+                                        className="py-2 max-w-sm col-span-1"
+                                        placeholder="Select a Manufacturer"
+                                        onChange={(option : tableType) => {setSelectedManufacturer(option ? option.name : '');}}
+                                        styles={customStyles}
+                                        options={manufacturerList}
+                                        getOptionLabel={(option : tableType) => option.name}
+                                        getOptionValue={(option: tableType) => option.id.toString()}
+                                        isClearable
+                                    />
+                                    <Form.Control
+                                        readOnly
+                                        className="hidden"
+                                        name="manufacturers"
+                                        type="text"
+                                        value={selectedManufacturer}
+                                    />
+                                
+                                
                                 <Select 
-                                    className="py-2" 
-                                    placeholder="Select a Manufacturer"
-                                    onChange={(option : tableType) => {setSelectedManufacturer(option ? option.name : '');}}
-                                    styles={customStyles}
-                                    options={manufacturerList}
-                                    getOptionLabel={(option : tableType) => option.name}
-                                    getOptionValue={(option: tableType) => option.id.toString()}
-                                    isClearable
-                                />
-                          
-                                <Form.Control
-                                    readOnly
-                                    className="hidden"
-                                    name="manufacturers"
-                                    type="text"
-                                    value={selectedManufacturer}
-                                />
-
-                                <Select 
-                                    className="py-2" 
+                                    className="py-2 max-w-sm" 
                                     placeholder="Select a Location"
                                     onChange={(option : tableType) => {setSelectedLocation(option ? option.name : '');}}
                                     styles={customStyles}
@@ -378,7 +380,7 @@ const SearchBar = ({updateParts, updatePartValues, updateSearchFunction} : Searc
 
 
                                 <Select 
-                                    className="py-2" 
+                                    className="py-2 max-w-sm" 
                                     placeholder="Select a Part Type"
                                     onChange={(option : tableType) => {setSelectedPartType(option ? option.name : '');}}
                                     styles={customStyles}
@@ -396,17 +398,18 @@ const SearchBar = ({updateParts, updatePartValues, updateSearchFunction} : Searc
                                     value={selectedPartType}
                                 />
                                 
-                                {simpleFieldBoxes.map((box)=>(
-                                    
-                                    // key for react management
-                                    <SimpleFieldBox 
-                                        key={box.id} 
-                                        handleSimpleParams={handleSimpleParams} 
-                                        removeSimpleFieldBox={removeSimpleFieldBox}
-                                        id={box.id}
-                                    />
-                                ))}
-                                </div>
+                            </div>
+                            {simpleFieldBoxes.map((box)=>(
+                                
+                                // key for react management
+                                <SimpleFieldBox 
+                                    key={box.id} 
+                                    handleSimpleParams={handleSimpleParams} 
+                                    removeSimpleFieldBox={removeSimpleFieldBox}
+                                    id={box.id}
+                                />
+                            ))}
+                            
                                 <button className="flex justify-start my-4" onClick={addSimpleFieldBox}>Add Selector</button>
 
                                 
