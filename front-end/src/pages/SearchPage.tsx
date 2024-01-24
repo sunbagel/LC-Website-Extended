@@ -49,14 +49,20 @@ const SearchPage = () => {
 
 
     return (
-        <div className='search-container'>
+        <div className='flex flex-col search-container'>
             <h3 className="text-left">Enter Part Number</h3>
-            <SearchBar 
-                updateParts={updateParts} 
-                updatePartValues={updatePartValues} 
-                updateSearchFunction={updateSearchFunction}
-            />
-            <PartDataTable columns={columns} data={partList} openEditForm={openEditForm}/>
+            <div className="mb-2">
+                <SearchBar 
+                    updateParts={updateParts} 
+                    updatePartValues={updatePartValues} 
+                    updateSearchFunction={updateSearchFunction}
+                />
+            </div>
+            
+            <div className="my-2">
+                <PartDataTable columns={columns} data={partList} openEditForm={openEditForm}/>
+            </div>
+            
             <EditForm 
                 showEditForm={showEditForm} 
                 closeEditForm={closeEditForm} 
