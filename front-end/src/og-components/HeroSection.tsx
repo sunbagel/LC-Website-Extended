@@ -21,10 +21,10 @@ const HeroSection = () => {
               <h1 className="header">
               Your Local CNC Machine & Industrial Electronics Service Provider
               </h1>
-              <p className="text-dark mx-3">
+              <p className="body text-dark mx-3">
               LC Industrial is a team that provides fast, reliable, and quality service and parts for all kinds of industrial      electronics at a competitive price. We are based in Mississauga and have customers all around the GTA, and elsewhere in North America. From PCBs to servo drives and controllers, we can repair any make or model of electronics you use in your operations.
               </p>
-              <p className="text-dark mx-3">
+              <p className="body text-dark mx-3">
               We invite you to contact us today!
               </p>
               <div className="text-center my-4">
@@ -51,10 +51,10 @@ const HeroSection = () => {
           </Row>
           <Row className="text-dark px-3 py-5">
           <h1 className="header">Provided Services:</h1>
-            <p>Our expert service team has over 30 years of experience in industrial electronic repair for a wide range of machines, including all major brands such as Fanuc, Siemens, Okuma, Heidenheim, Mitsubishi, Yaskawa, and more! We stock parts for many makes and models and can repair or provide custom solutions as needed. Our advantage is at the component-level repairing and reverse engineering – which enables us to repair obsolete or hard to find parts. We have a reputation for providing alternative solutions in creative ways.
+            <p className="body">Our expert service team has over 30 years of experience in industrial electronic repair for a wide range of machines, including all major brands such as Fanuc, Siemens, Okuma, Heidenheim, Mitsubishi, Yaskawa, and more! We stock parts for many makes and models and can repair or provide custom solutions as needed. Our advantage is at the component-level repairing and reverse engineering – which enables us to repair obsolete or hard to find parts. We have a reputation for providing alternative solutions in creative ways.
             </p>
             <p>We've worked with:</p>
-            <Col>
+            <Col className="listBody">
             
               <ul>
                 <li>CNC, EDM, Encoders & Machine Controls</li>
@@ -64,7 +64,7 @@ const HeroSection = () => {
                 <li>PLC, HMI, Touch Screen Monitors, CRT to LCD</li>
               </ul>
             </Col>
-            <Col>
+            <Col className="listBody">
               <ul>
                 <li>Industrial Computers, Networking</li>
                 <li>Process Controllers and Sensors</li>
@@ -75,7 +75,7 @@ const HeroSection = () => {
               </ul>
             </Col>
 
-            <p>If you have any industrial electronics problems, contact us.</p>
+            <p className="body">If you have any industrial electronics problems, contact us.</p>
 
             
           </Row>
