@@ -85,7 +85,7 @@ const PartForm = ({ sendPart, closeForm, defaultValues } : PartFormProps) => {
             
             <Form onSubmit={handleSubmit(sendPart)}>
                 <Form.Group className="mb-3" controlId="formPartInfo">
-                        <div className="flex flex-col">
+                        <div className="flex flex-col space-y-5">
                             <div className="flex flex-row items-center my-2 space-x-10">
 
                                 <div className="flex flex-col">
@@ -106,8 +106,8 @@ const PartForm = ({ sendPart, closeForm, defaultValues } : PartFormProps) => {
                                 
                                 <div className="flex flex-col">
                                     <p className="inputHeader text-left">Part Name:</p>
-                                    <input
-                                        className="w-full p-2 bg-white border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                                    <Form.Control
+                                        className="w-full"
                                         type="text"
                                         {...register("PartName", { required: "Part Name is required" })}
                                         name="PartName"
@@ -123,9 +123,10 @@ const PartForm = ({ sendPart, closeForm, defaultValues } : PartFormProps) => {
                                 
                                 <div className="flex flex-col w-3/6">
                                     <p className="inputHeader text-left">Description:</p>
-                                    <textarea
+                                    <Form.Control
+                                        as='textarea'
                                         id="description"
-                                        className="w-full bg-white h-24 p-2 text-base border border-gray-300 rounded-md focus:outline-none focus:border-blue-500" 
+                                        className="w-full h-24" 
                                         {...register("Description", { required: "Description is required" })}
                                         name="Description"
                                         placeholder="Enter Description"
@@ -134,101 +135,113 @@ const PartForm = ({ sendPart, closeForm, defaultValues } : PartFormProps) => {
                                 </div>
                             </div>
 
-                            <div className="flex flex-row">
-                                <p className="inputHeader text-left">Quantity:</p>
-                                <Form.Control
-                                    className="my-2"
-                                    type="number"
-                                    {...register("Quantity", { required: "Quantity is required" })}
-                                    name="Quantity"
-                                    placeholder="Enter Quantity"
-                                />
-                                {errors.Quantity && <p className="errorMsg">{errors.Quantity.message}</p>}
+                            
+                            <div className="flex flex-row space-x-10">
 
-                                <p className="inputHeader text-left">Price:</p>
-                                <Form.Control
-                                    className="my-2"
-                                    type="number"
-                                    step="0.01"
-                                    {...register("Price", { required: "Price is required" })}
-                                    name="Price"
-                                    placeholder="Enter Price"
-                                />
-                                {errors.Price && <p className="errorMsg">{errors.Price.message}</p>}
+                                <div className="flex flex-col">
+                                    <p className="inputHeader text-left">Quantity:</p>
+                                    <Form.Control
+                                        className=""
+                                        type="number"
+                                        {...register("Quantity", { required: "Quantity is required" })}
+                                        name="Quantity"
+                                        placeholder="Enter Quantity"
+                                    />
+                                    {errors.Quantity && <p className="errorMsg">{errors.Quantity.message}</p>}
+                                </div>
+                                
+                                <div className="flex flex-col">
+                                    <p className="inputHeader text-left">Price:</p>
+                                    <Form.Control
+                                        className=""
+                                        type="number"
+                                        step="0.01"
+                                        {...register("Price", { required: "Price is required" })}
+                                        name="Price"
+                                        placeholder="Enter Price"
+                                    />
+                                    {errors.Price && <p className="errorMsg">{errors.Price.message}</p>}
+                                </div>
                             
                             </div>
-                            <div className="flex flex-row">
-                                <p className="inputHeader text-left">Part Type:</p>
+                            <div className="flex flex-row space-x-10">
 
-                                <Form.Select
-                                    className="my-2" 
-                                    aria-label="Part Type Selection Dropdown"
-                                    {...register("PartType", {required: true})}
-                                    name="PartType"
-                                >
-                                        <option value="">Select a Part Type</option>
-                                        {partTypes.map( (partType : tableType) => (
-                                            <option key={partType.id} value={partType.id}>{partType.name}</option>
-                                        ))}
-                                </Form.Select>
+                                <div className="flex flex-col">
+                                    <p className="inputHeader text-left">Part Type:</p>
+                                    <Form.Select
+                                        className="my-2"
+                                        aria-label="Part Type Selection Dropdown"
+                                        {...register("PartType", {required: true})}
+                                        name="PartType"
+                                    >
+                                            <option value="">Select a Part Type</option>
+                                            {partTypes.map( (partType : tableType) => (
+                                                <option key={partType.id} value={partType.id}>{partType.name}</option>
+                                            ))}
+                                    </Form.Select>
+                                    {errors.PartType && <p className="errorMsg">Please select part type</p>}
+                                </div>
 
-                                {errors.PartType && <p className="errorMsg">Please select part type</p>}
-
-                                <p className="inputHeader text-left">Supplier:</p>
-                                <Form.Select 
-                                    className="my-2" 
-                                    aria-label="Supplier Selection Dropdown"
-                                    {...register("Supplier", {
-                                        required: true,
-                                    })}
-                                >
-                                        <option value="">Select a Supplier</option>
-                                        {supplierList.map( (supplier : tableType) => (
-                                            <option key={supplier.id} value={supplier.id}>
-                                                {supplier.name}
-                                            </option>
-                                            
-                                        ))}
-                                        
-                                </Form.Select>
-
-                                {errors.Supplier && <p className="errorMsg">Please select a supplier</p>}
-
-                                <p className="inputHeader text-left">Manufacturer:</p>
-                                <Form.Select 
-                                    className="my-2" 
-                                    aria-label="Manufacturer Selection Dropdown"
-                                    {...register("Manufacturer", {required: true})}
-                                    name="Manufacturer"
-                                >
-                                        <option value="">Select a Manufacturer</option>
-                                        {manufacturerList.map( (manufacturer : tableType) => (
-                                            <option key={manufacturer.id} value={manufacturer.id}>
-                                                {manufacturer.name}
-                                            </option>
-                                            
-                                        ))}
-                                </Form.Select>
+                                <div className="flex flex-col">
+                                    <p className="inputHeader text-left">Supplier:</p>
+                                    <Form.Select
+                                        className="my-2"
+                                        aria-label="Supplier Selection Dropdown"
+                                        {...register("Supplier", {
+                                            required: true,
+                                        })}
+                                    >
+                                            <option value="">Select a Supplier</option>
+                                            {supplierList.map( (supplier : tableType) => (
+                                                <option key={supplier.id} value={supplier.id}>
+                                                    {supplier.name}
+                                                </option>
                                     
-                                {errors.Manufacturer && <p className="errorMsg">Please select a manufacturer</p>}
+                                            ))}
+                                    
+                                    </Form.Select>
+                                    {errors.Supplier && <p className="errorMsg">Please select a supplier</p>}
+                                </div>
+                            </div>
+                            <div className="flex flex-row space-x-10">
+                                <div className="flex flex-col">
+                                    <p className="inputHeader text-left">Manufacturer:</p>
+                                    <Form.Select
+                                        className="my-2"
+                                        aria-label="Manufacturer Selection Dropdown"
+                                        {...register("Manufacturer", {required: true})}
+                                        name="Manufacturer"
+                                    >
+                                            <option value="">Select a Manufacturer</option>
+                                            {manufacturerList.map( (manufacturer : tableType) => (
+                                                <option key={manufacturer.id} value={manufacturer.id}>
+                                                    {manufacturer.name}
+                                                </option>
+                                    
+                                            ))}
+                                    </Form.Select>
+                                    
+                                    {errors.Manufacturer && <p className="errorMsg">Please select a manufacturer</p>}
+                                </div>
 
-                                <p className="inputHeader text-left my-2">Location:</p>
-                                <Form.Select 
-                                    className="my-2" 
-                                    aria-label="Location Selection Dropdown"
-                                    {...register("Location", {required: true})}
-                                    name="Location"
-                                >
-                                        <option value="">Select a Location</option>
-                                        {locationList.map( (location : tableType) => (
-                                            <option key={location.id} value={location.id}>
-                                                {location.name}
-                                            </option>
-                                            
-                                        ))}
-                                </Form.Select>
-
-                                {errors.Location && <p className="errorMsg">Please select a location</p>}
+                                <div className="flex flex-col">
+                                    <p className="inputHeader text-left my-2">Location:</p>
+                                    <Form.Select
+                                        className="my-2"
+                                        aria-label="Location Selection Dropdown"
+                                        {...register("Location", {required: true})}
+                                        name="Location"
+                                    >
+                                            <option value="">Select a Location</option>
+                                            {locationList.map( (location : tableType) => (
+                                                <option key={location.id} value={location.id}>
+                                                    {location.name}
+                                                </option>
+                                    
+                                            ))}
+                                    </Form.Select>
+                                    {errors.Location && <p className="errorMsg">Please select a location</p>}
+                                </div>
 
                             </div>
                         </div>
