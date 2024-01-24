@@ -55,6 +55,7 @@ const EditForm = ({showEditForm, closeEditForm, defaultValues, searchFunction} :
     return(
         <Modal show={showEditForm} onHide={closeEditForm}>
             <Card className="mx-auto w-auto">
+                <h3 className="text-left">Edit Part:</h3>
                 <PartForm sendPart={sendPart} closeForm={closeEditForm} defaultValues={defaultValues}/>
             </Card>
         </Modal>

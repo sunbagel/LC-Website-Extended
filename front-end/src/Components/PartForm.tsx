@@ -82,7 +82,7 @@ const PartForm = ({ sendPart, closeForm, defaultValues } : PartFormProps) => {
     
     return (
         <div>
-            <h3 className="text-left">Add Part:</h3>
+            
             <Form onSubmit={handleSubmit(sendPart)}>
                 <Form.Group className="mb-3" controlId="formPartInfo">
                         <div className="flex flex-col">
