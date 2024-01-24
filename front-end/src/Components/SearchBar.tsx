@@ -317,23 +317,6 @@ const SearchBar = ({updateParts, updatePartValues, updateSearchFunction} : Searc
                                 {/* need to make dropdown form */}
                                 <Form.Control className="my-3" name="part_name" type="text" placeholder="Enter Part Name" />
 
-                                
-                                {/* <Form.Control name="quantity" type="text" placeholder="Enter Quantity" /> */}
-                                {/* greater/less than selectors */}
-                                {/* <Form.Control name="price" type="text" placeholder="Enter Price" /> */}
-                                {/* <Form.Control className="my-3" name="suppliers" type="text" placeholder="Enter Supplier" /> */}
-                                {/* <Form.Control className="my-3" name="manufacturers" type="text" placeholder="Enter Manufacturer" />
-                                <Form.Control className="my-3" name="locations" type="text" placeholder="Enter Location" /> */}
-
-                                {/* <select name="select_box" className="form-select" id="select_box">
-                                    <option value="">Select Supplier</option>
-                                    {supplierList.map( (supplier : tableType) => (
-                                        <option key={supplier.id} value={supplier.id}>
-                                            {supplier.name}
-                                        </option>
-                                        
-                                    ))}
-                                </select> */}
 
                                 <Select
                                     className="pb-2" 
