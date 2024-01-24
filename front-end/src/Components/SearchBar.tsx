@@ -1,8 +1,5 @@
-import Button from 'react-bootstrap/Button';
+
 import Form from 'react-bootstrap/Form';
-import Container from 'react-bootstrap/Container'
-import Col from 'react-bootstrap/Col'
-import Row from 'react-bootstrap/Row'
 import { Part, PartKeyNumbers, PartValues, tableType } from '@/types';
 import { useCallback, useEffect, useState } from 'react';
 
@@ -420,9 +417,9 @@ const SearchBar = ({updateParts, updatePartValues, updateSearchFunction} : Searc
                     
                 </Form.Group>
 
-                <Button variant="primary" type="submit">
-                    Submit
-                </Button>
+                <button type="submit">
+                    Search
+                </button>
             </Form>
         </div>
     )

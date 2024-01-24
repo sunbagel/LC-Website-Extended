@@ -23,6 +23,7 @@ function App() {
             <Route path = '/' element = {<Home/>}/>
             <Route path = '/contact_us' element = {<Contact/>}/>
 
+            
             <Route path = 'app-home' element = {<InventoryAppMain/>}>
                 <Route index element={<SearchPage/>}/>
                 <Route path='search-page' element={<SearchPage/>}/>

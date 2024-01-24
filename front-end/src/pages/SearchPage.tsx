@@ -49,7 +49,7 @@ const SearchPage = () => {
 
 
     return (
-        <div className='flex flex-col search-container'>
+        <div className='flex flex-col search-container good-font'>
             <h3 className="text-left">Search For Your Part</h3>
             <div className="mb-2">
                 <SearchBar 

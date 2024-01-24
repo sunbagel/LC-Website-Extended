@@ -1,6 +1,5 @@
-import { Outlet, Route, Routes } from "react-router-dom"
-import SearchPage from "./SearchPage"
-import AddPartPage from "./AddPartPage"
+import { Outlet } from "react-router-dom"
+
 
 import AppNavBar from '@/components/AppNavBar';
 
@@ -13,7 +12,7 @@ const InventoryAppMain = () =>{
 
             <AppNavBar/>
             {/* could use this for styling/containing purposes */}
-            <div>
+            <div className="good-font">
                 <Outlet/>
             </div>
             

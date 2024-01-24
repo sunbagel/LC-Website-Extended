@@ -4,6 +4,10 @@
   padding: 0;
 } */
 
+.good-font {
+  font-family: 'Roboto'
+}
+
 .card {
   padding: 2em;
 }
