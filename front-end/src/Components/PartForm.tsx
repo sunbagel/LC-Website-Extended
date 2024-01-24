@@ -123,7 +123,6 @@ const PartForm = ({ sendPart, closeForm, defaultValues } : PartFormProps) => {
                                     <p className="inputHeader text-left">Description:</p>
                                     <Form.Control
                                         as='textarea'
-                                        id="description"
                                         className="w-full h-24 max-w-xl" 
                                         {...register("Description", { required: "Description is required" })}
                                         name="Description"
