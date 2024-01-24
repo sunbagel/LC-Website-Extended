@@ -119,14 +119,14 @@ const PartForm = ({ sendPart, closeForm, defaultValues } : PartFormProps) => {
                             </div>
 
 
-                            <div className="flex flex-row">
+                            <div className="flex flex-row ">
                                 
-                                <div className="flex flex-col w-3/6">
+                                <div className="flex flex-col w-full w-max-md">
                                     <p className="inputHeader text-left">Description:</p>
                                     <Form.Control
                                         as='textarea'
                                         id="description"
-                                        className="w-full h-24" 
+                                        className="w-full h-24 max-w-xl" 
                                         {...register("Description", { required: "Description is required" })}
                                         name="Description"
                                         placeholder="Enter Description"

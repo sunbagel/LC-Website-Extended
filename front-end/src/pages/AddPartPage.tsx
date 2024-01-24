@@ -61,7 +61,7 @@ const AddPartPage = () => {
         <div className="addpage-container">
             {isSubmitted ? (<Button onClick={openForm}>Submit another part</Button>)
             : (
-            <Card className="bg-light w-auto">
+            <Card className="bg-light max-w-2xl mx-auto">
                 <h3 className="text-left">Add Part:</h3>
                 {/* not sure if i want cancel button on the add form */}
                 <PartForm sendPart={sendPart} closeForm={closeForm} defaultValues={nullPart}/>
