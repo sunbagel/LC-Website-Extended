@@ -85,43 +85,41 @@ const PartForm = ({ sendPart, closeForm, defaultValues } : PartFormProps) => {
             
             <Form onSubmit={handleSubmit(sendPart)}>
                 <Form.Group className="mb-3" controlId="formPartInfo">
-                        <div className="flex flex-col space-y-5">
-                            <div className="flex flex-row items-center my-2 space-x-10">
+                        <div className="grid grid-cols-2 gap-4">
+                           
 
-                                <div className="flex flex-col">
-                                    <p className="inputHeader text-left">Part Number:</p>
-
-                                    <Form.Control
-                                        className="w-full"
+                            
+                                    <div>
+                                        <p className="inputHeader text-left block">Part Number:</p>
+                                        <Form.Control
+                                            className="w-full"
                                         
-                                        type="text" 
-                                        {...register("PartNum", 
-                                            {required: "Part Number is required"})} 
-                                        name="PartNum" 
-                                        placeholder="Enter Part Number" 
-                                    />
-                                    {errors.PartNum && <p className="errorMsg">{errors.PartNum.message}</p>}
-                                </div>
+                                            type="text"
+                                            {...register("PartNum",
+                                                {required: "Part Number is required"})}
+                                            name="PartNum"
+                                            placeholder="Enter Part Number"
+                                        />
+                                        {errors.PartNum && <p className="errorMsg">{errors.PartNum.message}</p>}
+                                    </div>
+
                                 
                                 
-                                <div className="flex flex-col">
-                                    <p className="inputHeader text-left">Part Name:</p>
-                                    <Form.Control
-                                        className="w-full"
-                                        type="text"
-                                        {...register("PartName", { required: "Part Name is required" })}
-                                        name="PartName"
-                                        placeholder="Enter Part Name"
-                                    />
 
-                                    {errors.PartName && <p className="errorMsg">{errors.PartName.message}</p>}
-                                </div>
-                            </div>
+                                    <div>
+                                        <p className="inputHeader text-left">Part Name:</p>
+                                        <Form.Control
+                                            className="w-full"
+                                            type="text"
+                                            {...register("PartName", { required: "Part Name is required" })}
+                                            name="PartName"
+                                            placeholder="Enter Part Name"
+                                        />
+                                        {errors.PartName && <p className="errorMsg">{errors.PartName.message}</p>}
+                                    </div>
 
-
-                            <div className="flex flex-row ">
                                 
-                                <div className="flex flex-col w-full w-max-md">
+                                <div className="col-span-2">
                                     <p className="inputHeader text-left">Description:</p>
                                     <Form.Control
                                         as='textarea'
@@ -133,12 +131,9 @@ const PartForm = ({ sendPart, closeForm, defaultValues } : PartFormProps) => {
                                     />
                                     {errors.Description && <p className="errorMsg">{errors.Description.message}</p>}
                                 </div>
-                            </div>
-
                             
-                            <div className="flex flex-row space-x-10">
 
-                                <div className="flex flex-col">
+                                <div>
                                     <p className="inputHeader text-left">Quantity:</p>
                                     <Form.Control
                                         className=""
@@ -150,7 +145,7 @@ const PartForm = ({ sendPart, closeForm, defaultValues } : PartFormProps) => {
                                     {errors.Quantity && <p className="errorMsg">{errors.Quantity.message}</p>}
                                 </div>
                                 
-                                <div className="flex flex-col">
+                                <div>
                                     <p className="inputHeader text-left">Price:</p>
                                     <Form.Control
                                         className=""
@@ -163,10 +158,9 @@ const PartForm = ({ sendPart, closeForm, defaultValues } : PartFormProps) => {
                                     {errors.Price && <p className="errorMsg">{errors.Price.message}</p>}
                                 </div>
                             
-                            </div>
-                            <div className="flex flex-row space-x-10">
+                            
 
-                                <div className="flex flex-col">
+                                <div>
                                     <p className="inputHeader text-left">Part Type:</p>
                                     <Form.Select
                                         className="my-2"
@@ -182,7 +176,7 @@ const PartForm = ({ sendPart, closeForm, defaultValues } : PartFormProps) => {
                                     {errors.PartType && <p className="errorMsg">Please select part type</p>}
                                 </div>
 
-                                <div className="flex flex-col">
+                                <div>
                                     <p className="inputHeader text-left">Supplier:</p>
                                     <Form.Select
                                         className="my-2"
@@ -202,9 +196,9 @@ const PartForm = ({ sendPart, closeForm, defaultValues } : PartFormProps) => {
                                     </Form.Select>
                                     {errors.Supplier && <p className="errorMsg">Please select a supplier</p>}
                                 </div>
-                            </div>
-                            <div className="flex flex-row space-x-10">
-                                <div className="flex flex-col">
+                            
+                            
+                                <div>
                                     <p className="inputHeader text-left">Manufacturer:</p>
                                     <Form.Select
                                         className="my-2"
@@ -224,7 +218,7 @@ const PartForm = ({ sendPart, closeForm, defaultValues } : PartFormProps) => {
                                     {errors.Manufacturer && <p className="errorMsg">Please select a manufacturer</p>}
                                 </div>
 
-                                <div className="flex flex-col">
+                                <div>
                                     <p className="inputHeader text-left my-2">Location:</p>
                                     <Form.Select
                                         className="my-2"
@@ -244,7 +238,7 @@ const PartForm = ({ sendPart, closeForm, defaultValues } : PartFormProps) => {
                                 </div>
 
                             </div>
-                        </div>
+                        
                     
                 </Form.Group>
 
