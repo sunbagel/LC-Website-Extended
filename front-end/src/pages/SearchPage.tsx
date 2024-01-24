@@ -50,7 +50,7 @@ const SearchPage = () => {
 
     return (
         <div className='flex flex-col search-container'>
-            <h3 className="text-left">Enter Part Number</h3>
+            <h3 className="text-left">Search For Your Part</h3>
             <div className="mb-2">
                 <SearchBar 
                     updateParts={updateParts} 

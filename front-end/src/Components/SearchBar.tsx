@@ -310,16 +310,17 @@ const SearchBar = ({updateParts, updatePartValues, updateSearchFunction} : Searc
         <div>
             <Form onSubmit={onSubmit} onChange={onChange}>
                 <Form.Group className="mb-3" controlId="formPartID">
-                    <Container>
-                        <Row>
-                            <Col>
-                                <Form.Control className="my-3" name="part_number" type="text" placeholder="Enter Part Number" />
+                    
+                            <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4">
+
+                            
+                                <Form.Control className="max-w-sm my-3" name="part_number" type="text" placeholder="Enter Part Number" />
                                 {/* need to make dropdown form */}
-                                <Form.Control className="my-3" name="part_name" type="text" placeholder="Enter Part Name" />
+                                <Form.Control className="max-w-sm my-3" name="part_name" type="text" placeholder="Enter Part Name" />
 
 
                                 <Select
-                                    className="pb-2" 
+                                    className="py-2" 
                                     placeholder="Select a Supplier"
                                     onChange={(option : tableType) => {setSelectedSupplier(option ? option.name : '');}}
                                     styles={customStyles}
@@ -405,13 +406,14 @@ const SearchBar = ({updateParts, updatePartValues, updateSearchFunction} : Searc
                                         id={box.id}
                                     />
                                 ))}
-                                
+                                </div>
                                 <button className="flex justify-start my-4" onClick={addSimpleFieldBox}>Add Selector</button>
 
-                            </Col>
-                        </Row>
+                                
+
+                            
                         
-                    </Container>
+                    
                     
                 </Form.Group>
 
