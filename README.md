@@ -2,7 +2,7 @@
 
 The _public-facing_ side of the website is meant to draw in more customers and facilitate easier communication with LC Industrial. For members of the company, there is also access to the **inventory management web app.**
 ## Home Page:
-
+![image](readme-images/Home1.png)
 
 
 # App:
