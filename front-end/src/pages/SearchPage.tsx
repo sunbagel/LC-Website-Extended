@@ -10,8 +10,6 @@ import '@/styles/SearchPage.css'
 
 const SearchPage = () => {
 
-    // part object with string names
-    const [partList, setPartList] = useState<Part[]>([]);
     // part object with key values
     const [partValuesList, setPartValues ] = useState<PartValues[]>([]);
 
@@ -26,10 +24,6 @@ const SearchPage = () => {
         setSearchFunction(()=>{
             return newSearchFunction;
         })
-    }
-
-    const updateParts = (newPartList : Part[]) =>{
-        setPartList(newPartList);
     }
 
     const updatePartValues = (newPartValues : PartValues[]) =>{
@@ -52,17 +46,14 @@ const SearchPage = () => {
         console.log(partValuesList);
     }, [partValuesList])
 
-    useEffect(()=>{
-        console.log("part list:");
-        console.log(partList);
-    }, [partList])
+
 
     return (
         <div className='flex flex-col search-container'>
             <h3 className="text-left">Search For Your Part</h3>
             <div className="mb-2">
                 <SearchBar 
-                    updateParts={updateParts} 
+                    
                     updatePartValues={updatePartValues} 
                     updateSearchFunction={updateSearchFunction}
                 />
