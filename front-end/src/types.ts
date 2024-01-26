@@ -24,6 +24,10 @@ export type PartValues = {
   supplier_id?: number | null;
   manufacturer_id?: number | null;
   location_id?: number | null;
+  part_type_name?: string | null;
+  suppliers_name?: string |null;
+  manufacturers_name?: string | null;
+  locations_name?: string | null;
 }
 
 // might need to rewrite partType definition
