@@ -1,5 +1,11 @@
 # Website / Web App for LC Industrial
 
+The _public-facing_ side of the website is meant to draw in more customers and facilitate easier communication with LC Industrial. For members of the company, there is also access to the **inventory management web app.**
+## Home Page:
+
+
+
+# App:
 I made this web app as an inventory management system for LC Industrial Services. The company has a large inventory of parts, so tracking and searching data on these parts in a manageable way was very difficult for them.
 
 ## What does the app do?
