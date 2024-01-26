@@ -192,25 +192,25 @@ const SearchBar = ({updateParts, updatePartValues, updateSearchFunction} : Searc
                         partValues.push(partObject);
                         
                         // newPart contains the actual foreign table information
-                        const newPart : Part = {
-                            part_id: partObject.id,
-                            part_number: partObject.part_number,
-                            part_name: partObject.part_name,
-                            description: partObject.description,
-                            quantity: partObject.quantity,
-                            price: partObject.price,
-                            part_type: "",
-                            supplier: "",
-                            manufacturer: "",
-                            location: ""
-                        };                    
+                        // const newPart : Part = {
+                        //     part_id: partObject.id,
+                        //     part_number: partObject.part_number,
+                        //     part_name: partObject.part_name,
+                        //     description: partObject.description,
+                        //     quantity: partObject.quantity,
+                        //     price: partObject.price,
+                        //     part_type: "",
+                        //     supplier: "",
+                        //     manufacturer: "",
+                        //     location: ""
+                        // };                    
                         
-                        newPart['part_type'] = partObject.part_type_name;
-                        newPart['supplier'] = partObject.suppliers_name;
-                        newPart['manufacturer'] = partObject.manufacturers_name;
-                        newPart['location'] = partObject.locations_name;
+                        // newPart['part_type'] = partObject.part_type_name;
+                        // newPart['supplier'] = partObject.suppliers_name;
+                        // newPart['manufacturer'] = partObject.manufacturers_name;
+                        // newPart['location'] = partObject.locations_name;
 
-                        partRes.push(newPart);
+                        // partRes.push(newPart);
                         // const fetchList : string[] = [
                         //     `http://localhost:8080/part_types/${partObject.part_type_id}`,
                         //     `http://localhost:8080/suppliers/${partObject.supplier_id}`,

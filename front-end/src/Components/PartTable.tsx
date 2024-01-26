@@ -7,12 +7,12 @@ import {
     TableRow,
 } from "@/components/ui/table"
 
-import { Part } from '../types';
+import { Part, PartValues } from '../types';
 import  Button  from "react-bootstrap/Button";
 import { useState } from "react";
 
 type PartTableProps = {
-    partList : Part[]
+    partList : PartValues[]
 }
 
 const PartTable = ({ partList } : PartTableProps) => {
@@ -47,18 +47,18 @@ const PartTable = ({ partList } : PartTableProps) => {
             </TableRow>
             </TableHeader>
             <TableBody>
-            {partList.map((part : Part) => (
+            {partList.map((part : PartValues) => (
                 // <Form>
-                <TableRow key={part.part_id}>
+                <TableRow key={part.id}>
                     <TableCell className="mx-4 font-medium text-left">{part.part_number}</TableCell>
                     <TableCell className="text-left">{part.part_name}</TableCell>
                     <TableCell className="text-left">{part.description}</TableCell>
                     <TableCell className="text-left">{part.quantity}</TableCell>
                     <TableCell className="text-left">${part.price}</TableCell>
-                    <TableCell className="text-left">{part.part_type}</TableCell>
-                    <TableCell className="text-left">{part.supplier}</TableCell>
-                    <TableCell className="text-left">{part.manufacturer}</TableCell>
-                    <TableCell className="text-left">{part.location}</TableCell>
+                    <TableCell className="text-left">{part.part_type_name}</TableCell>
+                    <TableCell className="text-left">{part.suppliers_name}</TableCell>
+                    <TableCell className="text-left">{part.manufacturers_name}</TableCell>
+                    <TableCell className="text-left">{part.locations_name}</TableCell>
                     <TableCell><Button onClick={() => console.log('Edit')}>Edit</Button></TableCell>
                     {/* <TableCell>
                         <Form><Form.Control name="PartNum" 

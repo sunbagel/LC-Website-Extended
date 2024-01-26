@@ -26,19 +26,19 @@ export const columns: ColumnDef<Part>[] = [
     header: "Price",
   },
   {
-    accessorKey: "part_type",
+    accessorKey: "part_type_name",
     header: "Part Type",
   },
   {
-    accessorKey: "supplier",
+    accessorKey: "suppliers_name",
     header: "Supplier",
   },
   {
-    accessorKey: "manufacturer",
+    accessorKey: "manufacturers_name",
     header: "Manufacturer",
   },
   {
-    accessorKey: "location",
+    accessorKey: "locations_name",
     header: "Location",
   },
   // {

@@ -69,7 +69,7 @@ const SearchPage = () => {
             </div>
             
             <div className="my-2">
-                <PartDataTable columns={columns} data={partList} openEditForm={openEditForm}/>
+                <PartDataTable columns={columns} data={partValuesList} openEditForm={openEditForm}/>
             </div>
             
             <EditForm 
