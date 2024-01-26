@@ -52,11 +52,11 @@ app.get("/parts/search", async (req, res) => {
 
     // only join for foreign tables
     for (const [table, column] of Object.entries(foreignTableMapping)) {
+        selects.push(`${table}.name AS ${table}_name`);
+        tableJoins.push(`JOIN ${table} ON parts.${column} = ${table}.id`);
         if (req.query[table]) {
             // ex. JOIN suppliers on parts.supplier_id = suppliers.id
-            selects.push(`${table}.name AS ${table}_name`);
-
-            tableJoins.push(`JOIN ${table} ON parts.${column} = ${table}.id`);
+            
             conditions.push(`${table}.name LIKE ?`);
             values.push("%" + req.query[table] + "%");
 
