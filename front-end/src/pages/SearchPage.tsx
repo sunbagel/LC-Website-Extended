@@ -1,5 +1,5 @@
 import SearchBar from '../components/SearchBar'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Part, PartValues } from '@/types';
 import { columns } from '@/components/Table/PartColumn';
 import { PartDataTable } from '@/components/Table/PartDataTable';
@@ -40,13 +40,22 @@ const SearchPage = () => {
         setShowEditForm(true);
         setCurrentRow(rowId);
         // console.log(showEditForm);
-        // console.log(rowId);
+        console.log(rowId);
     }
 
     const closeEditForm = () => {
         setShowEditForm(false);
     }
 
+    useEffect(()=>{
+        console.log("part values:");
+        console.log(partValuesList);
+    }, [partValuesList])
+
+    useEffect(()=>{
+        console.log("part list:");
+        console.log(partList);
+    }, [partList])
 
     return (
         <div className='flex flex-col search-container'>

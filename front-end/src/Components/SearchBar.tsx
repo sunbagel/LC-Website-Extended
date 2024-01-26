@@ -180,6 +180,7 @@ const SearchBar = ({updateParts, updatePartValues, updateSearchFunction} : Searc
             (response) => response.json()
         ).then(
             (data) => {
+                console.log(data)
                 const partRes : Part[] = [];
                 const partValues : PartValues[] = [];
                 Promise.all(data.map(
@@ -214,7 +215,9 @@ const SearchBar = ({updateParts, updatePartValues, updateSearchFunction} : Searc
 
                         
                         // fetch each field in fetchList
-                        return Promise.all(fetchList.map(url => fetch(url).then(response => response.json()))
+                        return Promise.all(
+                            fetchList.map(url => fetch(url).then(response => response.json()))
+
                         ).then((allResponses : {[key: string] : string}[] ) => {
 
                             const partTypeName : string = allResponses[0].name;
@@ -241,7 +244,7 @@ const SearchBar = ({updateParts, updatePartValues, updateSearchFunction} : Searc
 
             }
         )
-    }, [partParams, simpleFieldBoxes, simpleParams]);
+    }, [simpleParams, updateParts, updatePartValues]);
 
 
     // unnecessary if we keep onChange functionality.

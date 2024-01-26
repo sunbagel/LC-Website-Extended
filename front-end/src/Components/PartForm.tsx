@@ -22,10 +22,8 @@ type PartFormProps = {
 
 const PartForm = ({ sendPart, closeForm, defaultValues } : PartFormProps) => {
 
-    
-
-    console.log("Default vals")
-    console.log(defaultValues)
+    // console.log("Default vals")
+    // console.log(defaultValues)
 
     const { register, handleSubmit, reset, formState: { errors }} = useForm();
 
