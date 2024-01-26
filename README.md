@@ -8,17 +8,16 @@ With this web app, they're able to now catalog their parts and easily maintain a
 
 ### Searching For Parts:
 #### Select from a number of fields:
-![image](https://github.com/sunbagel/LC-Website-Extended/assets/43621165/e42a2cc8-d2c8-4814-8357-a830c4a7e561)
-![image](https://github.com/sunbagel/LC-Website-Extended/assets/43621165/c44f0a06-c11c-4807-8c4c-6570569b18f3)
+![image](readme-images/Search3.png)
 
 #### Dynamically add to fields:
-![image](https://github.com/sunbagel/LC-Website-Extended/assets/43621165/b69a5d5c-4fbe-4518-a3d7-5ef38bf419bf)
+![image](readme-images/Search4.png)
 
 ### Editing Parts:
-![image](https://github.com/sunbagel/LC-Website-Extended/assets/43621165/e08d2727-66cf-41c3-906c-da3d3de3c778)
+![image](readme-images/Edit1.png)
 
 ### Adding New Parts:
-![image](https://github.com/sunbagel/LC-Website-Extended/assets/43621165/9c336189-e4c2-459a-8ec2-a0f1c57ebd02)
+![image](readme-images/Add1.png)
 
 
 
