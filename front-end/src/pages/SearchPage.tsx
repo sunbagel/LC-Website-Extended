@@ -1,6 +1,6 @@
 import SearchBar from '../components/SearchBar'
 import { useEffect, useState } from 'react';
-import { Part, PartValues } from '@/types';
+import { PartValues } from '@/types';
 import { columns } from '@/components/Table/PartColumn';
 import { PartDataTable } from '@/components/Table/PartDataTable';
 

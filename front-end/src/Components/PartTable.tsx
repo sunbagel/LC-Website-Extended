@@ -7,7 +7,7 @@ import {
     TableRow,
 } from "@/components/ui/table"
 
-import { Part, PartValues } from '../types';
+import { PartValues } from '../types';
 import  Button  from "react-bootstrap/Button";
 import { useState } from "react";
 
