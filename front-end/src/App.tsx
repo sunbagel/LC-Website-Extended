@@ -13,6 +13,7 @@ import './App.css';
 import InventoryAppMain from "./pages/InventoryAppMain";
 import SearchPage from "./pages/SearchPage";
 import AddPartPage from "./pages/AddPartPage";
+import LoginPage from "./pages/LoginPage";
 
 
 
@@ -41,7 +42,7 @@ function App() {
             </Route>
             
             
-        
+            <Route path = '/login' element = {<LoginPage/>}/>
           </Routes>
           
         </Router>
