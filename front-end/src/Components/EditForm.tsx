@@ -5,7 +5,7 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import PartForm from "./PartForm";
 
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import Modal from "react-bootstrap/esm/Modal";
 import { PartValues } from "@/types";
 
@@ -17,6 +17,11 @@ type EditFormProps = {
 }
 
 const EditForm = ({showEditForm, closeEditForm, defaultValues, searchFunction} : EditFormProps) => {
+
+    useEffect(()=>{
+        console.log("Default in edit:");
+        console.log(defaultValues);
+    }, [defaultValues])
 
     const sendPart = (e) => {
         const part = {

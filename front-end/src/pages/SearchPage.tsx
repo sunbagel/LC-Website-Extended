@@ -1,6 +1,6 @@
 import SearchBar from '../components/SearchBar'
-import { useState } from 'react';
-import { Part, PartValues } from '@/types';
+import { useEffect, useState } from 'react';
+import { PartValues } from '@/types';
 import { columns } from '@/components/Table/PartColumn';
 import { PartDataTable } from '@/components/Table/PartDataTable';
 
@@ -10,8 +10,6 @@ import '@/styles/SearchPage.css'
 
 const SearchPage = () => {
 
-    // part object with string names
-    const [partList, setPartList] = useState<Part[]>([]);
     // part object with key values
     const [partValuesList, setPartValues ] = useState<PartValues[]>([]);
 
@@ -28,10 +26,6 @@ const SearchPage = () => {
         })
     }
 
-    const updateParts = (newPartList : Part[]) =>{
-        setPartList(newPartList);
-    }
-
     const updatePartValues = (newPartValues : PartValues[]) =>{
         setPartValues(newPartValues);
     }
@@ -40,12 +34,18 @@ const SearchPage = () => {
         setShowEditForm(true);
         setCurrentRow(rowId);
         // console.log(showEditForm);
-        // console.log(rowId);
+        console.log(rowId);
     }
 
     const closeEditForm = () => {
         setShowEditForm(false);
     }
+
+    useEffect(()=>{
+        console.log("part values:");
+        console.log(partValuesList);
+    }, [partValuesList])
+
 
 
     return (
@@ -53,14 +53,14 @@ const SearchPage = () => {
             <h3 className="text-left">Search For Your Part</h3>
             <div className="mb-2">
                 <SearchBar 
-                    updateParts={updateParts} 
+                    
                     updatePartValues={updatePartValues} 
                     updateSearchFunction={updateSearchFunction}
                 />
             </div>
             
             <div className="my-2">
-                <PartDataTable columns={columns} data={partList} openEditForm={openEditForm}/>
+                <PartDataTable columns={columns} data={partValuesList} openEditForm={openEditForm}/>
             </div>
             
             <EditForm 

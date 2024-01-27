@@ -9,7 +9,6 @@ import SimpleFieldBox from './SimpleFieldBox';
 
 // import useEffect from 'react';
 type SearchBarProps = {
-    updateParts : (newPartList : Part[]) => void;
     updatePartValues : (newPartValues : PartValues[]) => void;
     updateSearchFunction : (newSearchFunction : () => void) => void;
 }
@@ -30,7 +29,7 @@ type FieldBox = {
 
 
 let idCounter = 0;
-const SearchBar = ({updateParts, updatePartValues, updateSearchFunction} : SearchBarProps) => {
+const SearchBar = ({updatePartValues, updateSearchFunction} : SearchBarProps) => {
 
     const [ partParams, setPartParams ] = useState<Part>({});
 
@@ -172,17 +171,19 @@ const SearchBar = ({updateParts, updatePartValues, updateSearchFunction} : Searc
 
         // makes usable for http request
         const queryString = new URLSearchParams(combinedParams).toString();
-        console.log(queryString);
+        // console.log(queryString);
 
-        console.log(simpleParams);
+        // console.log(simpleParams);
 
         fetch(`http://localhost:8080/parts/search?${queryString}`).then(
             (response) => response.json()
         ).then(
             (data) => {
-                const partRes : Part[] = [];
+                console.log("Response: ", data)
+                
                 const partValues : PartValues[] = [];
-                Promise.all(data.map(
+                // clean up
+                data.map(
                     (partObject : PartValues) => {
 
                         // push to partValues
@@ -190,58 +191,13 @@ const SearchBar = ({updateParts, updatePartValues, updateSearchFunction} : Searc
                         // partObject contains IDs
                         partValues.push(partObject);
                         
-                        // newPart contains the actual foreign table information
-                        const newPart : Part = {
-                            part_id: partObject.id,
-                            part_number: partObject.part_number,
-                            part_name: partObject.part_name,
-                            description: partObject.description,
-                            quantity: partObject.quantity,
-                            price: partObject.price,
-                            part_type: "",
-                            supplier: "",
-                            manufacturer: "",
-                            location: ""
-                        };                        
-
-
-                        const fetchList : string[] = [
-                            `http://localhost:8080/part_types/${partObject.part_type_id}`,
-                            `http://localhost:8080/suppliers/${partObject.supplier_id}`,
-                            `http://localhost:8080/manufacturers/${partObject.manufacturer_id}`,
-                            `http://localhost:8080/locations/${partObject.location_id}`
-                        ];
-
-                        
-                        // fetch each field in fetchList
-                        return Promise.all(fetchList.map(url => fetch(url).then(response => response.json()))
-                        ).then((allResponses : {[key: string] : string}[] ) => {
-
-                            const partTypeName : string = allResponses[0].name;
-                            const supplierName : string = allResponses[1].name;
-                            const manufacturerName : string = allResponses[2].name;
-                            const locationName : string = allResponses[3].name;
-
-                            newPart['part_type'] = partTypeName;
-                            newPart['supplier'] = supplierName;
-                            newPart['manufacturer'] = manufacturerName;
-                            newPart['location'] = locationName;
-
-                            partRes.push(newPart);
-                            // console.log(partRes);
-                        }).catch(error => console.log(error));
-                        
                     })
-                ).then(
-                    () => {
-                        updateParts(partRes)
-                        updatePartValues(partValues)
-                    }
-                );
-
+                
+                updatePartValues(partValues)
+                
             }
         )
-    }, [partParams, simpleFieldBoxes, simpleParams]);
+    }, [simpleParams, updatePartValues]);
 
 
     // unnecessary if we keep onChange functionality.

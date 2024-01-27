@@ -36,6 +36,7 @@ app.get("/parts/search", async (req, res) => {
 
     // console.log(req.query);
     
+    const selects = [];
     const tableJoins = [];
     const conditions = [];
     const values = [];
@@ -51,9 +52,11 @@ app.get("/parts/search", async (req, res) => {
 
     // only join for foreign tables
     for (const [table, column] of Object.entries(foreignTableMapping)) {
+        selects.push(`${table}.name AS ${table}_name`);
+        tableJoins.push(`JOIN ${table} ON parts.${column} = ${table}.id`);
         if (req.query[table]) {
             // ex. JOIN suppliers on parts.supplier_id = suppliers.id
-            tableJoins.push(`JOIN ${table} ON parts.${column} = ${table}.id`);
+            
             conditions.push(`${table}.name LIKE ?`);
             values.push("%" + req.query[table] + "%");
 
@@ -63,7 +66,6 @@ app.get("/parts/search", async (req, res) => {
     // simple param
     const simpleParams = req.query.simpleParams;
     if(simpleParams){
-        console.log("simple");
         const paramConditions = simpleParams.split(',');
 
         paramConditions.forEach( (cond) => {
@@ -92,7 +94,13 @@ app.get("/parts/search", async (req, res) => {
 
 
 
-    let searchQuery = 'SELECT parts.* FROM parts';
+    let searchQuery = `SELECT parts.*`;
+    
+    if(selects.length){
+        searchQuery += ', ' + selects.join(', ');
+    }
+
+    searchQuery += " FROM parts";
     if(tableJoins.length){
         searchQuery += ' ' + tableJoins.join(' ');
     }
