@@ -183,7 +183,7 @@ const SearchBar = ({updatePartValues, updateSearchFunction} : SearchBarProps) =>
                 
                 const partValues : PartValues[] = [];
                 // clean up
-                Promise.all(data.map(
+                data.map(
                     (partObject : PartValues) => {
 
                         // push to partValues
@@ -192,13 +192,9 @@ const SearchBar = ({updatePartValues, updateSearchFunction} : SearchBarProps) =>
                         partValues.push(partObject);
                         
                     })
-                ).then(
-                    () => {
-                       
-                        updatePartValues(partValues)
-                    }
-                );
-
+                
+                updatePartValues(partValues)
+                
             }
         )
     }, [simpleParams, updatePartValues]);
