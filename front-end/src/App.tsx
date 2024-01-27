@@ -14,6 +14,7 @@ import InventoryAppMain from "./pages/InventoryAppMain";
 import SearchPage from "./pages/SearchPage";
 import AddPartPage from "./pages/AddPartPage";
 import LoginPage from "./pages/LoginPage";
+import RequireAuth from "./components/auth/RequireAuth";
 
 
 
@@ -34,12 +35,14 @@ function App() {
             <Route path = '/' element = {<Home/>}/>
             <Route path = '/contact_us' element = {<Contact/>}/>
 
-            
-            <Route path = 'app-home' element = {<InventoryAppMain/>}>
-                <Route index element={<SearchPage/>}/>
-                <Route path='search-page' element={<SearchPage/>}/>
-                <Route path ='add-parts' element = {<AddPartPage/>}/>
+            <Route element={<RequireAuth/>}>
+              <Route path = 'app-home' element = {<InventoryAppMain/>}>
+                  <Route index element={<SearchPage/>}/>
+                  <Route path='search-page' element={<SearchPage/>}/>
+                  <Route path ='add-parts' element = {<AddPartPage/>}/>
+              </Route>
             </Route>
+            
             
             
             <Route path = '/login' element = {<LoginPage/>}/>
