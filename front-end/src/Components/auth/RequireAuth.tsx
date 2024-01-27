@@ -2,7 +2,8 @@ import { useAuth0 } from '@auth0/auth0-react';
 import { Navigate, Outlet } from 'react-router-dom';
 
 const RequireAuth = () => {
-  const { isAuthenticated, isLoading } = useAuth0();
+  const { isAuthenticated, isLoading, user } = useAuth0();
+  
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -13,6 +14,9 @@ const RequireAuth = () => {
     // trying to go to when they were redirected.
     return <Navigate to="/login"/>;
   }
+
+  // const isAdmin = user['http://your_namespace/roles'].includes('admin');
+  console.log(user['http://lc-ind.us.auth0.com/roles']);
 
   return <Outlet/>
 
