@@ -1,10 +1,10 @@
 
 
-import { Part } from "@/types"
+import { PartValues } from "@/types"
 import { ColumnDef } from "@tanstack/react-table"
 
 
-export const columns: ColumnDef<Part>[] = [
+export const columns: ColumnDef<PartValues>[] = [
   {
     accessorKey: "part_number",
     header: () => <div className="text-left">Part Number</div>,

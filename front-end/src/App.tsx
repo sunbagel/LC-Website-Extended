@@ -1,7 +1,8 @@
 
 
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route, redirect } from 'react-router-dom'
+import { Auth0Provider } from '@auth0/auth0-react';
 
 import NavBar from './og-components/NavBar';
 import Home from './og-components/pages/Home'
@@ -13,10 +14,19 @@ import InventoryAppMain from "./pages/InventoryAppMain";
 import SearchPage from "./pages/SearchPage";
 import AddPartPage from "./pages/AddPartPage";
 
+
+
 function App() {
   return ( <>
      {/* <div className="page-container">
        <div className = 'content-wrap'> */}
+      <Auth0Provider
+        domain="lc-ind.us.auth0.com"
+        clientId="2DOLK1q48QJRubJTVvG93wkviai5P6A1"
+        authorizationParams={{
+          redirect_uri: window.location.origin
+        }}
+      >
         <Router>
           <NavBar/>
           <Routes>
@@ -38,7 +48,8 @@ function App() {
        {/* </div> */}
       
 
-      <FooterV2/>
+        <FooterV2/>
+      </Auth0Provider>
      {/* </div> */}
      </>
   );
