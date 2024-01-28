@@ -1,6 +1,6 @@
 import express from 'express'
 import { hash, compare } from 'bcrypt'
-import { getUser } from './database.js'
+import { getUser, createUser } from './database.js'
 
 const router = express.Router();
 
@@ -44,15 +44,18 @@ router.post('/users', async (req, res)=>{
 
     try{
         const hashedPassword = await hash(req.body.password, 10);
-
         const user = { name: req.body.name, password: hashedPassword };
-        users.push(user);
-        res.status(201).send();
+        const createdUser = await createUser(user);
+        res.status(201).send(createdUser);
+    } catch {
+        if (error.code === 'ER_DUP_ENTRY') {
+            // Unique constraint violation
+            return res.status(400).send('Username already exists');
+        }
+        
+        res.status(500).send('Failed to create user');
     }
-    catch{
-        res.status(500).send();
-    }
-
+        
 })
 
 router.post('/users/login', async (req, res)=>{

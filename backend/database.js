@@ -186,8 +186,9 @@ export async function getUser(name){
 }
 
 //
-export async function createUser(name, password){
+export async function createUser(user){
 
+    const {name, password} = user;
     const [result] = await pool.query(`
         INSERT INTO users (name, password)
         VALUES (?, ?)
