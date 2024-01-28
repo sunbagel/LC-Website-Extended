@@ -157,7 +157,21 @@ export async function createSupplier(name){
     return getSupplier(id);
 }
 
-// return list of users with name
+// return user with name (unique)
+async function getUserByID(id){
+
+    const [result] = await pool.query(`
+        SELECT *
+        FROM users
+        WHERE id = ?
+    `, [id]);
+
+    // expecting unique user
+    return result[0];
+
+}
+
+// return user with name (unique)
 export async function getUser(name){
 
     const [result] = await pool.query(`
@@ -168,6 +182,19 @@ export async function getUser(name){
 
     // expecting unique user
     return result[0];
+
+}
+
+//
+export async function createUser(name, password){
+
+    const [result] = await pool.query(`
+        INSERT INTO users (name, password)
+        VALUES (?, ?)
+        `, [name, password]);
+
+    const id = result.insertId;
+    return getUserByID(id);
 
 }
 
