@@ -22,23 +22,37 @@ router.get('/user', async (req, res)=>{
     
 })
 
+// Dynamic middleware to check user existence
+async function checkUser(req, res, next, shouldExist) {
+    const name = req.body.name;
+  
+    try {
+      const user = await getUser(name);
+  
+      if (user && !shouldExist) {
+        return res.status(409).send('A user with this username or email already exists');
+      } else if (!user && shouldExist) {
+        return res.status(400).send('Cannot find user');
+      }
+  
+      req.user = user;
+      next();
+    } catch (err) {
+      res.status(500).send('Server error');
+    }
+}
+  
+// Wrappers for the middleware
+const checkUserExists = (req, res, next) => checkUser(req, res, next, true);
+const checkUserDoesNotExist = (req, res, next) => checkUser(req, res, next, false);
+
 // bcrypt
-router.post('/users', async (req, res)=>{
+router.post('/users', checkUserDoesNotExist, async (req, res)=>{
 
     const name = req.body.name;
     try{
-        const user = await getUser(name);
-
-        if(user){
-            return res.status(409).send('A user with this username or email already exists');
-        }
-    } catch{
-        return res.status(500).send();
-    }
-
-    try{
         const hashedPassword = await hash(req.body.password, 10);
-        const user = { name: req.body.name, password: hashedPassword };
+        const user = { name: name, password: hashedPassword };
         const createdUser = await createUser(user);
         res.status(201).send(createdUser);
     } catch {
@@ -52,25 +66,20 @@ router.post('/users', async (req, res)=>{
         
 })
 
-router.post('/users/login', async (req, res)=>{
-    const name = req.body.name;
-    try{
-        const user = await getUser(name);
 
-        if(user === undefined){
-            return res.status(400).send('Cannot find user');
-        }
-
-        if(await compare(req.body.password, user.password)){
-            res.send('Successful Log in');
+router.post('/users/login', checkUserExists, async (req, res) => {
+    // user is appended to req from checkUser middleware
+    try {
+        if (await compare(req.body.password, req.user.password)) {
+        res.send('Successful Log in');
         } else {
-            res.send('Password incorrect');
+        res.send('Password incorrect');
         }
-    } catch{
+    } catch {
         return res.status(500).send();
     }
-
-})
+});
+  
 
 
 
