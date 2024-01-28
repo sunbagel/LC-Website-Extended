@@ -157,6 +157,20 @@ export async function createSupplier(name){
     return getSupplier(id);
 }
 
+// return list of users with name
+export async function getUser(name){
+
+    const [result] = await pool.query(`
+        SELECT *
+        FROM users
+        WHERE name = ?
+    `, [name]);
+
+    // expecting unique user
+    return result[0];
+
+}
+
 // export async function getNotes(){
 //     // destructuring function (sets rows to the first item of the query result)
 //     const [rows] = await pool.query("SELECT * FROM notes");

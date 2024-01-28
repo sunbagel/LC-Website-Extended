@@ -1,5 +1,6 @@
 import express from 'express'
 import { hash, compare } from 'bcrypt'
+import { getUser } from './database.js'
 
 const router = express.Router();
 
@@ -11,8 +12,14 @@ const users = [
     // }
 ]
 
-router.get('/users', (req, res)=>{
-    res.json(users);
+router.get('/user', async (req, res)=>{
+    const name = req.query.name;
+    const _users = await getUser(name);
+
+    if(_users){
+
+    }
+    res.json(_users);
 })
 
 // bcrypt
