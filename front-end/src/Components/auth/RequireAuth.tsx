@@ -1,13 +1,13 @@
-import { useAuth0 } from '@auth0/auth0-react';
+
+import { useState } from 'react';
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
 
 const RequireAuth = () => {
-  const { isAuthenticated, isLoading } = useAuth0();
+  
+  // need to get isAuthenticated context later.
+  const [ isAuthenticated, setIsAuthenticated ] = useState<boolean>(false);
+  
   const location = useLocation();
-
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
 
   if (!isAuthenticated) {
     // Redirect them to the /login page, but save the current location they were

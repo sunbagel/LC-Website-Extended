@@ -41,7 +41,6 @@ function App() {
         </Router>
        {/* </div> */}
       
-
       <FooterV2/>
      {/* </div> */}
      </>
