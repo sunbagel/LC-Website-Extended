@@ -14,12 +14,18 @@ const users = [
 
 router.get('/user', async (req, res)=>{
     const name = req.query.name;
-    const _users = await getUser(name);
+    try{
+        const _users = await getUser(name);
 
-    if(_users){
-
+        if(_users){
+            res.status(200).json(_users);
+        } else {
+            res.status(404).send('User not found');
+        }
+    } catch{
+        res.status(500);
     }
-    res.json(_users);
+    
 })
 
 // bcrypt
