@@ -5,25 +5,19 @@ import { getUser, createUser } from './database.js'
 const router = express.Router();
 
 // test environment
-const users = [
-    // {
-    //     name: "alex",
-    //     password: "$2b$10$aa9jdwIbfD.g/BtpWv1OXeiUWp3jDJQa3vLs8Eu6CiS5CmhZC90ZO"
-    // }
-]
 
 router.get('/user', async (req, res)=>{
     const name = req.query.name;
     try{
-        const _users = await getUser(name);
+        const user = await getUser(name);
 
-        if(_users){
-            res.status(200).json(_users);
+        if(user){
+            res.status(200).json(user);
         } else {
             res.status(404).send('User not found');
         }
-    } catch{
-        res.status(500);
+    } catch(error){
+        res.status(500).send();
     }
     
 })
@@ -33,13 +27,13 @@ router.post('/users', async (req, res)=>{
 
     const name = req.body.name;
     try{
-        const _users = await getUser(name);
+        const user = await getUser(name);
 
-        if(_users){
+        if(user){
             return res.status(409).send('A user with this username or email already exists');
         }
     } catch{
-        res.status(500);
+        return res.status(500).send();
     }
 
     try{
@@ -52,34 +46,30 @@ router.post('/users', async (req, res)=>{
             // Unique constraint violation
             return res.status(400).send('Username already exists');
         }
-        
+
         res.status(500).send('Failed to create user');
     }
         
 })
 
 router.post('/users/login', async (req, res)=>{
-
-    // temp code
-    const user = users.find(user => user.name == req.body.name);
-    // try{
-        
-    // } catch {
-    //     res.status(400).send('Cannot find user');
-    // }
-    if(user == null){
-        return res.status(400).send('Cannot find user');
-    }
+    const name = req.body.name;
     try{
+        const user = await getUser(name);
+
+        if(user === undefined){
+            return res.status(400).send('Cannot find user');
+        }
+
         if(await compare(req.body.password, user.password)){
             res.send('Successful Log in');
         } else {
             res.send('Password incorrect');
         }
-        
-    } catch {
-        res.status(500).send();
+    } catch{
+        return res.status(500).send();
     }
+
 })
 
 
