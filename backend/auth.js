@@ -31,6 +31,17 @@ router.get('/user', async (req, res)=>{
 // bcrypt
 router.post('/users', async (req, res)=>{
 
+    const name = req.body.name;
+    try{
+        const _users = await getUser(name);
+
+        if(_users){
+            return res.status(409).send('A user with this username or email already exists');
+        }
+    } catch{
+        res.status(500);
+    }
+
     try{
         const hashedPassword = await hash(req.body.password, 10);
 
