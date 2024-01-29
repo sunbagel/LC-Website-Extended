@@ -42,7 +42,6 @@ router.get('/user', async (req, res)=>{
 // Dynamic middleware to check user existence
 async function checkUser(req, res, next, shouldExist) {
     const name = req.body.name;
-  
     try {
       const user = await getUser(name);
   
