@@ -72,21 +72,36 @@ router.post('/users', async (req, res)=>{
 router.post('/users/login', async (req, res)=>{
     const {username, password} = req.body;
 
-    try{
-        const user = await getUser(username);
-
-        if(user === undefined){
-            return res.status(400).send('Cannot find user');
-        }
-
-        if(await compare(password, user.password)){
-            res.send('Successful Log in');
+    if(username && password){
+        if(req.session.authenticated){
+            res.json(req.session);
         } else {
-            res.send('Password incorrect');
+            try{
+                const user = await getUser(username);
+        
+                if(user === undefined){
+                    return res.status(400).send('Cannot find user');
+                }
+        
+                if(await compare(password, user.password)){
+                    req.session.authenticated = true;
+                    // can append things to cookies
+                    req.session.user = {
+                        username, password
+                    }
+                    res.json(req.session);
+                } else {
+                    res.status(403).json({msg: 'Bad Credentials'});
+                }
+            } catch{
+                return res.status(500).send();
+            }
+            
         }
-    } catch{
-        return res.status(500).send();
+    } else {
+        res.status(403).json({msg: 'Bad Credentials'});
     }
+    
 
 })
 
