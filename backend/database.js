@@ -172,13 +172,13 @@ async function getUserByID(id){
 }
 
 // return user with name (unique)
-export async function getUser(name){
+export async function getUser(username){
 
     const [result] = await pool.query(`
         SELECT *
         FROM users
-        WHERE name = ?
-    `, [name]);
+        WHERE username = ?
+    `, [username]);
 
     // expecting unique user
     return result[0];
@@ -188,11 +188,11 @@ export async function getUser(name){
 //
 export async function createUser(user){
 
-    const {name, password} = user;
+    const {username, password} = user;
     const [result] = await pool.query(`
-        INSERT INTO users (name, password)
+        INSERT INTO users (username, password)
         VALUES (?, ?)
-        `, [name, password]);
+        `, [username, password]);
 
     const id = result.insertId;
     return getUserByID(id);

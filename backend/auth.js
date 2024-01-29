@@ -24,9 +24,9 @@ router.use(session({
 // test environment
 
 router.get('/user', async (req, res)=>{
-    const name = req.query.name;
+    const username = req.query.username;
     try{
-        const user = await getUser(name);
+        const user = await getUser(username);
 
         if(user){
             res.status(200).json(user);
@@ -42,9 +42,9 @@ router.get('/user', async (req, res)=>{
 // bcrypt
 router.post('/users', async (req, res)=>{
 
-    const name = req.body.name;
+    const username = req.body.username;
     try{
-        const user = await getUser(name);
+        const user = await getUser(username);
 
         if(user){
             return res.status(409).send('A user with this username or email already exists');
@@ -58,7 +58,7 @@ router.post('/users', async (req, res)=>{
         const user = { name: req.body.name, password: hashedPassword };
         const createdUser = await createUser(user);
         res.status(201).send(createdUser);
-    } catch {
+    } catch(error) {
         if (error.code === 'ER_DUP_ENTRY') {
             // Unique constraint violation
             return res.status(400).send('Username already exists');
@@ -70,15 +70,16 @@ router.post('/users', async (req, res)=>{
 })
 
 router.post('/users/login', async (req, res)=>{
-    const name = req.body.name;
+    const {username, password} = req.body;
+
     try{
-        const user = await getUser(name);
+        const user = await getUser(username);
 
         if(user === undefined){
             return res.status(400).send('Cannot find user');
         }
 
-        if(await compare(req.body.password, user.password)){
+        if(await compare(password, user.password)){
             res.send('Successful Log in');
         } else {
             res.send('Password incorrect');
