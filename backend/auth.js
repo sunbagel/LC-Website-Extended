@@ -89,7 +89,8 @@ router.post('/users/login', async (req, res)=>{
                     req.session.user = {
                         username, password
                     }
-                    res.json(req.session);
+                    res.status(201).send('Successfully logged in');
+                    // res.json(req.session);
                 } else {
                     res.status(403).json({msg: 'Bad Credentials'});
                 }
