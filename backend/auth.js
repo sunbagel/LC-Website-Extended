@@ -1,5 +1,6 @@
 import express from 'express'
 import session from 'express-session'
+import passport from 'passport'
 import { hash, compare } from 'bcrypt'
 import { getUser, createUser } from './database.js'
 import dotenv from 'dotenv'
@@ -69,7 +70,7 @@ router.post('/users', async (req, res)=>{
         
 })
 
-router.post('/users/login', async (req, res)=>{
+router.post('/users/login', passport.authenticate('local'), async (req, res)=>{
     const {username, password} = req.body;
 
     if(username && password){
