@@ -6,7 +6,7 @@ const AuthContext = createContext({});
 export const AuthProvider = ({children}) =>{
 
     // check if authenticated
-    const [isAuth, setIsAuth] = useState<boolean>(false);
+    const [isAuth, setIsAuth] = useState<boolean>(true);
 
     // use for username, roles
     const [userInfo, setUserInfo] = useState({});
