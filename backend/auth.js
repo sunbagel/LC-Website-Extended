@@ -7,6 +7,8 @@ import dotenv from 'dotenv'
 
 dotenv.config();
 
+const sessionStore = new session.MemoryStore();
+
 const router = express.Router();
 router.use(session({
 
@@ -16,17 +18,28 @@ router.use(session({
     cookie: { maxAge: 30000 },
     
     // don't want to regenerate cookie on every server request
-    saveUninitialized: false
+    saveUninitialized: false,
 
     // resave : false
 
+    store : sessionStore
 }))
 
-
+router.use((req, res, next)=>{
+    console.log(sessionStore);
+    next();
+})
 
 // test environment
 router.get('/', async(req, res)=>{
-    console.log(req.user);
+    if(req.isAuthenticated()){
+        console.log('auth');
+        console.log(req.user);
+    } else {
+        console.log('not auth');
+    }
+    
+    res.send();
 })
 
 router.get('/user', async (req, res)=>{
@@ -76,7 +89,7 @@ router.post('/users', async (req, res)=>{
 })
 
 router.post('/users/login', passport.authenticate('local'), async (req, res)=>{
-    res.status(200);
+    res.status(200).send();
     // const {username, password} = req.body;
 
     // if(username && password){
