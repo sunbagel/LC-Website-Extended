@@ -1,7 +1,7 @@
 import express from 'express'
 
 import passport from 'passport'
-import { hash, compare } from 'bcrypt'
+import { hash } from 'bcrypt'
 import { getUser, createUser } from './database.js'
 import dotenv from 'dotenv'
 

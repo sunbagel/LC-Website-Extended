@@ -38,9 +38,9 @@ app.use('/auth', authRoutes);
 
 function ensureAuthenticated(req, res, next){
     if (req.isAuthenticated()) {
-        res.json({ authenticated: true });
+        next();
       } else {
-        res.status(401).json({ authenticated: false, error: 'Not Authenticated' });
+        res.status(401).json({ error: 'Not Authenticated' });
       }      
 }
 app.use(ensureAuthenticated);
