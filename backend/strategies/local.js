@@ -13,8 +13,8 @@ passport.serializeUser((user, done)=>{
 passport.deserializeUser(async (username, done)=>{
     try{
         const result = await getUser(username);
-        if(result[0][0]){
-            done(null, result[0][0]);
+        if(result){
+            done(null, result);
         }
     } catch(err){
         
@@ -29,16 +29,17 @@ passport.use(new LocalStrategy(
         const result = await getUser(username);
 
         try{
-            // user not found
-            if(result.length === 0){
-                done(null, false);
-            } else {
+            // user found
+            if(result){
                 // check if password matches
                 if(await compare(password, result.password)){
                     done(null, result);
                 } else {
                     done(null, false);
                 }
+                
+            } else {
+                done(null, false);
             }
         } catch(err){
             done(err, false);
