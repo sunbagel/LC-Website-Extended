@@ -5,14 +5,11 @@ const AuthContext = createContext({});
 // can import AuthProvider as a component to wrap children
 export const AuthProvider = ({children}) =>{
 
-    // check if authenticated
-    const [isAuth, setIsAuth] = useState<boolean>(true);
-
     // use for username, roles
-    const [userInfo, setUserInfo] = useState({});
+    const [auth, setAuth] = useState({});
 
     return (
-        <AuthContext.Provider value={{isAuth, setIsAuth, userInfo, setUserInfo}}>
+        <AuthContext.Provider value={{auth, setAuth}}>
             {children}
         </AuthContext.Provider>
     )
