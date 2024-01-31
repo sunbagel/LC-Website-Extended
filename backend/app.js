@@ -26,8 +26,8 @@ const options = {
     password: process.env.MYSQL_PASSWORD,
     database: process.env.MYSQL_DATABASE,
     clearExpired: true, // Auto-clear expired sessions
-    checkExpirationInterval: 900000, // How frequently expired sessions will be cleared; e.g., 15 minutes
-    expiration: 86400000, // The maximum age of a valid session; e.g., 1 day
+    checkExpirationInterval: parseInt(process.env.CHECK_EXPIRATION_INTERVAL,10), // How frequently expired sessions will be cleared; e.g., 15 minutes
+    expiration: parseInt(process.env.SESSION_EXPIRATION,10), // The maximum age of a valid session; e.g., 1 day
     // Other options...
 };
   
@@ -38,12 +38,12 @@ app.use(session({
     // secret to make cookie harder to break into
     secret: process.env.COOKIE_SECRET,
     // expiry time in milliseconds
-    cookie: { maxAge: 30000 },
+    cookie: { maxAge: parseInt(process.env.SESSION_EXPIRATION,10) },
     
     // don't want to regenerate cookie on every server request
     saveUninitialized: false,
 
-    // resave : false
+    resave : false,
 
     store : sessionStore
 }))
