@@ -2,17 +2,36 @@ import express, { json } from 'express'
 import cors from 'cors';
 import passport from 'passport'
 import session from 'express-session'
+import expressMySQLSession from 'express-mysql-session';
 import local from './strategies/local.js'
+
+
+
 
 import * as dbFunctions from './database.js'
 import authRoutes from './auth.js'
+import dotenv from 'dotenv'
+dotenv.config();
 
 const app = express();
 
 app.use(express.json());
 app.use(cors());
 
-const sessionStore = new session.MemoryStore();
+const MySQLStore = expressMySQLSession(session);
+
+const options = {
+    host: process.env.MSQL_HOST,
+    user: process.env.MYSQL_USER,
+    password: process.env.MYSQL_PASSWORD,
+    database: process.env.MYSQL_DATABASE,
+    clearExpired: true, // Auto-clear expired sessions
+    checkExpirationInterval: 900000, // How frequently expired sessions will be cleared; e.g., 15 minutes
+    expiration: 86400000, // The maximum age of a valid session; e.g., 1 day
+    // Other options...
+};
+  
+const sessionStore = new MySQLStore(options);
 
 app.use(session({
 
