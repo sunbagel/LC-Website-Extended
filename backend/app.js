@@ -1,6 +1,7 @@
 import express, { json } from 'express'
 import cors from 'cors';
 import passport from 'passport'
+import session from 'express-session'
 import local from './strategies/local.js'
 
 import * as dbFunctions from './database.js'
@@ -11,14 +12,34 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-// auth routes
-app.use('/auth', authRoutes);
+const sessionStore = new session.MemoryStore();
+
+app.use(session({
+
+    // secret to make cookie harder to break into
+    secret: process.env.COOKIE_SECRET,
+    // expiry time in milliseconds
+    cookie: { maxAge: 30000 },
+    
+    // don't want to regenerate cookie on every server request
+    saveUninitialized: false,
+
+    // resave : false
+
+    store : sessionStore
+}))
 
 app.use(passport.initialize());
 app.use(passport.session());
 
-
+// auth routes
+app.use('/auth', authRoutes);
 // parts
+
+app.use((req, res, next)=>{
+    console.log(sessionStore);
+    next();
+})
 
 app.get("/parts", async (req, res) =>{
     const parts = await dbFunctions.getParts();

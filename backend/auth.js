@@ -1,5 +1,5 @@
 import express from 'express'
-import session from 'express-session'
+
 import passport from 'passport'
 import { hash, compare } from 'bcrypt'
 import { getUser, createUser } from './database.js'
@@ -7,28 +7,9 @@ import dotenv from 'dotenv'
 
 dotenv.config();
 
-const sessionStore = new session.MemoryStore();
-
 const router = express.Router();
-router.use(session({
 
-    // secret to make cookie harder to break into
-    secret: process.env.COOKIE_SECRET,
-    // expiry time in milliseconds
-    cookie: { maxAge: 30000 },
-    
-    // don't want to regenerate cookie on every server request
-    saveUninitialized: false,
 
-    // resave : false
-
-    store : sessionStore
-}))
-
-router.use((req, res, next)=>{
-    console.log(sessionStore);
-    next();
-})
 
 // test environment
 router.get('/', async(req, res)=>{
