@@ -1,15 +1,16 @@
 
-import { useState } from 'react';
+import { useState, useContext } from 'react';
+import AuthContext from '@/context/AuthProvider';
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
 
 const RequireAuth = () => {
   
-  // need to get isAuthenticated context later.
-  const [ isAuthenticated, setIsAuthenticated ] = useState<boolean>(false);
+  // isAuth context (if authenticated)
+  const { isAuth } = useContext(AuthContext);
   
   const location = useLocation();
 
-  if (!isAuthenticated) {
+  if (!isAuth) {
     // Redirect them to the /login page, but save the current location they were
     // trying to go to when they were redirected.
     return <Navigate to="/login" state={{ from: location }} replace />;
