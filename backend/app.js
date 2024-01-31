@@ -36,6 +36,14 @@ app.use(passport.session());
 app.use('/auth', authRoutes);
 // parts
 
+function ensureAuthenticated(req, res, next){
+    if (req.isAuthenticated()) {
+        res.json({ authenticated: true });
+      } else {
+        res.status(401).json({ authenticated: false, error: 'Not Authenticated' });
+      }      
+}
+app.use(ensureAuthenticated);
 // app.use((req, res, next)=>{
 //     console.log(sessionStore);
 //     next();
