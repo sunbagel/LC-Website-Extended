@@ -5,9 +5,6 @@ import session from 'express-session'
 import expressMySQLSession from 'express-mysql-session';
 import local from './strategies/local.js'
 
-
-
-
 import * as dbFunctions from './database.js'
 import authRoutes from './auth.js'
 import dotenv from 'dotenv'
