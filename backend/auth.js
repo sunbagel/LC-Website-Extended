@@ -22,6 +22,8 @@ router.use(session({
 
 }))
 
+
+
 // test environment
 
 router.get('/user', async (req, res)=>{
@@ -71,38 +73,39 @@ router.post('/users', async (req, res)=>{
 })
 
 router.post('/users/login', passport.authenticate('local'), async (req, res)=>{
-    const {username, password} = req.body;
+    res.send(200);
+    // const {username, password} = req.body;
 
-    if(username && password){
-        if(req.session.authenticated){
-            res.json(req.session);
-        } else {
-            try{
-                const user = await getUser(username);
+    // if(username && password){
+    //     if(req.session.authenticated){
+    //         res.json(req.session);
+    //     } else {
+    //         try{
+    //             const user = await getUser(username);
         
-                if(user === undefined){
-                    return res.status(400).send('Cannot find user');
-                }
+    //             if(user === undefined){
+    //                 return res.status(400).send('Cannot find user');
+    //             }
         
-                if(await compare(password, user.password)){
-                    req.session.authenticated = true;
-                    // can append things to cookies
-                    req.session.user = {
-                        username, password
-                    }
-                    res.status(201).send('Successfully logged in');
-                    // res.json(req.session);
-                } else {
-                    res.status(403).json({msg: 'Bad Credentials'});
-                }
-            } catch{
-                return res.status(500).send();
-            }
+    //             if(await compare(password, user.password)){
+    //                 req.session.authenticated = true;
+    //                 // can append things to cookies
+    //                 req.session.user = {
+    //                     username, password
+    //                 }
+    //                 res.status(201).send('Successfully logged in');
+    //                 // res.json(req.session);
+    //             } else {
+    //                 res.status(403).json({msg: 'Bad Credentials'});
+    //             }
+    //         } catch{
+    //             return res.status(500).send();
+    //         }
             
-        }
-    } else {
-        res.status(403).json({msg: 'Bad Credentials'});
-    }
+    //     }
+    // } else {
+    //     res.status(403).json({msg: 'Bad Credentials'});
+    // }
     
 
 })

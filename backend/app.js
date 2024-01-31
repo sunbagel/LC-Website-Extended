@@ -1,5 +1,7 @@
 import express, { json } from 'express'
 import cors from 'cors';
+import passport from 'passport'
+import local from './strategies/local.js'
 
 import * as dbFunctions from './database.js'
 import authRoutes from './auth.js'
@@ -11,6 +13,9 @@ app.use(cors());
 
 // auth routes
 app.use('/auth', authRoutes);
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 
 // parts
