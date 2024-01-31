@@ -45,7 +45,6 @@ passport.use(new LocalStrategy(
             done(err, false);
         }
 
-        console.log(result);
 
 
     }

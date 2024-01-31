@@ -15,7 +15,6 @@ const router = express.Router();
 router.get('/', async(req, res)=>{
     if(req.isAuthenticated()){
         console.log('auth');
-        console.log(req.user);
     } else {
         console.log('not auth');
     }

@@ -36,10 +36,10 @@ app.use(passport.session());
 app.use('/auth', authRoutes);
 // parts
 
-app.use((req, res, next)=>{
-    console.log(sessionStore);
-    next();
-})
+// app.use((req, res, next)=>{
+//     console.log(sessionStore);
+//     next();
+// })
 
 app.get("/parts", async (req, res) =>{
     const parts = await dbFunctions.getParts();
