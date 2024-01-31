@@ -25,6 +25,9 @@ router.use(session({
 
 
 // test environment
+router.get('/', async(req, res)=>{
+    console.log(req.user);
+})
 
 router.get('/user', async (req, res)=>{
     const username = req.query.username;
@@ -73,7 +76,7 @@ router.post('/users', async (req, res)=>{
 })
 
 router.post('/users/login', passport.authenticate('local'), async (req, res)=>{
-    res.send(200);
+    res.status(200);
     // const {username, password} = req.body;
 
     // if(username && password){
