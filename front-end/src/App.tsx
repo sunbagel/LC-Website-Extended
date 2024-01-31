@@ -14,11 +14,11 @@ import SearchPage from "./pages/SearchPage";
 import AddPartPage from "./pages/AddPartPage";
 import LoginPage from "./pages/LoginPage";
 import RequireAuth from "./components/auth/RequireAuth";
+import { AuthProvider } from "./context/AuthProvider";
 
 function App() {
   return ( <>
-     {/* <div className="page-container">
-       <div className = 'content-wrap'> */}
+      <AuthProvider>
         <Router>
           <NavBar/>
           <Routes>
@@ -32,18 +32,13 @@ function App() {
                   <Route path ='add-parts' element = {<AddPartPage/>}/>
               </Route>
             </Route>
-            
-            
-            
             <Route path = '/login' element = {<LoginPage/>}/>
           </Routes>
           
         </Router>
-       {/* </div> */}
-      
       <FooterV2/>
-     {/* </div> */}
-     </>
+      </AuthProvider>
+    </>
   );
   
 }
