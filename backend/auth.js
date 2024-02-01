@@ -69,7 +69,7 @@ router.post('/users', async (req, res)=>{
 })
 
 router.post('/users/login', passport.authenticate('local'), async (req, res)=>{
-    res.status(200).send();
+    res.status(200).json(req.user);
     // const {username, password} = req.body;
 
     // if(username && password){

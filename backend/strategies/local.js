@@ -33,7 +33,8 @@ passport.use(new LocalStrategy(
             if(result){
                 // check if password matches
                 if(await compare(password, result.password)){
-                    done(null, result);
+                    const { id } = result;
+                    done(null, { id, username });
                 } else {
                     done(null, false);
                 }
