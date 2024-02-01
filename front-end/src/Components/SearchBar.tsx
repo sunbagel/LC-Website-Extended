@@ -262,7 +262,7 @@ const SearchBar = ({updatePartValues, updateSearchFunction} : SearchBarProps) =>
     return(
         <div>
             <Form onSubmit={onSubmit} onChange={onChange}>
-                <Form.Group className="mb-3" controlId="formPartID">
+                <Form.Group className="mb-3">
                     
                             <div className="max-w-4xl grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4 gap-x-0.5">
 
