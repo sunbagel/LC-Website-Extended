@@ -59,7 +59,7 @@ function ensureAuthenticated(req, res, next){
         res.status(401).json({ error: 'Not Authenticated' });
       }      
 }
-app.use(ensureAuthenticated);
+// app.use(ensureAuthenticated);
 // app.use((req, res, next)=>{
 //     console.log(sessionStore);
 //     next();
