@@ -9,7 +9,7 @@ const RequireAuth = () => {
   const location = useLocation();
 
   return(
-    auth?.user 
+    auth?.username 
       ? <Outlet/>
       : <Navigate to="/login" state={{ from: location }} replace />
   )
