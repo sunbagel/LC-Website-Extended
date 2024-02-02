@@ -35,14 +35,14 @@ app.use(session({
     // secret to make cookie harder to break into
     secret: process.env.COOKIE_SECRET,
     // expiry time in milliseconds
-    cookie: { maxAge: parseInt(process.env.SESSION_EXPIRATION,10) },
-    
+    cookie: { 
+        maxAge: parseInt(process.env.SESSION_EXPIRATION,10),
+     },
     // don't want to regenerate cookie on every server request
     saveUninitialized: false,
-
     resave : false,
-
-    store : sessionStore
+    store : sessionStore,
+    name : 'session_cookie'
 }))
 
 app.use(passport.initialize());
