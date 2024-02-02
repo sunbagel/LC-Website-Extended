@@ -7,9 +7,12 @@ import './NavBar.css'
 
 import { Container, Nav, Navbar, NavDropdown, Button } from 'react-bootstrap';
 import LogoutButton from "@/components/auth/LogoutButton";
+import useAuth from "@/hooks/useAuth";
 
 
 const NavBar = () => {
+
+    const { auth } = useAuth();
 
     return (
     <>
@@ -49,7 +52,7 @@ const NavBar = () => {
                             <Button id="quote-button">Get a Quote</Button>
                         </Link>
 
-                        <LogoutButton/>
+                        {auth?.username && <LogoutButton/>}
                     </Nav>
                 </Navbar.Collapse>
             </Container>
