@@ -30,10 +30,20 @@ const LoginPage = () => {
     setErrMsg('');
   }, [user,pwd])
 
-  const handleSubmit =  async () => {
+
+  const onSubmit = (e : React.FormEvent<HTMLFormElement>) =>{
+    e.preventDefault();
+    console.log('submitted');
+
+    
+    // console.log(username.value);
+    // console.log(password.value);
+
+    const formData = new FormData(e.currentTarget);
+    const formDataObj = Object.fromEntries(formData.entries());
+    const { username, password } = formDataObj;
     const userCredentials = {
-      username: 'alex2',
-      password: 'hello'
+      username, password
     }
     const requestOptions = {
       method: 'POST',
@@ -68,8 +78,6 @@ const LoginPage = () => {
     })
 
   }
-
-  
   return (
     <div className="flex flex-col items-center justify-center">
       <h1>Please Log In:</h1>
