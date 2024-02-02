@@ -171,15 +171,16 @@ const SearchBar = ({updatePartValues, updateSearchFunction} : SearchBarProps) =>
 
         // makes usable for http request
         const queryString = new URLSearchParams(combinedParams).toString();
-        // console.log(queryString);
+        // console.log("query: ", queryString);
 
         // console.log(simpleParams);
 
-        fetch(`api/parts/search?${queryString}`).then(
+        fetch(`/api/parts/search?${queryString}`)
+        .then(
             (response) => response.json()
         ).then(
             (data) => {
-                console.log("Response: ", data)
+                
                 
                 const partValues : PartValues[] = [];
                 // clean up
@@ -196,7 +197,7 @@ const SearchBar = ({updatePartValues, updateSearchFunction} : SearchBarProps) =>
                 updatePartValues(partValues)
                 
             }
-        )
+        ).catch(err=>console.log(err))
     }, [simpleParams, updatePartValues]);
 
 
