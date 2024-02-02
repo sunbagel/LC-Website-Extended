@@ -20,37 +20,11 @@ const LoginPage = () => {
   const [errMsg, setErrMsg] = useState<string>('');
 
   useEffect(()=>{
-    console.log("Auth", auth);
-  }, [auth])
+    if(auth?.username){
+      navigate(from, { replace: true });
+    }
+  }, [auth, from, navigate])
 
-  useEffect(()=>{
-    console.log("Login Render");
-    
-    fetch("/api/auth/session-check")
-    .then(res => {
-      if (res.status === 401) {
-        // Handle unauthorized access
-        setAuth({});
-        return; // Prevent further processing
-      }
-
-      if (!res.ok) {
-        throw new Error(`HTTP error! Status: ${res.status}`);
-      }
-
-      return res.json(); // Process the response if it's OK
-    })
-    .then(data => {
-      if (data) {
-        console.log("data", data);
-        const { user } = data;
-        setAuth({ ...user });
-      }
-    })
-    .catch(err => {
-      console.log("Fetch error:", err);
-    });
-  }, [setAuth])
 
   useEffect(()=>{
     setErrMsg('');
@@ -90,9 +64,7 @@ const LoginPage = () => {
         setErrMsg('Login Failed');
       }
 
-      setAuth({
-        isAuth : false
-      })
+      setAuth({})
     })
 
   }
