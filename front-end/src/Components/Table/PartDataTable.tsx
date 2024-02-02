@@ -68,7 +68,7 @@ export function PartDataTable<TData, TValue>({
                   
                   (cell.column.id == 'edit') ? 
                     <TableCell key={cell.id}>
-                      <Button onClick={() => openEditForm(row.id)}>Edit</Button>
+                      <Button className="bg-blue-lc_turquoise" onClick={() => openEditForm(row.id)}>Edit</Button>
                     </TableCell>
                   :(
                     <TableCell key={cell.id}>

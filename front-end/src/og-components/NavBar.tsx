@@ -49,7 +49,7 @@ const NavBar = () => {
                             Get a Quote
                         </Nav.Link> */}
                         <Link to="/contact_us" >
-                            <Button id="quote-button">Get a Quote</Button>
+                            <Button className="bg-blue-lc_turquoise" id="quote-button">Get a Quote</Button>
                         </Link>
 
                         {auth?.username && <LogoutButton/>}

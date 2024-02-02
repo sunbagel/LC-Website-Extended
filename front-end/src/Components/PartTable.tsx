@@ -59,7 +59,7 @@ const PartTable = ({ partList } : PartTableProps) => {
                     <TableCell className="text-left">{part.suppliers_name}</TableCell>
                     <TableCell className="text-left">{part.manufacturers_name}</TableCell>
                     <TableCell className="text-left">{part.locations_name}</TableCell>
-                    <TableCell><Button onClick={() => console.log('Edit')}>Edit</Button></TableCell>
+                    <TableCell><Button bg-blue-lc_turquoise onClick={() => console.log('Edit')}>Edit</Button></TableCell>
                     {/* <TableCell>
                         <Form><Form.Control name="PartNum" 
                                     placeholder="Enter Part Number" /></Form></TableCell> */}
