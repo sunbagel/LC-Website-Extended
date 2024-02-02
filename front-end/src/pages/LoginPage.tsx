@@ -1,4 +1,5 @@
 import useAuth from "@/hooks/useAuth";
+import useLogin from "@/hooks/useLogin";
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useLocation } from 'react-router-dom'
 
@@ -7,6 +8,7 @@ import { Link, useNavigate, useLocation } from 'react-router-dom'
 const LoginPage = () => {
 
   const { auth, setAuth } = useAuth();
+  const login = useLogin();
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -18,7 +20,44 @@ const LoginPage = () => {
   const [user, setUser] = useState<string>('');
   const [pwd, setPwd] = useState<string>('');
   const [errMsg, setErrMsg] = useState<string>('');
+  
+  const onSubmit = (e : React.FormEvent<HTMLFormElement>) =>{
+      e.preventDefault();
+      console.log('submitted');
 
+      
+      // console.log(username.value);
+      // console.log(password.value);
+
+      const formData = new FormData(e.currentTarget);
+      const formDataObj = Object.fromEntries(formData.entries());
+      const { username, password } = formDataObj;
+      login(username.toString(), password.toString());
+      // .then(res => {
+      //     const { id, username } = res;
+      //     setAuth({
+      //         id, username
+      //     })
+      //     // reset fields
+      //     setUser('');
+      //     setPwd('');
+      //     navigate(from, { replace: true });
+          
+      // }).catch(err =>{
+      //     if(!err?.response){
+      //     setErrMsg('No Server Response');
+      //     } else if(err.response?.status === 400){
+      //     setErrMsg('Missing Username or Password');
+      //     } else if(err.response?.status === 401){
+      //     setErrMsg('Unauthorized');
+      //     } else {
+      //     setErrMsg('Login Failed');
+      //     }
+
+      //     setAuth({})
+      // })
+
+  }
   useEffect(()=>{
     if(auth?.username){
       navigate(from, { replace: true });
@@ -30,54 +69,10 @@ const LoginPage = () => {
     setErrMsg('');
   }, [user,pwd])
 
+  
 
-  const onSubmit = (e : React.FormEvent<HTMLFormElement>) =>{
-    e.preventDefault();
-    console.log('submitted');
-
-    
-    // console.log(username.value);
-    // console.log(password.value);
-
-    const formData = new FormData(e.currentTarget);
-    const formDataObj = Object.fromEntries(formData.entries());
-    const { username, password } = formDataObj;
-    const userCredentials = {
-      username, password
-    }
-    const requestOptions = {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(userCredentials),
-      withCredentials: true
-    }
-
-    fetch('/api/auth/users/login', requestOptions)
-    .then(res => res.json())
-    .then(res => {
-      const { id, username } = res;
-      setAuth({
-        id, username
-      })
-      // reset fields
-      setUser('');
-      setPwd('');
-      navigate(from, { replace: true });
-    }).catch(err =>{
-      if(!err?.response){
-        setErrMsg('No Server Response');
-      } else if(err.response?.status === 400){
-        setErrMsg('Missing Username or Password');
-      } else if(err.response?.status === 401){
-        setErrMsg('Unauthorized');
-      } else {
-        setErrMsg('Login Failed');
-      }
-
-      setAuth({})
-    })
-
-  }
+  
+  
   return (
     <div className="flex flex-col items-center justify-center">
       <div className="w-full max-w-xs">
