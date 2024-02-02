@@ -207,9 +207,9 @@ const SearchBar = ({updatePartValues, updateSearchFunction} : SearchBarProps) =>
         // avoid refresh with e.preventDefault
         e.preventDefault();
         console.log("Form Data: ");
-        console.log(e.currentTarget);
+        // console.log(e.currentTarget);
         const formData = new FormData(e.currentTarget);
-        console.log(formData);
+        // console.log(formData);
 
         const newPart : Part = {};
 
