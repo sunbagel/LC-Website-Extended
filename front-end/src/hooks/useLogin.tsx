@@ -14,9 +14,10 @@ const useLogin = () =>{
           withCredentials: true
         }
     
-        fetch('/api/auth/users/login', requestOptions)
+        const res = fetch('/api/auth/users/login', requestOptions)
         .then(res => res.json())
         
+        return res;
     
     }
 

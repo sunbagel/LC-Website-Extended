@@ -32,30 +32,31 @@ const LoginPage = () => {
       const formData = new FormData(e.currentTarget);
       const formDataObj = Object.fromEntries(formData.entries());
       const { username, password } = formDataObj;
-      login(username.toString(), password.toString());
-      // .then(res => {
-      //     const { id, username } = res;
-      //     setAuth({
-      //         id, username
-      //     })
-      //     // reset fields
-      //     setUser('');
-      //     setPwd('');
-      //     navigate(from, { replace: true });
+      login(username.toString(), password.toString())
+      .then(res => {
+          console.log(res);
+          const { id, username } = res;
+          setAuth({
+              id, username
+          })
+          // reset fields
+          setUser('');
+          setPwd('');
+          navigate(from, { replace: true });
           
-      // }).catch(err =>{
-      //     if(!err?.response){
-      //     setErrMsg('No Server Response');
-      //     } else if(err.response?.status === 400){
-      //     setErrMsg('Missing Username or Password');
-      //     } else if(err.response?.status === 401){
-      //     setErrMsg('Unauthorized');
-      //     } else {
-      //     setErrMsg('Login Failed');
-      //     }
+      }).catch(err =>{
+          if(!err?.response){
+          setErrMsg('No Server Response');
+          } else if(err.response?.status === 400){
+          setErrMsg('Missing Username or Password');
+          } else if(err.response?.status === 401){
+          setErrMsg('Unauthorized');
+          } else {
+          setErrMsg('Login Failed');
+          }
 
-      //     setAuth({})
-      // })
+          setAuth({})
+      })
 
   }
   useEffect(()=>{
