@@ -23,11 +23,6 @@ const LoginPage = () => {
   
   const onSubmit = (e : React.FormEvent<HTMLFormElement>) =>{
       e.preventDefault();
-      console.log('submitted');
-
-      
-      // console.log(username.value);
-      // console.log(password.value);
 
       const formData = new FormData(e.currentTarget);
       const formDataObj = Object.fromEntries(formData.entries());
@@ -42,6 +37,7 @@ const LoginPage = () => {
           // reset fields
           setUser('');
           setPwd('');
+          setErrMsg('');
           navigate(from, { replace: true });
           
       }).catch(err =>{
@@ -59,6 +55,12 @@ const LoginPage = () => {
       })
 
   }
+
+  const onChange = (e) =>{
+    setUser(e.currentTarget.username.value);
+    setPwd(e.currentTarget.password.value);
+  }
+
   useEffect(()=>{
     if(auth?.username){
       navigate(from, { replace: true });
@@ -77,8 +79,9 @@ const LoginPage = () => {
   return (
     <div className="flex flex-col items-center justify-center">
       <div className="w-full max-w-xs">
-        <form onSubmit={onSubmit} className="bg-white shadow-md rounded px-8 pt-6 pb-8 my-4">
+        <form onSubmit={onSubmit} onChange={onChange} className="bg-white shadow-md rounded px-8 pt-6 pb-8 my-4">
           <div className="text-gray-700 font-bold text-xl mb-4 mt-2">Log In:</div>
+          {!(errMsg === '') && <p className="text-red-500 text-s italic">{errMsg}</p>}
           <div className="mb-4">
             <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="username">
               Username
@@ -102,7 +105,7 @@ const LoginPage = () => {
               placeholder="Password"
               autoComplete="password"  
             />
-            {/* <p className="text-red-500 text-xs italic">Please choose a password.</p> */}
+            
           </div>
 
           
