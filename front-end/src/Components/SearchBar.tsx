@@ -364,7 +364,7 @@ const SearchBar = ({updatePartValues, updateSearchFunction} : SearchBarProps) =>
                                 />
                             ))}
                             
-                                <button className="flex bg-blue-lc_turquoise justify-start my-4" onClick={addSimpleFieldBox}>Add Selector</button>
+                                <button className="flex default-btn justify-start my-4" onClick={addSimpleFieldBox}>Add Selector</button>
 
                                 
 
@@ -374,7 +374,7 @@ const SearchBar = ({updatePartValues, updateSearchFunction} : SearchBarProps) =>
                     
                 </Form.Group>
 
-                <button className="bg-blue-lc_turquoise" type="submit">
+                <button className="bg-blue-lc_turquoise hover:border-white" type="submit">
                     Search
                 </button>
             </Form>
