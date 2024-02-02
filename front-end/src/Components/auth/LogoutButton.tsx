@@ -7,7 +7,7 @@ const LogoutButton = () => {
 
 
   return (
-    <button className="font-raleway bg-blue-lc_turquoise px-4 py-1" onClick={logout}>Log Out</button>
+    <button className="font-raleway bg-blue-lc_turquoise hover:border-white px-4 py-1" onClick={logout}>Log Out</button>
   )
 }
 

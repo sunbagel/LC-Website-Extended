@@ -1,9 +1,15 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
 /* * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 } */
-
+.default-btn {
+  @apply bg-blue-lc_turquoise hover:border-white;
+}
 .good-font {
   font-family: 'Roboto'
 }
