@@ -73,7 +73,7 @@ const LoginPage = () => {
     .then(res => {
       const { id, username } = res;
       setAuth({
-        id, username, isAuth : true
+        id, username
       })
       // reset fields
       setUser('');
