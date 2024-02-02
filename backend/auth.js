@@ -20,14 +20,8 @@ function ensureAuthenticated(req, res, next){
 
 
 // test environment
-router.get('/', async(req, res)=>{
-    if(req.isAuthenticated()){
-        console.log('auth');
-    } else {
-        console.log('not auth');
-    }
-    
-    res.send();
+router.get('/', ensureAuthenticated, async(req, res)=>{
+    res.status(200).json({message: 'User is authenticated'})
 })
 
 // purely for session check
@@ -124,6 +118,18 @@ router.post('/users/login', passport.authenticate('local'), async (req, res)=>{
     // }
     
 
+})
+
+
+router.post('/users/logout', (req, res)=>{
+    req.session.destroy(err=>{
+        if(err){
+            res.status(500).send('Unable to log out');
+        }
+
+        res.clearCookie('session_cookie'); // remove cookie (optional)
+        res.status(200).json({ message: 'Logged out'});
+    })
 })
 
 
