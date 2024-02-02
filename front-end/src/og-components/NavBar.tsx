@@ -6,6 +6,7 @@ import './NavBar.css'
 
 
 import { Container, Nav, Navbar, NavDropdown, Button } from 'react-bootstrap';
+import LogoutButton from "@/components/auth/LogoutButton";
 
 
 const NavBar = () => {
@@ -47,6 +48,8 @@ const NavBar = () => {
                         <Link to="/contact_us" >
                             <Button id="quote-button">Get a Quote</Button>
                         </Link>
+
+                        <LogoutButton/>
                     </Nav>
                 </Navbar.Collapse>
             </Container>

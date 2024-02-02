@@ -8,17 +8,18 @@ const LogoutButton = () => {
             headers: { 'Content-Type': 'application/json' },
         }
 
-        fetch('/api/users/logout', requestOptions)
+        fetch('/api/auth/users/logout', requestOptions)
         .then(response => {
             if(!response.ok){
                 throw new Error('Server response error')
             }
             return response.json()
         })
-        .then(data => {
-            console.log(data);
+        .then(() => {
+            // console.log(data);
+            
         })
-        .catch(err => console.log('Logout request failed', err))
+        .catch(err => console.log('Logout request failed,', err))
 
 
     }
