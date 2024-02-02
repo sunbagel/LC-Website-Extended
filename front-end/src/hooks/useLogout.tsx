@@ -1,6 +1,8 @@
+import useAuth from "./useAuth";
 
 
 const useLogout = () =>{
+    const { setAuth } = useAuth();
     const logout = () =>{
 
         const requestOptions = {
@@ -16,8 +18,7 @@ const useLogout = () =>{
             return response.json()
         })
         .then(() => {
-            // console.log(data);
-            
+            setAuth(''); 
         })
         .catch(err => console.log('Logout request failed,', err))
     }
