@@ -48,18 +48,20 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
+// function ensureAuthenticated(req, res, next){
+//     if (req.isAuthenticated()) {
+//         next();
+//       } else {
+//         res.status(401).json({ error: 'Not Authenticated' });
+//       }      
+// }
+// app.use(ensureAuthenticated);
+
 // auth routes
 app.use('/auth', authRoutes);
 // parts
 
-function ensureAuthenticated(req, res, next){
-    if (req.isAuthenticated()) {
-        next();
-      } else {
-        res.status(401).json({ error: 'Not Authenticated' });
-      }      
-}
-// app.use(ensureAuthenticated);
+
 // app.use((req, res, next)=>{
 //     console.log(sessionStore);
 //     next();

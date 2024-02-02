@@ -6,7 +6,7 @@ import { Link, useNavigate, useLocation } from 'react-router-dom'
 
 const LoginPage = () => {
 
-  const { setAuth } = useAuth();
+  const { auth, setAuth } = useAuth();
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -19,9 +19,38 @@ const LoginPage = () => {
   const [pwd, setPwd] = useState<string>('');
   const [errMsg, setErrMsg] = useState<string>('');
 
-  // useEffect(()=>{
+  useEffect(()=>{
+    console.log("Auth", auth);
+  }, [auth])
 
-  // })
+  useEffect(()=>{
+    console.log("Login Render");
+    
+    fetch("/api/auth/session-check")
+    .then(res => {
+      if (res.status === 401) {
+        // Handle unauthorized access
+        setAuth({});
+        return; // Prevent further processing
+      }
+
+      if (!res.ok) {
+        throw new Error(`HTTP error! Status: ${res.status}`);
+      }
+
+      return res.json(); // Process the response if it's OK
+    })
+    .then(data => {
+      if (data) {
+        console.log("data", data);
+        const { user } = data;
+        setAuth({ ...user });
+      }
+    })
+    .catch(err => {
+      console.log("Fetch error:", err);
+    });
+  }, [setAuth])
 
   useEffect(()=>{
     setErrMsg('');

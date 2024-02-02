@@ -9,6 +9,14 @@ dotenv.config();
 
 const router = express.Router();
 
+function ensureAuthenticated(req, res, next){
+    if (req.isAuthenticated()) {
+        next();
+      } else {
+        res.status(401).json({ error: 'Not Authenticated' });
+      }      
+}
+
 
 
 // test environment
@@ -22,6 +30,18 @@ router.get('/', async(req, res)=>{
     res.send();
 })
 
+// purely for session check
+// middleware in app.use() to check for auth
+router.get('/session-check', ensureAuthenticated, (req, res)=>{
+    const userInfo ={
+        id : req.user.id,
+        username : req.user.username
+    }
+    res.status(200).json({
+        message : "User is logged in",
+        user : userInfo
+    })
+})
 router.get('/user', async (req, res)=>{
     const username = req.query.username;
     try{
