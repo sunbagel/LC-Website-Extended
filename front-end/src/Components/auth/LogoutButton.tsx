@@ -7,7 +7,7 @@ const LogoutButton = () => {
 
 
   return (
-    <button onClick={logout}>Log Out</button>
+    <button className="font-raleway px-4 py-1" onClick={logout}>Log Out</button>
   )
 }
 
