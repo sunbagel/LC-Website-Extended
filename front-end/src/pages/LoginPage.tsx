@@ -80,9 +80,9 @@ const LoginPage = () => {
   }
   return (
     <div className="flex flex-col items-center justify-center">
-      <h1>Please Log In:</h1>
       <div className="w-full max-w-xs">
-        <form onSubmit={onSubmit} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+        <form onSubmit={onSubmit} className="bg-white shadow-md rounded px-8 pt-6 pb-8 my-4">
+          <div className="text-gray-700 font-bold text-xl mb-4 mt-2">Log In:</div>
           <div className="mb-4">
             <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="username">
               Username
