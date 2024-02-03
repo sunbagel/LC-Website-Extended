@@ -1,5 +1,6 @@
 
 import useAuth from '@/hooks/useAuth';
+import axios from '@/lib/axios';
 import { useEffect } from 'react';
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
 
@@ -12,30 +13,33 @@ const RequireAuth = () => {
   useEffect(()=>{
     console.log("Login Render");
     
-    fetch("/api/auth/session-check")
+    axios.get("/auth/session-check", {
+
+      withCredentials: true
+    })
     .then(res => {
-      if (res.status === 401) {
-        // Handle unauthorized access
-        setAuth({});
-        return; // Prevent further processing
-      }
-
-      if (!res.ok) {
-        throw new Error(`HTTP error! Status: ${res.status}`);
-      }
-
-      return res.json(); // Process the response if it's OK
+      console.log(res.data);
+      const { user } = res.data;
+      setAuth({ ...user });
     })
-    .then(data => {
-      if (data) {
-        console.log("data", data);
-        const { user } = data;
-        setAuth({ ...user });
+    .catch(error => {
+      if (error.response) {
+        // The request was made and the server responded with a status code
+        // that falls out of the range of 2xx
+        console.log("Fetch error:", error.message);
+        
+        if (error.response.status === 401) {
+          // Handle unauthorized access
+          setAuth({});
+          // No need to return; the execution stops here within the catch block
+        }
+      } else if (error.request) {
+        // The request was made but no response was received
+        console.log("Fetch error: No response received");
+      } else {
+        // Something happened in setting up the request that triggered an Error
+        console.log("Error:", error.message);
       }
-      
-    })
-    .catch(err => {
-      console.log("Fetch error:", err);
     });
   }, [setAuth])
 

@@ -175,7 +175,7 @@ const SearchBar = ({updatePartValues, updateSearchFunction} : SearchBarProps) =>
 
         // console.log(simpleParams);
 
-        fetch(`/api/parts/search?${queryString}`)
+        fetch(`http://localhost:8080/parts/search?${queryString}`)
         .then(
             (response) => response.json()
         ).then(
