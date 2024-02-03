@@ -124,38 +124,36 @@ const SearchBar = ({updatePartValues, updateSearchFunction} : SearchBarProps) =>
     // updating selection for suppliers
     useEffect(() => {
 
-        fetch('http://localhost:8080/part_types')
-        .then(response => response.json())
-        .then((data : tableType[]) => {
-            setPartTypes(data)
+        axios.get('http://localhost:8080/part_types',{
+            withCredentials: true
         })
+        .then(res => setPartTypes(res.data))
 
 
-        fetch('http://localhost:8080/suppliers')
-        .then(response => response.json())
-        .then((data : tableType[]) => {
-            setSupplierList(data)
+        axios.get('http://localhost:8080/suppliers', {
+            withCredentials: true
         })
+        .then(response => {
+            setSupplierList(response.data);
+        });
 
-        fetch('http://localhost:8080/manufacturers')
-        .then(response => response.json())
-        .then((data : tableType[]) => {
-            setManufacturerList(data)
+        axios.get('http://localhost:8080/manufacturers', {
+            withCredentials: true
         })
+        .then(response => {
+            setManufacturerList(response.data);
+        });
 
-        fetch('http://localhost:8080/locations')
-        .then(response => response.json())
-        .then((data : tableType[]) => {
-            setLocationList(data)
+        axios.get('http://localhost:8080/locations', {
+            withCredentials: true
         })
+        .then(response => {
+            setLocationList(response.data);
+        });
 
     }, [])
 
     const fetchPart = useCallback((partParams : Part)=>{
-
-    
-        // console.log("Form submitted");
-        // console.log(partParams);
 
         // constructs query for search
         // currently only support partNumber
