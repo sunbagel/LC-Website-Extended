@@ -1,5 +1,5 @@
 
-
+import axios from "@/lib/axios"
 
 const useLogin = () =>{
     const login = async (username : string, password : string) =>{
@@ -7,17 +7,16 @@ const useLogin = () =>{
         const userCredentials = {
           username, password
         }
-        const requestOptions = {
-          method: 'POST',
+        const options = {
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(userCredentials),
-          withCredentials: true
+          withCredentials: true // sends cookies for auth
         }
     
-        const res = fetch('/api/auth/users/login', requestOptions)
-        .then(res => res.json())
+
+        const res = await axios.post('/auth/users/login', userCredentials, options)
+        return res.data;
+
         
-        return res;
     
     }
 

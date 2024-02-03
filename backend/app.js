@@ -13,7 +13,20 @@ dotenv.config();
 const app = express();
 
 app.use(express.json());
-app.use(cors());
+
+const whitelist = ['http://localhost:5173'];
+const corsOptions = {
+    origin : (origin, callback) => {
+        if(whitelist.indexOf(origin) !== -1){
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
+    optionsSuccessStatus: 200,
+    credentials: true
+}
+app.use(cors(corsOptions));
 
 const MySQLStore = expressMySQLSession(session);
 
@@ -168,7 +181,7 @@ app.get("/parts/search", async (req, res) => {
       searchQuery += ' WHERE ' + conditions.join(' AND ');
     }
 
-    console.log(searchQuery);
+    // console.log(searchQuery);
 
     const parts = await dbFunctions.searchParts(searchQuery, values);
 

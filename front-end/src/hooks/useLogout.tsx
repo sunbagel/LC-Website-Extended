@@ -1,4 +1,5 @@
 import useAuth from "./useAuth";
+import axios from '../lib/axios.ts';
 
 
 const useLogout = () =>{
