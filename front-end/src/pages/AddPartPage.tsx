@@ -5,6 +5,7 @@ import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 
 import '@/styles/AddPage.css'
+import axios from "@/lib/axios";
 
 const AddPartPage = () => {
 
@@ -45,14 +46,12 @@ const AddPartPage = () => {
             location_id: e.Location
         }
 
-        const requestOptions = {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(part)
-        }
+        
 
-        fetch('http://localhost:8080/parts', requestOptions)
-        .then(response => response.json())
+        axios.post('http://localhost:8080/parts', part, {
+            withCredentials : true
+        })
+        .catch(err => console.log(err))
 
         closeForm()
     }
