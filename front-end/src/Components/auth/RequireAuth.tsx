@@ -14,7 +14,6 @@ const RequireAuth = () => {
     console.log("Login Render");
     
     axios.get("/auth/session-check", {
-
       withCredentials: true
     })
     .then(res => {

@@ -5,6 +5,7 @@ import { useCallback, useEffect, useState } from 'react';
 
 import Select from 'react-select';
 import SimpleFieldBox from './SimpleFieldBox';
+import axios from '@/lib/axios';
 
 
 // import useEffect from 'react';
@@ -174,30 +175,12 @@ const SearchBar = ({updatePartValues, updateSearchFunction} : SearchBarProps) =>
         // console.log("query: ", queryString);
 
         // console.log(simpleParams);
+        axios.get(`/parts/search?${queryString}`, {
+            withCredentials: true
+        })
+        .then(res => updatePartValues(res.data))
+        .catch(err => console.log('Parts Query Failed: ', err))
 
-        fetch(`http://localhost:8080/parts/search?${queryString}`)
-        .then(
-            (response) => response.json()
-        ).then(
-            (data) => {
-                
-                
-                const partValues : PartValues[] = [];
-                // clean up
-                data.map(
-                    (partObject : PartValues) => {
-
-                        // push to partValues
-                        
-                        // partObject contains IDs
-                        partValues.push(partObject);
-                        
-                    })
-                
-                updatePartValues(partValues)
-                
-            }
-        ).catch(err=>console.log(err))
     }, [simpleParams, updatePartValues]);
 
 
