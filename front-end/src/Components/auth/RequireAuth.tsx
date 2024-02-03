@@ -17,7 +17,7 @@ const RequireAuth = () => {
       withCredentials: true
     })
     .then(res => {
-      console.log(res.data);
+      
       const { user } = res.data;
       setAuth({ ...user });
     })

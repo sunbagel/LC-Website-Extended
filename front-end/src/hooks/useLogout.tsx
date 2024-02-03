@@ -6,17 +6,9 @@ const useLogout = () =>{
     const { setAuth } = useAuth();
     const logout = () =>{
 
-        const requestOptions = {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-        }
 
-        fetch('/api/auth/users/logout', requestOptions)
-        .then(response => {
-            if(!response.ok){
-                throw new Error('Server response error')
-            }
-            return response.json()
+        axios.post('/auth/users/logout', {}, {
+            withCredentials: true
         })
         .then(() => {
             setAuth(''); 
