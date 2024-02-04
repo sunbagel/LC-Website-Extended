@@ -1,4 +1,5 @@
 import useAuth from "@/hooks/useAuth";
+import useCSRF from "@/hooks/useCSRF";
 import useLogin from "@/hooks/useLogin";
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useLocation } from 'react-router-dom'
@@ -9,6 +10,7 @@ const LoginPage = () => {
 
   const { auth, setAuth } = useAuth();
   const login = useLogin();
+  const getCSRFToken = useCSRF();
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -16,7 +18,7 @@ const LoginPage = () => {
   // in this case it'd really only be app-home
   const from = location.state?.from?.pathname || '/app-home';
 
-
+  const [ token, setToken ] = useState<string>('');
   const [user, setUser] = useState<string>('');
   const [pwd, setPwd] = useState<string>('');
   const [errMsg, setErrMsg] = useState<string>('');
@@ -67,6 +69,12 @@ const LoginPage = () => {
     }
   }, [auth, from, navigate])
 
+  useEffect(()=>{
+    getCSRFToken().then( (res)=>
+      setToken(res)
+    )
+    
+  },[getCSRFToken])
 
   useEffect(()=>{
     setErrMsg('');
