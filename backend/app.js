@@ -2,6 +2,7 @@ import express, { json } from 'express'
 import cors from 'cors';
 import passport from 'passport'
 import session from 'express-session'
+import csurf from 'csurf'
 import expressMySQLSession from 'express-mysql-session';
 import local from './strategies/local.js'
 
@@ -60,6 +61,9 @@ app.use(session({
     store : sessionStore,
     name : 'session_cookie'
 }))
+
+// enable csurf protection
+app.use(csurf());
 
 app.use(passport.initialize());
 app.use(passport.session());

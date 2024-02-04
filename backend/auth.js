@@ -24,6 +24,11 @@ router.get('/', ensureAuthenticated, async(req, res)=>{
     res.status(200).json({message: 'User is authenticated'})
 })
 
+// Route to get CSRF token
+router.get('/csrf-token', (req, res) => {
+    res.json({ csrfToken: req.csrfToken() });
+});
+
 // purely for session check
 // middleware in app.use() to check for auth
 router.get('/session-check', ensureAuthenticated, (req, res)=>{
