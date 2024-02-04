@@ -8,11 +8,10 @@ const useLogin = () =>{
           username, password
         }
         const options = {
-          headers: { 'Content-Type': 'application/json' },
           withCredentials: true // sends cookies for auth
         }
     
-
+        // error handling done outside
         const res = await axios.post('/auth/users/login', userCredentials, options)
         return res.data;
 
