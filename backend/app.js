@@ -52,7 +52,7 @@ app.use(session({
         maxAge : parseInt(process.env.SESSION_EXPIRATION,10),
         // secure : true // only for secure conections
         httpOnly: true, // Prevent access through client-side scripts
-        sameSite: 'strict', // Strictly same-site
+        sameSite: 'strict', // Strictly same-site that set the cookie
      },
     // don't want to regenerate cookie on every server request
     saveUninitialized: false,
