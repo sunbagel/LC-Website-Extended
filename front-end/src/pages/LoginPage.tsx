@@ -11,7 +11,7 @@ const LoginPage = () => {
   const { auth, setAuth } = useAuth();
   const login = useLogin();
   const getCSRFToken = useCSRF();
-  const { setCsrfToken } = useAuth();
+  const { csrfToken, setCsrfToken } = useAuth();
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -69,12 +69,17 @@ const LoginPage = () => {
     }
   }, [auth, from, navigate])
 
-  useEffect(()=>{
-    getCSRFToken().then( (res)=>
-      setCsrfToken(res)
-    )
+  // useEffect(()=>{
+  //   getCSRFToken().then( (res)=>
+  //     setCsrfToken(res)
+  //   )
     
-  },[getCSRFToken, setCsrfToken])
+  // },[getCSRFToken, setCsrfToken])
+
+  useEffect(()=>{
+    console.log("token: ", csrfToken);
+
+  }, [csrfToken])
 
   useEffect(()=>{
     setErrMsg('');

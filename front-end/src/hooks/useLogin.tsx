@@ -1,11 +1,14 @@
 
 import axios from "@/lib/axios"
 import useAuth from "./useAuth";
+import useCSRF from "./useCSRF";
 
 const useLogin = () =>{
-    const { csrfToken } = useAuth();
+    const { setCsrfToken } = useAuth();
+    const getCSRFToken = useCSRF();
+    
     const login = async (username : string, password : string) =>{
-
+        
         const userCredentials = {
           username, password
         }
@@ -13,11 +16,26 @@ const useLogin = () =>{
           withCredentials: true // sends cookies for auth
         }
 
-        axios.defaults.headers.common['X-CSRF-TOKEN']= csrfToken;
-    
-        // error handling done outside
-        const res = await axios.post('/auth/users/login', userCredentials, options)
-        return res.data;
+        
+        getCSRFToken()
+        .then(
+          (res) => {
+            console.log(res);
+            const token = res.csrfToken;
+            console.log(token);
+            setCsrfToken(token)
+            axios.defaults.headers.common['X-CSRF-TOKEN']= token;
+            console.log(axios.defaults.headers.common);
+            return axios.post('/auth/users/login', userCredentials, options);
+          }
+        )
+        .then( (res) =>{
+            return res.data;
+        }).catch((err)=>console.log(err))
+        
+        
+        
+        
 
     }
 
