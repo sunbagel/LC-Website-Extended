@@ -70,12 +70,12 @@ const LoginPage = () => {
     }
   }, [auth, from, navigate])
 
-  // useEffect(()=>{
-  //   getCSRFToken().then( (res)=>
-  //     setCsrfToken(res)
-  //   )
+  useEffect(()=>{
+    getCSRFToken().then( (res)=>
+      setCsrfToken(res)
+    )
     
-  // },[getCSRFToken, setCsrfToken])
+  },[getCSRFToken])
 
   useEffect(()=>{
     console.log("token: ", csrfToken);

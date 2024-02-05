@@ -4,8 +4,7 @@ import useAuth from "./useAuth";
 import useCSRF from "./useCSRF";
 
 const useLogin = () =>{
-    const { setCsrfToken } = useAuth();
-    const getCSRFToken = useCSRF();
+    const { csrfToken } = useAuth();
     
     const login = async (username : string, password : string) =>{
         
@@ -17,24 +16,11 @@ const useLogin = () =>{
         }
 
         
-        const res = getCSRFToken()
-        .then(
-          (res) => {
-            console.log(res);
-            const token = res?.csrfToken;
-            console.log(token);
-            setCsrfToken(token)
-            axios.defaults.headers.common['X-CSRF-TOKEN']= token;
-            console.log(axios.defaults.headers.common);
-            return axios.post('/auth/users/login', userCredentials, options);
-          }
-        )
-        .then( (res) =>{
-            console.log(res.data);
-            return res.data;
-        })
+        axios.defaults.headers.common['X-CSRF-TOKEN']= csrfToken;
+        console.log(axios.defaults.headers.common);
+        const res = await axios.post('/auth/users/login', userCredentials, options);
 
-        return res;
+        return res.data;
         
     
     }

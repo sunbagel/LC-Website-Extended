@@ -63,10 +63,11 @@ app.use(session({
 }))
 
 // enable csurf protection
-app.use(csurf());
+app.use(csurf({cookie : false, sessionKey : 'session_cookie'}));
 
 app.use(passport.initialize());
 app.use(passport.session());
+
 
 // function ensureAuthenticated(req, res, next){
 //     if (req.isAuthenticated()) {
