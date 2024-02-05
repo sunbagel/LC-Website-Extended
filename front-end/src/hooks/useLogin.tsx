@@ -21,7 +21,7 @@ const useLogin = () =>{
         .then(
           (res) => {
             console.log(res);
-            const token = res.csrfToken;
+            const token = res?.csrfToken;
             console.log(token);
             setCsrfToken(token)
             axios.defaults.headers.common['X-CSRF-TOKEN']= token;

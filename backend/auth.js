@@ -26,7 +26,9 @@ router.get('/', ensureAuthenticated, async(req, res)=>{
 
 // Route to get CSRF token
 router.get('/csrf-token', (req, res) => {
-    res.json({ csrfToken: req.csrfToken() });
+    const csrfToken = req.csrfToken(); // Get the CSRF token
+    console.log('CSRF Token:', csrfToken); // Print the CSRF token
+    res.json({ csrfToken }); // Send the CSRF token in the response
 });
 
 // purely for session check
@@ -88,6 +90,7 @@ router.post('/users', async (req, res)=>{
 })
 
 router.post('/users/login', passport.authenticate('local'), async (req, res)=>{
+    console.log(req.session);
     res.status(200).json(req.user);
     // const {username, password} = req.body;
 
@@ -127,6 +130,7 @@ router.post('/users/login', passport.authenticate('local'), async (req, res)=>{
 
 
 router.post('/users/logout', (req, res)=>{
+    console.log(req.session);
     req.session.destroy(err=>{
         if(err){
             res.status(500).send('Unable to log out');
