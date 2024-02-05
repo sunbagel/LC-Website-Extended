@@ -3,10 +3,11 @@ import axios from '../lib/axios.ts';
 
 
 const useLogout = () =>{
-    const { setAuth } = useAuth();
+    const { csrfToken, setAuth } = useAuth();
     const logout = () =>{
 
-
+        console.log("token from logout", csrfToken);
+        axios.defaults.headers.common['X-CSRF-TOKEN']= csrfToken;
         axios.post('/auth/users/logout', {}, {
             withCredentials: true
         })

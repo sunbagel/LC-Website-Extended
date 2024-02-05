@@ -17,7 +17,7 @@ const useLogin = () =>{
         }
 
         
-        getCSRFToken()
+        const res = getCSRFToken()
         .then(
           (res) => {
             console.log(res);
@@ -30,13 +30,13 @@ const useLogin = () =>{
           }
         )
         .then( (res) =>{
+            console.log(res.data);
             return res.data;
-        }).catch((err)=>console.log(err))
-        
-        
-        
-        
+        })
 
+        return res;
+        
+    
     }
 
     return login;
