@@ -11,6 +11,7 @@ const LoginPage = () => {
   const { auth, setAuth } = useAuth();
   const login = useLogin();
   const getCSRFToken = useCSRF();
+  const { setCsrfToken } = useAuth();
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -18,7 +19,6 @@ const LoginPage = () => {
   // in this case it'd really only be app-home
   const from = location.state?.from?.pathname || '/app-home';
 
-  const [ token, setToken ] = useState<string>('');
   const [user, setUser] = useState<string>('');
   const [pwd, setPwd] = useState<string>('');
   const [errMsg, setErrMsg] = useState<string>('');
@@ -71,10 +71,10 @@ const LoginPage = () => {
 
   useEffect(()=>{
     getCSRFToken().then( (res)=>
-      setToken(res)
+      setCsrfToken(res)
     )
     
-  },[getCSRFToken])
+  },[getCSRFToken, setCsrfToken])
 
   useEffect(()=>{
     setErrMsg('');

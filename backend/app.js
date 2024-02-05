@@ -63,7 +63,7 @@ app.use(session({
 }))
 
 // enable csurf protection
-app.use(csurf());
+// app.use(csurf());
 
 app.use(passport.initialize());
 app.use(passport.session());
