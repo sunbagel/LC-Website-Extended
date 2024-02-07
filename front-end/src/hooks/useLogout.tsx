@@ -3,6 +3,7 @@ import axios from '../lib/axios.ts';
 
 
 const useLogout = () =>{
+    const { setAuth } = useAuth();
     const logout = () =>{
 
         axios.post('/auth/users/logout', {}, {

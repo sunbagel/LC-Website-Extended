@@ -7,10 +7,10 @@ export const AuthProvider = ({children}) =>{
 
     // use for username, roles
     const [auth, setAuth] = useState({});
-    const [csrfToken, setCsrfToken] = useState<string>('');
+    // const [csrfToken, setCsrfToken] = useState<string>('');
 
     return (
-        <AuthContext.Provider value={{auth, setAuth, csrfToken, setCsrfToken}}>
+        <AuthContext.Provider value={{auth, setAuth}}>
             {children}
         </AuthContext.Provider>
     )

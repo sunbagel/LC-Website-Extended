@@ -12,7 +12,6 @@ const LoginPage = () => {
   const { auth, setAuth } = useAuth();
   const login = useLogin();
   const getCSRFToken = useCSRF();
-  const { csrfToken, setCsrfToken } = useAuth();
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -73,16 +72,10 @@ const LoginPage = () => {
 
   useEffect(()=>{
     getCSRFToken().then( (token)=>{
-      setCsrfToken(token)
       axios.defaults.headers.common['x-csrf-token']= token;
     })
     
   },[getCSRFToken])
-
-  useEffect(()=>{
-    console.log("token: ", csrfToken);
-
-  }, [csrfToken])
 
   useEffect(()=>{
     setErrMsg('');
