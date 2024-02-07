@@ -16,7 +16,14 @@ module.exports = {
       },
     },
     extend: {
+      fontFamily:{
+        raleway: ["Raleway", "Arial"],
+        roboto: ["Roboto", "Open Sans", "Arial"]
+      },
       colors: {
+        blue: {
+          lc_turquoise: '#129384'
+        },
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",

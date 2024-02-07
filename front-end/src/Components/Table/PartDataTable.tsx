@@ -15,7 +15,6 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
-import Button from "react-bootstrap/Button"
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
@@ -68,7 +67,7 @@ export function PartDataTable<TData, TValue>({
                   
                   (cell.column.id == 'edit') ? 
                     <TableCell key={cell.id}>
-                      <Button onClick={() => openEditForm(row.id)}>Edit</Button>
+                      <button className="bg-blue-lc_turquoise hover:border-white" onClick={() => openEditForm(row.id)}>Edit</button>
                     </TableCell>
                   :(
                     <TableCell key={cell.id}>

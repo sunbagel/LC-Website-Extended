@@ -5,6 +5,7 @@ import { useCallback, useEffect, useState } from 'react';
 
 import Select from 'react-select';
 import SimpleFieldBox from './SimpleFieldBox';
+import axios from '@/lib/axios';
 
 
 // import useEffect from 'react';
@@ -123,38 +124,36 @@ const SearchBar = ({updatePartValues, updateSearchFunction} : SearchBarProps) =>
     // updating selection for suppliers
     useEffect(() => {
 
-        fetch('http://localhost:8080/part_types')
-        .then(response => response.json())
-        .then((data : tableType[]) => {
-            setPartTypes(data)
+        axios.get('http://localhost:8080/part_types',{
+            withCredentials: true
         })
+        .then(res => setPartTypes(res.data))
 
 
-        fetch('http://localhost:8080/suppliers')
-        .then(response => response.json())
-        .then((data : tableType[]) => {
-            setSupplierList(data)
+        axios.get('http://localhost:8080/suppliers', {
+            withCredentials: true
         })
+        .then(response => {
+            setSupplierList(response.data);
+        });
 
-        fetch('http://localhost:8080/manufacturers')
-        .then(response => response.json())
-        .then((data : tableType[]) => {
-            setManufacturerList(data)
+        axios.get('http://localhost:8080/manufacturers', {
+            withCredentials: true
         })
+        .then(response => {
+            setManufacturerList(response.data);
+        });
 
-        fetch('http://localhost:8080/locations')
-        .then(response => response.json())
-        .then((data : tableType[]) => {
-            setLocationList(data)
+        axios.get('http://localhost:8080/locations', {
+            withCredentials: true
         })
+        .then(response => {
+            setLocationList(response.data);
+        });
 
     }, [])
 
     const fetchPart = useCallback((partParams : Part)=>{
-
-    
-        // console.log("Form submitted");
-        // console.log(partParams);
 
         // constructs query for search
         // currently only support partNumber
@@ -171,32 +170,15 @@ const SearchBar = ({updatePartValues, updateSearchFunction} : SearchBarProps) =>
 
         // makes usable for http request
         const queryString = new URLSearchParams(combinedParams).toString();
-        // console.log(queryString);
+        // console.log("query: ", queryString);
 
         // console.log(simpleParams);
+        axios.get(`/parts/search?${queryString}`, {
+            withCredentials: true
+        })
+        .then(res => updatePartValues(res.data))
+        .catch(err => console.log('Parts Query Failed: ', err))
 
-        fetch(`http://localhost:8080/parts/search?${queryString}`).then(
-            (response) => response.json()
-        ).then(
-            (data) => {
-                console.log("Response: ", data)
-                
-                const partValues : PartValues[] = [];
-                // clean up
-                data.map(
-                    (partObject : PartValues) => {
-
-                        // push to partValues
-                        
-                        // partObject contains IDs
-                        partValues.push(partObject);
-                        
-                    })
-                
-                updatePartValues(partValues)
-                
-            }
-        )
     }, [simpleParams, updatePartValues]);
 
 
@@ -206,9 +188,9 @@ const SearchBar = ({updatePartValues, updateSearchFunction} : SearchBarProps) =>
         // avoid refresh with e.preventDefault
         e.preventDefault();
         console.log("Form Data: ");
-        console.log(e.currentTarget);
+        // console.log(e.currentTarget);
         const formData = new FormData(e.currentTarget);
-        console.log(formData);
+        // console.log(formData);
 
         const newPart : Part = {};
 
@@ -262,7 +244,7 @@ const SearchBar = ({updatePartValues, updateSearchFunction} : SearchBarProps) =>
     return(
         <div>
             <Form onSubmit={onSubmit} onChange={onChange}>
-                <Form.Group className="mb-3" controlId="formPartID">
+                <Form.Group className="mb-3">
                     
                             <div className="max-w-4xl grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4 gap-x-0.5">
 
@@ -363,7 +345,7 @@ const SearchBar = ({updatePartValues, updateSearchFunction} : SearchBarProps) =>
                                 />
                             ))}
                             
-                                <button className="flex justify-start my-4" onClick={addSimpleFieldBox}>Add Selector</button>
+                                <button className="flex default-btn justify-start my-4" onClick={addSimpleFieldBox}>Add Selector</button>
 
                                 
 
@@ -373,7 +355,7 @@ const SearchBar = ({updatePartValues, updateSearchFunction} : SearchBarProps) =>
                     
                 </Form.Group>
 
-                <button type="submit">
+                <button className="bg-blue-lc_turquoise hover:border-white" type="submit">
                     Search
                 </button>
             </Form>
