@@ -28,7 +28,7 @@ const corsOptions = {
     optionsSuccessStatus: 200,
     credentials: true
 }
-app.use(cors(corsOptions));
+app.use(cors());
 
 const MySQLStore = expressMySQLSession(session);
 
@@ -65,7 +65,7 @@ app.use(session({
 
 
 // enable csurf protection
-app.use(csurf());
+// app.use(csurf());
 
 app.use(passport.initialize());
 app.use(passport.session());

@@ -1,6 +1,7 @@
 import express from 'express'
 
 import passport from 'passport'
+import { csrfSync } from "csrf-sync";
 import { hash } from 'bcrypt'
 import { getUser, createUser } from './database.js'
 import dotenv from 'dotenv'
@@ -8,6 +9,16 @@ import dotenv from 'dotenv'
 dotenv.config();
 
 const router = express.Router();
+
+const {
+    invalidCsrfTokenError, // This is just for convenience if you plan on making your own middleware.
+    generateToken, // Use this in your routes to generate, store, and get a CSRF token.
+    getTokenFromRequest, // use this to retrieve the token submitted by a user
+    getTokenFromState, // The default method for retrieving a token from state.
+    storeTokenInState, // The default method for storing a token in state.
+    revokeToken, // Revokes/deletes a token by calling storeTokenInState(undefined)
+    csrfSynchronisedProtection, // This is the default CSRF protection middleware.
+  } = csrfSync();
 
 function ensureAuthenticated(req, res, next){
     if (req.isAuthenticated()) {
@@ -21,14 +32,12 @@ function ensureAuthenticated(req, res, next){
 
 // test environment
 router.get('/', ensureAuthenticated, async(req, res)=>{
-    res.status(200).json({message: 'User is authenticated'})
+    res.status(200).json({message: 'User is authenticated', token: getTokenFromState(req), given: getTokenFromRequest(req)})
 })
 
 // Route to get CSRF token
 router.get('/csrf-token', (req, res) => {
-    const csrfToken = req.csrfToken(); // Get the CSRF token
-    console.log('CSRF Token:', csrfToken); // Print the CSRF token
-    res.json({ csrfToken }); // Send the CSRF token in the response
+    res.json({token: generateToken(req)});
 });
 
 // purely for session check
