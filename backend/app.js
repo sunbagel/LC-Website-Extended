@@ -2,6 +2,7 @@ import express, { json } from 'express'
 import cors from 'cors';
 import passport from 'passport'
 import session from 'express-session'
+import { csrfSync } from 'csrf-sync';
 import csurf from 'csurf'
 import cookieParser from 'cookie-parser';
 import expressMySQLSession from 'express-mysql-session';
@@ -66,12 +67,16 @@ app.use(session({
 
 // enable csurf protection
 // app.use(csurf());
+const {
+    csrfSynchronisedProtection, // This is the default CSRF protection middleware.
+  } = csrfSync();
+
+
+// require csrf to access
+app.use(csrfSynchronisedProtection)
 
 app.use(passport.initialize());
 app.use(passport.session());
-
-
-
 
 // function ensureAuthenticated(req, res, next){
 //     if (req.isAuthenticated()) {
@@ -85,12 +90,6 @@ app.use(passport.session());
 // auth routes
 app.use('/auth', authRoutes);
 // parts
-
-
-// app.use((req, res, next)=>{
-//     console.log(sessionStore);
-//     next();
-// })
 
 app.get("/parts", async (req, res) =>{
     const parts = await dbFunctions.getParts();
