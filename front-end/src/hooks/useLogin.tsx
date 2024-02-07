@@ -1,10 +1,8 @@
 
 import axios from "@/lib/axios"
-import useAuth from "./useAuth";
-import useCSRF from "./useCSRF";
 
 const useLogin = () =>{
-    const { csrfToken } = useAuth();
+
     
     const login = async (username : string, password : string) =>{
         
@@ -16,9 +14,10 @@ const useLogin = () =>{
         }
 
         
-        axios.defaults.headers.common['x-csrf-token']= csrfToken;
+        // axios.defaults.headers.common['x-csrf-token']= csrfToken;
         console.log(axios.defaults.headers.common);
         const res = await axios.post('/auth/users/login', userCredentials, options);
+
 
         return res.data;
         

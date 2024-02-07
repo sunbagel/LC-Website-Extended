@@ -1,6 +1,7 @@
 import useAuth from "@/hooks/useAuth";
 import useCSRF from "@/hooks/useCSRF";
 import useLogin from "@/hooks/useLogin";
+import axios from "@/lib/axios";
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useLocation } from 'react-router-dom'
 
@@ -71,9 +72,10 @@ const LoginPage = () => {
   }, [auth, from, navigate])
 
   useEffect(()=>{
-    getCSRFToken().then( (res)=>
-      setCsrfToken(res)
-    )
+    getCSRFToken().then( (token)=>{
+      setCsrfToken(token)
+      axios.defaults.headers.common['x-csrf-token']= token;
+    })
     
   },[getCSRFToken])
 
