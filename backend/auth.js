@@ -146,7 +146,7 @@ router.post('/users/login', passport.authenticate('local'), async (req, res)=>{
 })
 
 
-router.post('/users/logout', csrfSynchronisedProtection, (req, res)=>{
+router.post('/users/logout', (req, res)=>{
 
     req.session.destroy(err=>{
         if(err){

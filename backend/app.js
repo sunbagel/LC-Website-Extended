@@ -29,7 +29,7 @@ const corsOptions = {
     optionsSuccessStatus: 200,
     credentials: true
 }
-app.use(cors());
+app.use(cors(corsOptions));
 
 const MySQLStore = expressMySQLSession(session);
 
