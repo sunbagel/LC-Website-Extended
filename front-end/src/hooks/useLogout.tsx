@@ -6,7 +6,6 @@ const useLogout = () =>{
     const { setAuth } = useAuth();
     const logout = () =>{
 
-
         axios.post('/auth/users/logout', {}, {
             withCredentials: true
         })

@@ -2,6 +2,9 @@ import express, { json } from 'express'
 import cors from 'cors';
 import passport from 'passport'
 import session from 'express-session'
+import { csrfSync } from 'csrf-sync';
+import csurf from 'csurf'
+import cookieParser from 'cookie-parser';
 import expressMySQLSession from 'express-mysql-session';
 import local from './strategies/local.js'
 
@@ -61,6 +64,19 @@ app.use(session({
     name : 'session_cookie'
 }))
 
+
+// enable csurf protection
+// app.use(csurf());
+const {
+    csrfSynchronisedProtection, // This is the default CSRF protection middleware.
+    getTokenFromRequest,
+    getTokenFromState
+  } = csrfSync();
+
+
+// require csrf to access
+app.use(csrfSynchronisedProtection)
+
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -77,19 +93,12 @@ app.use(passport.session());
 app.use('/auth', authRoutes);
 // parts
 
-
-// app.use((req, res, next)=>{
-//     console.log(sessionStore);
-//     next();
-// })
-
 app.get("/parts", async (req, res) =>{
     const parts = await dbFunctions.getParts();
     res.send(parts);
 })
 
 app.get("/parts/search", async (req, res) => {
-    // try to get the params to match table name
     const queryMapping = {
         part_name: 'part_name',
         part_number: 'part_number',

@@ -1,5 +1,7 @@
 import useAuth from "@/hooks/useAuth";
+import useCSRF from "@/hooks/useCSRF";
 import useLogin from "@/hooks/useLogin";
+import axios from "@/lib/axios";
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useLocation } from 'react-router-dom'
 
@@ -9,13 +11,13 @@ const LoginPage = () => {
 
   const { auth, setAuth } = useAuth();
   const login = useLogin();
+  const getCSRFToken = useCSRF();
 
   const navigate = useNavigate();
   const location = useLocation();
   // dynamically, where they came from
   // in this case it'd really only be app-home
   const from = location.state?.from?.pathname || '/app-home';
-
 
   const [user, setUser] = useState<string>('');
   const [pwd, setPwd] = useState<string>('');
@@ -41,6 +43,7 @@ const LoginPage = () => {
           navigate(from, { replace: true });
           
       }).catch(err =>{
+          console.log(err);
           if(!err?.response){
           setErrMsg('No Server Response');
           } else if(err.response?.status === 400){
@@ -67,6 +70,12 @@ const LoginPage = () => {
     }
   }, [auth, from, navigate])
 
+  useEffect(()=>{
+    getCSRFToken().then( (token)=>{
+      axios.defaults.headers.common['x-csrf-token']= token;
+    })
+    
+  },[getCSRFToken])
 
   useEffect(()=>{
     setErrMsg('');
