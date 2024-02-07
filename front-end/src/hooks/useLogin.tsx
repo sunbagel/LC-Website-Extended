@@ -13,9 +13,6 @@ const useLogin = () =>{
           withCredentials: true // sends cookies for auth
         }
 
-        
-        // axios.defaults.headers.common['x-csrf-token']= csrfToken;
-        console.log(axios.defaults.headers.common);
         const res = await axios.post('/auth/users/login', userCredentials, options);
 
         // set new token that's returned

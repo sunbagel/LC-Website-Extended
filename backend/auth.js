@@ -109,17 +109,11 @@ router.post('/users', async (req, res)=>{
 
 // generate a new CSRF token upon login
 router.post('/users/login', passport.authenticate('local'), generateCSRF, async (req, res)=>{
-    // console.log("Req token: ", getTokenFromRequest(req));
-    // req token comes from the initial login, state token is the new token that is now stored in the session
-    // console.log("Session token: ", getTokenFromState(req));
-
     res.status(200).json({...req.user, csrfToken : getTokenFromState(req)});
 })
 
 
 router.post('/users/logout', (req, res)=>{
-    console.log("Req token: ", getTokenFromRequest(req));
-    console.log("Session token: ", getTokenFromState(req));
     req.session.destroy(err=>{
         if(err){
             res.status(500).send('Unable to log out');
