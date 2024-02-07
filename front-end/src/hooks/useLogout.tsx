@@ -8,7 +8,7 @@ const useLogout = () =>{
 
         console.log(csrfToken);
         console.log("token from logout", csrfToken);
-        axios.defaults.headers.common['X-CSRF-TOKEN']= csrfToken;
+        // axios.defaults.headers.common['x-csrf-token']= csrfToken;
         console.log(axios.defaults.headers.common);
         axios.post('/auth/users/logout', {}, {
             withCredentials: true

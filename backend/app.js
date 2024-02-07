@@ -29,7 +29,7 @@ const corsOptions = {
     optionsSuccessStatus: 200,
     credentials: true
 }
-app.use(cors(corsOptions));
+app.use(cors());
 
 const MySQLStore = expressMySQLSession(session);
 
@@ -69,6 +69,8 @@ app.use(session({
 // app.use(csurf());
 const {
     csrfSynchronisedProtection, // This is the default CSRF protection middleware.
+    getTokenFromRequest,
+    getTokenFromState
   } = csrfSync();
 
 
@@ -98,6 +100,8 @@ app.get("/parts", async (req, res) =>{
 
 app.get("/parts/search", async (req, res) => {
     // try to get the params to match table name
+    console.log("From req: ", getTokenFromRequest(req));
+    console.log("From sess: ", getTokenFromState(req));
     const queryMapping = {
         part_name: 'part_name',
         part_number: 'part_number',

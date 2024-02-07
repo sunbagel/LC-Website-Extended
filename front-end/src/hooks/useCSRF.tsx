@@ -11,7 +11,7 @@ const useCSRF = () =>{
             const res = await axios.get('/auth/csrf-token', {
                 withCredentials : true
             })
-            return res.data.csrfToken;
+            return res.data.token;
         } catch (err) {
             console.log("Error with CSRF Token Request: ", err);
         }

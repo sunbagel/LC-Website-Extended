@@ -41,11 +41,12 @@ const generateCSRF = (req, res, next) =>{
     next();
 }
 router.get('/csrf-token', generateCSRF, (req, res) => {
-    res.json({token: getTokenFromState(req)});
+    // storeTokenInState(req);
+    res.json({token: getTokenFromState(req), test : req.session.test});
 });
 
 router.get('/check-token', (req, res) => {
-    res.status(200).json({token: getTokenFromState(req), given: getTokenFromRequest(req)})
+    res.status(200).json({token: getTokenFromState(req), given: getTokenFromRequest(req), stored: getTokenFromState(req), test : req.session.test})
 });
 
 // purely for session check
@@ -106,8 +107,10 @@ router.post('/users', async (req, res)=>{
         
 })
 
-router.post('/users/login', passport.authenticate('local'), async (req, res)=>{
-
+// generate a new CSRF token upon login
+router.post('/users/login', passport.authenticate('local'), generateCSRF, async (req, res)=>{
+    console.log("Req token: ", getTokenFromRequest(req));
+    console.log("Session token: ", getTokenFromState(req));
     res.status(200).json(req.user);
     // const {username, password} = req.body;
 
@@ -147,7 +150,8 @@ router.post('/users/login', passport.authenticate('local'), async (req, res)=>{
 
 
 router.post('/users/logout', (req, res)=>{
-
+    console.log("Req token: ", getTokenFromRequest(req));
+    console.log("Session token: ", getTokenFromState(req));
     req.session.destroy(err=>{
         if(err){
             res.status(500).send('Unable to log out');
