@@ -90,7 +90,7 @@ router.post('/users', async (req, res)=>{
 })
 
 router.post('/users/login', passport.authenticate('local'), async (req, res)=>{
-    console.log(req.session);
+    console.log("login ", req.session.csrfToken);
     res.status(200).json(req.user);
     // const {username, password} = req.body;
 
@@ -131,6 +131,7 @@ router.post('/users/login', passport.authenticate('local'), async (req, res)=>{
 
 router.post('/users/logout', (req, res)=>{
     console.log(req.session);
+    console.log("logout ", req.session.id);
     req.session.destroy(err=>{
         if(err){
             res.status(500).send('Unable to log out');

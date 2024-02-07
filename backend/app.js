@@ -3,6 +3,7 @@ import cors from 'cors';
 import passport from 'passport'
 import session from 'express-session'
 import csurf from 'csurf'
+import cookieParser from 'cookie-parser';
 import expressMySQLSession from 'express-mysql-session';
 import local from './strategies/local.js'
 
@@ -62,11 +63,14 @@ app.use(session({
     name : 'session_cookie'
 }))
 
+
 // enable csurf protection
-app.use(csurf({cookie : false, sessionKey : 'session_cookie'}));
+app.use(csurf());
 
 app.use(passport.initialize());
 app.use(passport.session());
+
+
 
 
 // function ensureAuthenticated(req, res, next){
