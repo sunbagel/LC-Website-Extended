@@ -1,6 +1,6 @@
 # Website / Web App for LC Industrial
 
-The _public-facing_ side of the website is meant to draw in more customers and facilitate easier communication with LC Industrial. For members of the company, there is also access to the **inventory management web app.**
+The _public-facing_ side of the website is meant to draw in more customers and facilitate easier communication with LC Industrial. For members of the company, there is also access to the **inventory management web app.** The app is only accessible by logging in. For the authentication system, I implemented session-based Single Factor Authentication using Passport.js. By configuring CORS, cookie settings, and setting up CSRF tokens, I ensured that data was safe against common web vulnerabilities like Cross-Site Scripting and CSRF.
 ## Home Page:
 ![image](readme-images/Home1.png)
 
@@ -29,7 +29,7 @@ With this web app, they're able to now catalog their parts and easily maintain a
 
 
 ## What did I learn?
-I made this app using a React front-end, an Express back-end for the API and a MySQL database. I learned a lot about managing data in all stages of the application, from the front-end form to the back-end API and finally the SQL query for the database.
+I made this app using a React front-end, an Express back-end for the API and a MySQL database. I learned a lot about managing data in all stages of the application, from the front-end form to the back-end API and finally the SQL query for the database. When configuring authentication, I learned more about cookies and client/server interactions. I also learned how to properly protect my website and server on the internet by implementing session-based authentication, protecting API endpoints, CSRF tokens, and configuring my security to protect against XSS.
 
 
 
