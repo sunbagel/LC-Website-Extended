@@ -42,11 +42,11 @@ const generateCSRF = (req, res, next) =>{
 }
 router.get('/csrf-token', generateCSRF, (req, res) => {
     // storeTokenInState(req);
-    res.json({token: getTokenFromState(req), test : req.session.test});
+    res.json({token: getTokenFromState(req)});
 });
 
 router.get('/check-token', (req, res) => {
-    res.status(200).json({token: getTokenFromState(req), given: getTokenFromRequest(req), stored: getTokenFromState(req), test : req.session.test})
+    res.status(200).json({token: getTokenFromState(req), given: getTokenFromRequest(req), stored: getTokenFromState(req)})
 });
 
 // purely for session check
@@ -109,43 +109,11 @@ router.post('/users', async (req, res)=>{
 
 // generate a new CSRF token upon login
 router.post('/users/login', passport.authenticate('local'), generateCSRF, async (req, res)=>{
-    console.log("Req token: ", getTokenFromRequest(req));
-    console.log("Session token: ", getTokenFromState(req));
-    res.status(200).json(req.user);
-    // const {username, password} = req.body;
+    // console.log("Req token: ", getTokenFromRequest(req));
+    // req token comes from the initial login, state token is the new token that is now stored in the session
+    // console.log("Session token: ", getTokenFromState(req));
 
-    // if(username && password){
-    //     if(req.session.authenticated){
-    //         res.json(req.session);
-    //     } else {
-    //         try{
-    //             const user = await getUser(username);
-        
-    //             if(user === undefined){
-    //                 return res.status(400).send('Cannot find user');
-    //             }
-        
-    //             if(await compare(password, user.password)){
-    //                 req.session.authenticated = true;
-    //                 // can append things to cookies
-    //                 req.session.user = {
-    //                     username, password
-    //                 }
-    //                 res.status(201).send('Successfully logged in');
-    //                 // res.json(req.session);
-    //             } else {
-    //                 res.status(403).json({msg: 'Bad Credentials'});
-    //             }
-    //         } catch{
-    //             return res.status(500).send();
-    //         }
-            
-    //     }
-    // } else {
-    //     res.status(403).json({msg: 'Bad Credentials'});
-    // }
-    
-
+    res.status(200).json({...req.user, csrfToken : getTokenFromState(req)});
 })
 
 
