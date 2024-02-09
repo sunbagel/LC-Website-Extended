@@ -29,13 +29,9 @@ const EditForm = ({showEditForm, closeEditForm, defaultValues, searchFunction} :
         // console.log('TEST PART ID:');
         // console.log(part_id);
 
-        const requestOptions = {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(part)
-        }
-
-        axios(`http://localhost:8080/parts/${part_id}`, requestOptions)
+        axios.put(`http://localhost:8080/parts/${part_id}`, part, {
+            withCredentials : true
+        })
         // .then(res=>console.log(res.data))
         .then(()=>searchFunction())
         .then(() => closeEditForm())

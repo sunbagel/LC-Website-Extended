@@ -51,16 +51,19 @@ const PartForm = ({ sendPart, closeForm, defaultValues } : PartFormProps) => {
     }, [defaultValues, reset, partTypes, supplierList, manufacturerList, locationList])
 
     useEffect(() => {
-        axios.get('http://localhost:8080/part_types')
+        const axiosOptions = {
+            withCredentials: true
+        }
+        axios.get('http://localhost:8080/part_types', axiosOptions)
         .then( res => setPartTypes(res.data))
 
-        axios.get('http://localhost:8080/suppliers')
+        axios.get('http://localhost:8080/suppliers', axiosOptions)
         .then( res => setSupplierList(res.data))
 
-        axios.get('http://localhost:8080/manufacturers')
+        axios.get('http://localhost:8080/manufacturers', axiosOptions)
         .then( res => setManufacturerList(res.data))
 
-        axios.get('http://localhost:8080/locations')
+        axios.get('http://localhost:8080/locations', axiosOptions)
         .then( res => setLocationList(res.data))
     }, [])
 
