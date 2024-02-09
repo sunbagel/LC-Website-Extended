@@ -35,7 +35,7 @@ const SimpleFieldBox = ({handleSimpleParams, removeSimpleFieldBox, id} : SimpleF
 
     const [selectedOperator, setSelectedOperator] = useState<ComparisonOperator>(comparisonOperators[0]);
     const [ numValue, setNumValue ] = useState<string>('');
-    const [ selectedColumn, setSelectedColumn ] = useState<string>(columns[0]);
+    const [ selectedColumn, setSelectedColumn ] = useState<Column>(columns[0]);
 
     return (
         <div className="py-2 flex items-center space-x-2">
@@ -79,7 +79,7 @@ const SimpleFieldBox = ({handleSimpleParams, removeSimpleFieldBox, id} : SimpleF
 
             <Listbox 
                 value={selectedOperator} 
-                onChange={(value : string)=>{
+                onChange={(value : ComparisonOperator)=>{
                     setSelectedOperator(value);
                     handleSimpleParams(id, columnMap[selectedColumn], operatorMap[value], numValue); // maps to math symbol
                 }}
