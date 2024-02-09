@@ -1,7 +1,7 @@
 
 import Form from 'react-bootstrap/Form';
 import { Part, PartKeyNumbers, PartValues, tableType } from '@/types';
-import { useCallback, useEffect, useState } from 'react';
+import { CSSProperties, useCallback, useEffect, useState } from 'react';
 
 import Select from 'react-select';
 import SimpleFieldBox from './SimpleFieldBox';
@@ -84,24 +84,24 @@ const SearchBar = ({updatePartValues, updateSearchFunction} : SearchBarProps) =>
     };
     
     const customStyles = {
-        control: (provided) => ({
+        control: (provided : CSSProperties) => ({
             ...provided,
             ...commonStyles,
         }),
-        singleValue: (provided) => ({
+        singleValue: (provided : CSSProperties) => ({
             ...provided,
             ...commonStyles,
         }),
-        option: (provided) => ({
+        option: (provided : CSSProperties) => ({
             ...provided,
             ...commonStyles,
 
         }),
-        menuList: (provided) => ({
+        menuList: (provided : CSSProperties) => ({
             ...provided,
             padding: 0,
         }),
-        menu: (provided) => ({
+        menu: (provided : CSSProperties) => ({
             ...provided,
             borderRadius: '4px',
             overflow: 'hidden' // This is to ensure that the rounded corners are visible
@@ -183,26 +183,13 @@ const SearchBar = ({updatePartValues, updateSearchFunction} : SearchBarProps) =>
         e.preventDefault();
         const formData = new FormData(e.currentTarget);
 
-        const newPart : Part = {};
-
-
-        // just need values that user submitted
-        for(const [key, value] of formData.entries()){
-            
-            if(PartKeyNumbers.includes(key as keyof Part)){
-                newPart[key as keyof Part] = value ? Number(value) : null;
-            } else {
-                newPart[key as keyof Part] = value || null;
-            }
-            
-        }
+        
+        const newPart = Object.fromEntries(formData.entries());
 
         setPartParams({
             ...partParams,
             ...newPart
         });
-
-
 
     }
 
@@ -211,19 +198,7 @@ const SearchBar = ({updatePartValues, updateSearchFunction} : SearchBarProps) =>
 
         const formData = new FormData(e.currentTarget);
 
-        // any subset of Part type
-        const newPart : Partial<Part> = {};
-
-        // just need values that user submitted
-        for(const [key, value] of formData.entries()){
-
-            if(PartKeyNumbers.includes(key as keyof Part)){
-                newPart[key as keyof Part] = value ? Number(value) : null;
-            } else {
-                newPart[key as keyof Part] = value || null;
-            }
-            
-        }
+        const newPart = Object.fromEntries(formData.entries());
 
         setPartParams({
             ...partParams,
