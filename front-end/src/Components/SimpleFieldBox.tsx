@@ -3,6 +3,7 @@ import { useState } from "react";
 
 type SimpleFieldBoxProps = {
     handleSimpleParams : (id : string, field : string, operator : string, value : string ) => void;
+    removeSimpleFieldBox : (id: string) => void;
     id : string;
 }
 
