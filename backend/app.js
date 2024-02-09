@@ -99,6 +99,8 @@ app.get("/parts", async (req, res) =>{
 })
 
 app.get("/parts/search", async (req, res) => {
+    // console.log("GET Req: ", getTokenFromRequest(req));
+    // console.log("Sess: ", getTokenFromState(req), "\n");
     const queryMapping = {
         part_name: 'part_name',
         part_number: 'part_number',
@@ -208,7 +210,6 @@ app.get("/parts/:id", async (req, res) =>{
 })
 
 app.post("/parts", async (req, res) =>{
-    
     const { part_name, supplier_id, part_number, description, price, 
             quantity, part_type_id, manufacturer_id, location_id } = req.body;
     
@@ -220,6 +221,8 @@ app.post("/parts", async (req, res) =>{
 
 
 app.put("/parts/:id", async (req, res) =>{
+    // console.log("PUT Req: ", getTokenFromRequest(req));
+    // console.log("Sess: ", getTokenFromState(req), "\n");
     const queryMapping = {
         part_name: 'part_name',
         supplier_id: 'supplier_id',

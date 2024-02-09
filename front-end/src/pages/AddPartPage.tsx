@@ -32,21 +32,8 @@ const AddPartPage = () => {
         setIsSubmitted(false)
     }
 
-    const sendPart = (e) => {
-        const part = {
-            // defined in the PartForm value section
-            part_number: e.PartNum,
-            part_name: e.PartName,
-            description: e.Description,
-            quantity: e.Quantity,
-            price: e.Price,
-            part_type_id: e.PartType,
-            supplier_id: e.Supplier,
-            manufacturer_id: e.Manufacturer,
-            location_id: e.Location
-        }
-
-        
+    const sendPart = (part : PartValues) => {
+        console.log(part);
 
         axios.post('http://localhost:8080/parts', part, {
             withCredentials : true

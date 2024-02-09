@@ -29,7 +29,7 @@ const RequireAuth = () => {
         
         if (error.response.status === 401) {
           // Handle unauthorized access
-          setAuth({});
+          setAuth(undefined);
           // No need to return; the execution stops here within the catch block
         }
       } else if (error.request) {

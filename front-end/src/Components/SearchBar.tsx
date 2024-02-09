@@ -1,9 +1,9 @@
 
 import Form from 'react-bootstrap/Form';
-import { Part, PartKeyNumbers, PartValues, tableType } from '@/types';
+import { Part, PartValues, tableType } from '@/types';
 import { useCallback, useEffect, useState } from 'react';
 
-import Select from 'react-select';
+import Select, { CSSObjectWithLabel, SingleValue, StylesConfig } from 'react-select';
 import SimpleFieldBox from './SimpleFieldBox';
 import axios from '@/lib/axios';
 
@@ -75,38 +75,33 @@ const SearchBar = ({updatePartValues, updateSearchFunction} : SearchBarProps) =>
 
     }
 
-    useEffect(() => {
-        console.log("Current simpleFieldBoxes:", simpleFieldBoxes);
-    }, [simpleFieldBoxes]);
-
-
     // styling for Select
-    const commonStyles = {
+    const commonStyles : CSSObjectWithLabel= {
         // Define common style properties here
         color: 'black',
         textAlign: 'left',
         // ...other styles
     };
     
-    const customStyles = {
-        control: (provided) => ({
+    const customStyles : StylesConfig<tableType, false> = {
+        control: (provided: CSSObjectWithLabel) => ({
             ...provided,
             ...commonStyles,
         }),
-        singleValue: (provided) => ({
+        singleValue: (provided : CSSObjectWithLabel) => ({
             ...provided,
             ...commonStyles,
         }),
-        option: (provided) => ({
+        option: (provided : CSSObjectWithLabel) => ({
             ...provided,
             ...commonStyles,
 
         }),
-        menuList: (provided) => ({
+        menuList: (provided : CSSObjectWithLabel) => ({
             ...provided,
             padding: 0,
         }),
-        menu: (provided) => ({
+        menu: (provided : CSSObjectWithLabel) => ({
             ...provided,
             borderRadius: '4px',
             overflow: 'hidden' // This is to ensure that the rounded corners are visible
@@ -158,7 +153,6 @@ const SearchBar = ({updatePartValues, updateSearchFunction} : SearchBarProps) =>
         // constructs query for search
         // currently only support partNumber
         const filteredParams = Object.fromEntries(Object.entries(partParams).filter((pair) => pair[1] != null));
-        console.log(filteredParams);
 
         // for the object pair, need to parse data to include field type gt/lt/equal, and number
         const conditionStrings = Object.values(simpleParams).map((param : SimpleParam) => {
@@ -187,32 +181,15 @@ const SearchBar = ({updatePartValues, updateSearchFunction} : SearchBarProps) =>
     function onSubmit(e : React.FormEvent<HTMLFormElement>){
         // avoid refresh with e.preventDefault
         e.preventDefault();
-        console.log("Form Data: ");
-        // console.log(e.currentTarget);
         const formData = new FormData(e.currentTarget);
-        // console.log(formData);
 
-        const newPart : Part = {};
-
-
-        // just need values that user submitted
-        for(const [key, value] of formData.entries()){
-            console.log(value);
-            
-            if(PartKeyNumbers.includes(key as keyof Part)){
-                newPart[key as keyof Part] = value ? Number(value) : null;
-            } else {
-                newPart[key as keyof Part] = value || null;
-            }
-            
-        }
+        
+        const newPart = Object.fromEntries(formData.entries());
 
         setPartParams({
             ...partParams,
             ...newPart
         });
-
-
 
     }
 
@@ -221,19 +198,7 @@ const SearchBar = ({updatePartValues, updateSearchFunction} : SearchBarProps) =>
 
         const formData = new FormData(e.currentTarget);
 
-        // any subset of Part type
-        const newPart : Partial<Part> = {};
-
-        // just need values that user submitted
-        for(const [key, value] of formData.entries()){
-
-            if(PartKeyNumbers.includes(key as keyof Part)){
-                newPart[key as keyof Part] = value ? Number(value) : null;
-            } else {
-                newPart[key as keyof Part] = value || null;
-            }
-            
-        }
+        const newPart = Object.fromEntries(formData.entries());
 
         setPartParams({
             ...partParams,
@@ -260,7 +225,9 @@ const SearchBar = ({updatePartValues, updateSearchFunction} : SearchBarProps) =>
                                     <Select
                                         className="py-2 max-w-sm col-span-1"
                                         placeholder="Select a Supplier"
-                                        onChange={(option : tableType) => {setSelectedSupplier(option ? option.name : '');}}
+                                        onChange={(option: SingleValue<tableType>) => {
+                                            setSelectedSupplier(option ? option.name : '');
+                                        }}
                                         styles={customStyles}
                                         options={supplierList}
                                         getOptionLabel={(option : tableType) => option.name}
@@ -278,7 +245,7 @@ const SearchBar = ({updatePartValues, updateSearchFunction} : SearchBarProps) =>
                                     <Select
                                         className="py-2 max-w-sm col-span-1"
                                         placeholder="Select a Manufacturer"
-                                        onChange={(option : tableType) => {setSelectedManufacturer(option ? option.name : '');}}
+                                        onChange={(option: SingleValue<tableType>) => {setSelectedManufacturer(option ? option.name : '');}}
                                         styles={customStyles}
                                         options={manufacturerList}
                                         getOptionLabel={(option : tableType) => option.name}
@@ -297,7 +264,7 @@ const SearchBar = ({updatePartValues, updateSearchFunction} : SearchBarProps) =>
                                 <Select 
                                     className="py-2 max-w-sm" 
                                     placeholder="Select a Location"
-                                    onChange={(option : tableType) => {setSelectedLocation(option ? option.name : '');}}
+                                    onChange={(option: SingleValue<tableType>) => {setSelectedLocation(option ? option.name : '');}}
                                     styles={customStyles}
                                     options={locationList}
                                     getOptionLabel={(option : tableType) => option.name}
@@ -317,7 +284,7 @@ const SearchBar = ({updatePartValues, updateSearchFunction} : SearchBarProps) =>
                                 <Select 
                                     className="py-2 max-w-sm" 
                                     placeholder="Select a Part Type"
-                                    onChange={(option : tableType) => {setSelectedPartType(option ? option.name : '');}}
+                                    onChange={(option: SingleValue<tableType>) => {setSelectedPartType(option ? option.name : '');}}
                                     styles={customStyles}
                                     options={partTypes}
                                     getOptionLabel={(option : tableType) => option.name}

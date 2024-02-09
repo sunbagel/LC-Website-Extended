@@ -3,14 +3,20 @@ import { useState } from "react";
 
 type SimpleFieldBoxProps = {
     handleSimpleParams : (id : string, field : string, operator : string, value : string ) => void;
+    removeSimpleFieldBox : (id: string) => void;
     id : string;
 }
+
+type ComparisonOperator = 'Less Than' | 'Equal To' | 'Greater Than';
+type Column = 'Price' | 'Quantity';
+
+
 
 const SimpleFieldBox = ({handleSimpleParams, removeSimpleFieldBox, id} : SimpleFieldBoxProps)=>{
 
     
-    const columns = ['Price', 'Quantity'];
-    const columnMap = {
+    const columns : Column[] = ['Price', 'Quantity'];
+    const columnMap : { [key in Column] : string } = {
         'Price' : 'price',
         'Quantity' : 'quantity'
     }
@@ -19,22 +25,23 @@ const SimpleFieldBox = ({handleSimpleParams, removeSimpleFieldBox, id} : SimpleF
     // e.g. lt : 'Less Than'
     // or even > : 'Less Than'
     // or 'Less Than' : >
-    const comparisonOperators = ['Less Than', 'Equal To', 'Greater Than'];
-    const operatorMap = {
-        'Less Than' : '<=',
-        'Equal To' : '=',
-        'Greater Than' : '>='
-    }
+    const comparisonOperators: ComparisonOperator[] = ['Less Than', 'Equal To', 'Greater Than'];
 
-    const [selectedOperator, setSelectedOperator] = useState<string>(comparisonOperators[0]);
+    const operatorMap: { [key in ComparisonOperator]: string } = {
+        'Less Than': '<=',
+        'Equal To': '=',
+        'Greater Than': '>='
+    };
+
+    const [selectedOperator, setSelectedOperator] = useState<ComparisonOperator>(comparisonOperators[0]);
     const [ numValue, setNumValue ] = useState<string>('');
-    const [ selectedColumn, setSelectedColumn ] = useState<string>(columns[0]);
+    const [ selectedColumn, setSelectedColumn ] = useState<Column>(columns[0]);
 
     return (
         <div className="py-2 flex items-center space-x-2">
             <Listbox 
                 value={selectedColumn} 
-                onChange={(value : string)=>{
+                onChange={(value : Column)=>{
                     setSelectedColumn(value);
                     handleSimpleParams(id, columnMap[value], operatorMap[selectedOperator], numValue); // maps to math symbol
                 }}
@@ -72,7 +79,7 @@ const SimpleFieldBox = ({handleSimpleParams, removeSimpleFieldBox, id} : SimpleF
 
             <Listbox 
                 value={selectedOperator} 
-                onChange={(value : string)=>{
+                onChange={(value : ComparisonOperator)=>{
                     setSelectedOperator(value);
                     handleSimpleParams(id, columnMap[selectedColumn], operatorMap[value], numValue); // maps to math symbol
                 }}

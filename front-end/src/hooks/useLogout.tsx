@@ -10,7 +10,7 @@ const useLogout = () =>{
             withCredentials: true
         })
         .then(() => {
-            setAuth(''); 
+            setAuth(undefined); 
         })
         .catch(err => console.log('Logout request failed,', err))
     }
