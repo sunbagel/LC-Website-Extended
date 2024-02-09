@@ -75,11 +75,6 @@ const SearchBar = ({updatePartValues, updateSearchFunction} : SearchBarProps) =>
 
     }
 
-    useEffect(() => {
-        console.log("Current simpleFieldBoxes:", simpleFieldBoxes);
-    }, [simpleFieldBoxes]);
-
-
     // styling for Select
     const commonStyles = {
         // Define common style properties here
@@ -158,7 +153,6 @@ const SearchBar = ({updatePartValues, updateSearchFunction} : SearchBarProps) =>
         // constructs query for search
         // currently only support partNumber
         const filteredParams = Object.fromEntries(Object.entries(partParams).filter((pair) => pair[1] != null));
-        console.log(filteredParams);
 
         // for the object pair, need to parse data to include field type gt/lt/equal, and number
         const conditionStrings = Object.values(simpleParams).map((param : SimpleParam) => {
@@ -187,17 +181,13 @@ const SearchBar = ({updatePartValues, updateSearchFunction} : SearchBarProps) =>
     function onSubmit(e : React.FormEvent<HTMLFormElement>){
         // avoid refresh with e.preventDefault
         e.preventDefault();
-        console.log("Form Data: ");
-        // console.log(e.currentTarget);
         const formData = new FormData(e.currentTarget);
-        // console.log(formData);
 
         const newPart : Part = {};
 
 
         // just need values that user submitted
         for(const [key, value] of formData.entries()){
-            console.log(value);
             
             if(PartKeyNumbers.includes(key as keyof Part)){
                 newPart[key as keyof Part] = value ? Number(value) : null;

@@ -8,6 +8,7 @@ import { useForm } from "react-hook-form";
 import '../styles/PartForm.css';
 import { useEffect, useState } from 'react';
 import { PartValues, tableType } from '@/types';
+import axios from '@/lib/axios';
 
 
 type PartFormProps = {
@@ -40,9 +41,9 @@ const PartForm = ({ sendPart, closeForm, defaultValues } : PartFormProps) => {
                 quantity: defaultValues["quantity"],
                 price: defaultValues["price"],
                 part_type: defaultValues["part_type_id"], 
-                supplier: defaultValues["supplier_id"],
-                manufacturer: defaultValues["manufacturer_id"],
-                location: defaultValues["location_id"]
+                supplier_id: defaultValues["supplier_id"],
+                manufacturer_id: defaultValues["manufacturer_id"],
+                location_id: defaultValues["location_id"]
             };
             // defaultValuesList.Supplier = defaultValues["supplier_id"];
             reset({ ...defaultValuesList });
@@ -50,29 +51,17 @@ const PartForm = ({ sendPart, closeForm, defaultValues } : PartFormProps) => {
     }, [defaultValues, reset, partTypes, supplierList, manufacturerList, locationList])
 
     useEffect(() => {
-        fetch('http://localhost:8080/part_types')
-        .then(response => response.json())
-        .then((data : tableType[]) => {
-            setPartTypes(data)
-        })
+        axios.get('http://localhost:8080/part_types')
+        .then( res => setPartTypes(res.data))
 
-        fetch('http://localhost:8080/suppliers')
-        .then(response => response.json())
-        .then((data : tableType[]) => {
-            setSupplierList(data)
-        })
+        axios.get('http://localhost:8080/suppliers')
+        .then( res => setSupplierList(res.data))
 
-        fetch('http://localhost:8080/manufacturers')
-        .then(response => response.json())
-        .then((data : tableType[]) => {
-            setManufacturerList(data)
-        })
+        axios.get('http://localhost:8080/manufacturers')
+        .then( res => setManufacturerList(res.data))
 
-        fetch('http://localhost:8080/locations')
-        .then(response => response.json())
-        .then((data : tableType[]) => {
-            setLocationList(data)
-        })
+        axios.get('http://localhost:8080/locations')
+        .then( res => setLocationList(res.data))
     }, [])
 
     
@@ -160,15 +149,15 @@ const PartForm = ({ sendPart, closeForm, defaultValues } : PartFormProps) => {
                                     <Form.Select
                                         className="my-2"
                                         aria-label="Part Type Selection Dropdown"
-                                        {...register("part_type", {required: true})}
-                                        name="part_type"
+                                        {...register("part_type_id", {required: true})}
+                                        name="part_type_id"
                                     >
                                             <option value="">Select a Part Type</option>
                                             {partTypes.map( (partType : tableType) => (
                                                 <option key={partType.id} value={partType.id}>{partType.name}</option>
                                             ))}
                                     </Form.Select>
-                                    {errors.part_type && <p className="errorMsg">Please select part type</p>}
+                                    {errors.part_type_id && <p className="errorMsg">Please select part type</p>}
                                 </div>
 
                                 <div>
@@ -176,9 +165,10 @@ const PartForm = ({ sendPart, closeForm, defaultValues } : PartFormProps) => {
                                     <Form.Select
                                         className="my-2"
                                         aria-label="Supplier Selection Dropdown"
-                                        {...register("supplier", {
+                                        {...register("supplier_id", {
                                             required: true,
                                         })}
+                                        name="supplier_id"
                                     >
                                             <option value="">Select a Supplier</option>
                                             {supplierList.map( (supplier : tableType) => (
@@ -189,7 +179,7 @@ const PartForm = ({ sendPart, closeForm, defaultValues } : PartFormProps) => {
                                             ))}
                                     
                                     </Form.Select>
-                                    {errors.supplier && <p className="errorMsg">Please select a supplier</p>}
+                                    {errors.supplier_id && <p className="errorMsg">Please select a supplier</p>}
                                 </div>
                             
                             
@@ -198,8 +188,8 @@ const PartForm = ({ sendPart, closeForm, defaultValues } : PartFormProps) => {
                                     <Form.Select
                                         className="my-2"
                                         aria-label="Manufacturer Selection Dropdown"
-                                        {...register("manufacturer", {required: true})}
-                                        name="manufacturer"
+                                        {...register("manufacturer_id", {required: true})}
+                                        name="manufacturer_id"
                                     >
                                             <option value="">Select a Manufacturer</option>
                                             {manufacturerList.map( (manufacturer : tableType) => (
@@ -210,7 +200,7 @@ const PartForm = ({ sendPart, closeForm, defaultValues } : PartFormProps) => {
                                             ))}
                                     </Form.Select>
                                     
-                                    {errors.manufacturer && <p className="errorMsg">Please select a manufacturer</p>}
+                                    {errors.manufacturer_id && <p className="errorMsg">Please select a manufacturer</p>}
                                 </div>
 
                                 <div>
@@ -218,8 +208,8 @@ const PartForm = ({ sendPart, closeForm, defaultValues } : PartFormProps) => {
                                     <Form.Select
                                         className="my-2"
                                         aria-label="Location Selection Dropdown"
-                                        {...register("location", {required: true})}
-                                        name="location"
+                                        {...register("location_id", {required: true})}
+                                        name="location_id"
                                     >
                                             <option value="">Select a Location</option>
                                             {locationList.map( (location : tableType) => (
@@ -229,7 +219,7 @@ const PartForm = ({ sendPart, closeForm, defaultValues } : PartFormProps) => {
                                     
                                             ))}
                                     </Form.Select>
-                                    {errors.location && <p className="errorMsg">Please select a location</p>}
+                                    {errors.location_id && <p className="errorMsg">Please select a location</p>}
                                 </div>
 
                             </div>

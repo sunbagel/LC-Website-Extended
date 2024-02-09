@@ -4,6 +4,7 @@ import PartForm from "./PartForm";
 import {useEffect} from 'react';
 import Modal from "react-bootstrap/esm/Modal";
 import { Part, PartValues } from "@/types";
+import axios from "@/lib/axios";
 
 type EditFormProps = {
     showEditForm: boolean;
@@ -34,9 +35,8 @@ const EditForm = ({showEditForm, closeEditForm, defaultValues, searchFunction} :
             body: JSON.stringify(part)
         }
 
-        fetch(`http://localhost:8080/parts/${part_id}`, requestOptions)
-        .then(response => response.json())
-        .then(data=>console.log(data))
+        axios(`http://localhost:8080/parts/${part_id}`, requestOptions)
+        // .then(res=>console.log(res.data))
         .then(()=>searchFunction())
         .then(() => closeEditForm())
         
