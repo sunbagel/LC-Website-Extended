@@ -8,14 +8,15 @@ type SimpleFieldBoxProps = {
 }
 
 type ComparisonOperator = 'Less Than' | 'Equal To' | 'Greater Than';
+type Column = 'Price' | 'Quantity';
 
 
 
 const SimpleFieldBox = ({handleSimpleParams, removeSimpleFieldBox, id} : SimpleFieldBoxProps)=>{
 
     
-    const columns = ['Price', 'Quantity'];
-    const columnMap = {
+    const columns : Column[] = ['Price', 'Quantity'];
+    const columnMap : { [key in Column] : string } = {
         'Price' : 'price',
         'Quantity' : 'quantity'
     }
@@ -40,7 +41,7 @@ const SimpleFieldBox = ({handleSimpleParams, removeSimpleFieldBox, id} : SimpleF
         <div className="py-2 flex items-center space-x-2">
             <Listbox 
                 value={selectedColumn} 
-                onChange={(value : string)=>{
+                onChange={(value : Column)=>{
                     setSelectedColumn(value);
                     handleSimpleParams(id, columnMap[value], operatorMap[selectedOperator], numValue); // maps to math symbol
                 }}
