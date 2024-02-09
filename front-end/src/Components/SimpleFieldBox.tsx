@@ -7,6 +7,10 @@ type SimpleFieldBoxProps = {
     id : string;
 }
 
+type ComparisonOperator = 'Less Than' | 'Equal To' | 'Greater Than';
+
+
+
 const SimpleFieldBox = ({handleSimpleParams, removeSimpleFieldBox, id} : SimpleFieldBoxProps)=>{
 
     
@@ -20,14 +24,15 @@ const SimpleFieldBox = ({handleSimpleParams, removeSimpleFieldBox, id} : SimpleF
     // e.g. lt : 'Less Than'
     // or even > : 'Less Than'
     // or 'Less Than' : >
-    const comparisonOperators = ['Less Than', 'Equal To', 'Greater Than'];
-    const operatorMap = {
-        'Less Than' : '<=',
-        'Equal To' : '=',
-        'Greater Than' : '>='
-    }
+    const comparisonOperators: ComparisonOperator[] = ['Less Than', 'Equal To', 'Greater Than'];
 
-    const [selectedOperator, setSelectedOperator] = useState<string>(comparisonOperators[0]);
+    const operatorMap: { [key in ComparisonOperator]: string } = {
+        'Less Than': '<=',
+        'Equal To': '=',
+        'Greater Than': '>='
+    };
+
+    const [selectedOperator, setSelectedOperator] = useState<ComparisonOperator>(comparisonOperators[0]);
     const [ numValue, setNumValue ] = useState<string>('');
     const [ selectedColumn, setSelectedColumn ] = useState<string>(columns[0]);
 

@@ -1,6 +1,6 @@
 
 import Form from 'react-bootstrap/Form';
-import { Part, PartKeyNumbers, PartValues, tableType } from '@/types';
+import { Part, PartValues, tableType } from '@/types';
 import { CSSProperties, useCallback, useEffect, useState } from 'react';
 
 import Select from 'react-select';
