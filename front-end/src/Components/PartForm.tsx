@@ -12,7 +12,7 @@ import axios from '@/lib/axios';
 
 
 type PartFormProps = {
-    sendPart: (e : any) => void;
+    sendPart: (e : PartValues) => void;
     closeForm: () => void;
     defaultValues: PartValues
 }
