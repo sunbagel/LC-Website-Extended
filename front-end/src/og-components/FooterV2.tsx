@@ -1,4 +1,4 @@
-import React from 'react'
+
 import "./FooterV2.css";
 
 const FooterV2 = () => {

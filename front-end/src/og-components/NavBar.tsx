@@ -1,11 +1,11 @@
-import { useState, useEffect} from "react"
+
 import {LinkContainer} from 'react-router-bootstrap'
 import { Link, NavLink } from 'react-router-dom'
 import './NavBar.css'
 
 
 
-import { Container, Nav, Navbar, NavDropdown, Button } from 'react-bootstrap';
+import { Container, Nav, Navbar } from 'react-bootstrap';
 import LogoutButton from "@/components/auth/LogoutButton";
 import useAuth from "@/hooks/useAuth";
 

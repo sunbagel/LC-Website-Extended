@@ -3,7 +3,7 @@ import useCSRF from "@/hooks/useCSRF";
 import useLogin from "@/hooks/useLogin";
 import axios from "@/lib/axios";
 import { useEffect, useState } from "react";
-import { Link, useNavigate, useLocation } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 
 
 
@@ -54,12 +54,12 @@ const LoginPage = () => {
           setErrMsg('Login Failed');
           }
 
-          setAuth({})
+          setAuth(undefined)
       })
 
   }
 
-  const onChange = (e) =>{
+  const onChange = (e : React.FormEvent<HTMLFormElement>) =>{
     setUser(e.currentTarget.username.value);
     setPwd(e.currentTarget.password.value);
   }

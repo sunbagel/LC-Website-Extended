@@ -1,19 +1,19 @@
-import React from 'react'
+
 import { Button, Form } from 'react-bootstrap';
 import emailjs from "emailjs-com";
 
 const EmailForm = () => {
 
-    function sendEmail(e){
+    function sendEmail(e : React.FormEvent<HTMLFormElement>){
         e.preventDefault();
 
-        emailjs.sendForm('service_06984o5', 'template_aoxiikm', e.target, 'eELFir4dFuma9lzLD')
+        emailjs.sendForm('service_06984o5', 'template_aoxiikm', e.currentTarget, 'eELFir4dFuma9lzLD')
             .then((result) => {
                 console.log(result.text);
             }, (error) => {
                 console.log(error.text);
             });
-        e.target.reset();
+        e.currentTarget.reset();
     }
 
   return (
