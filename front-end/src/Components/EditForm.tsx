@@ -1,11 +1,7 @@
 import Card from "react-bootstrap/Card";
-import Form from "react-bootstrap/Form";
-import Col from "react-bootstrap/Col";
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
 import PartForm from "./PartForm";
 
-import {useEffect, useState} from 'react';
+import {useEffect} from 'react';
 import Modal from "react-bootstrap/esm/Modal";
 import { PartValues } from "@/types";
 
