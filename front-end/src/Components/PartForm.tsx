@@ -88,7 +88,7 @@ const PartForm = ({ sendPart, closeForm, defaultValues } : PartFormProps) => {
                                             name="part_number"
                                             placeholder="Enter Part Number"
                                         />
-                                        {errors.part_number && <p className="errorMsg">{errors.part_number.message}</p>}
+                                        {errors.part_number && <p className="errorMsg">{errors.part_number.message?.toString()}</p>}
                                     </div>
 
                                 
@@ -103,7 +103,7 @@ const PartForm = ({ sendPart, closeForm, defaultValues } : PartFormProps) => {
                                             name="part_name"
                                             placeholder="Enter Part Name"
                                         />
-                                        {errors.part_name && <p className="errorMsg">{errors.part_name.message}</p>}
+                                        {errors.part_name && <p className="errorMsg">{errors.part_name.message?.toString()}</p>}
                                     </div>
 
                                 
@@ -116,7 +116,7 @@ const PartForm = ({ sendPart, closeForm, defaultValues } : PartFormProps) => {
                                         name="description"
                                         placeholder="Enter Description"
                                     />
-                                    {errors.description && <p className="errorMsg">{errors.description.message}</p>}
+                                    {errors.description && <p className="errorMsg">{errors.description.message?.toString()}</p>}
                                 </div>
                             
 
@@ -129,7 +129,7 @@ const PartForm = ({ sendPart, closeForm, defaultValues } : PartFormProps) => {
                                         name="quantity"
                                         placeholder="Enter Quantity"
                                     />
-                                    {errors.quantity && <p className="errorMsg">{errors.quantity.message}</p>}
+                                    {errors.quantity && <p className="errorMsg">{errors.quantity.message?.toString()}</p>}
                                 </div>
                                 
                                 <div>
@@ -142,7 +142,7 @@ const PartForm = ({ sendPart, closeForm, defaultValues } : PartFormProps) => {
                                         name="price"
                                         placeholder="Enter Price"
                                     />
-                                    {errors.price && <p className="errorMsg">{errors.price.message}</p>}
+                                    {errors.price && <p className="errorMsg">{errors.price.message?.toString()}</p>}
                                 </div>
                             
                             
