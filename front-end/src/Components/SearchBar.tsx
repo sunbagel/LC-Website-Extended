@@ -1,9 +1,9 @@
 
 import Form from 'react-bootstrap/Form';
 import { Part, PartValues, tableType } from '@/types';
-import { CSSProperties, useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
-import Select from 'react-select';
+import Select, { CSSObjectWithLabel, SingleValue, StylesConfig } from 'react-select';
 import SimpleFieldBox from './SimpleFieldBox';
 import axios from '@/lib/axios';
 
@@ -76,32 +76,32 @@ const SearchBar = ({updatePartValues, updateSearchFunction} : SearchBarProps) =>
     }
 
     // styling for Select
-    const commonStyles = {
+    const commonStyles : CSSObjectWithLabel= {
         // Define common style properties here
         color: 'black',
         textAlign: 'left',
         // ...other styles
     };
     
-    const customStyles = {
-        control: (provided : CSSProperties) => ({
+    const customStyles : StylesConfig<tableType, false> = {
+        control: (provided: CSSObjectWithLabel) => ({
             ...provided,
             ...commonStyles,
         }),
-        singleValue: (provided : CSSProperties) => ({
+        singleValue: (provided : CSSObjectWithLabel) => ({
             ...provided,
             ...commonStyles,
         }),
-        option: (provided : CSSProperties) => ({
+        option: (provided : CSSObjectWithLabel) => ({
             ...provided,
             ...commonStyles,
 
         }),
-        menuList: (provided : CSSProperties) => ({
+        menuList: (provided : CSSObjectWithLabel) => ({
             ...provided,
             padding: 0,
         }),
-        menu: (provided : CSSProperties) => ({
+        menu: (provided : CSSObjectWithLabel) => ({
             ...provided,
             borderRadius: '4px',
             overflow: 'hidden' // This is to ensure that the rounded corners are visible
@@ -225,7 +225,9 @@ const SearchBar = ({updatePartValues, updateSearchFunction} : SearchBarProps) =>
                                     <Select
                                         className="py-2 max-w-sm col-span-1"
                                         placeholder="Select a Supplier"
-                                        onChange={(option : tableType) => {setSelectedSupplier(option ? option.name : '');}}
+                                        onChange={(option: SingleValue<tableType>) => {
+                                            setSelectedSupplier(option ? option.name : '');
+                                        }}
                                         styles={customStyles}
                                         options={supplierList}
                                         getOptionLabel={(option : tableType) => option.name}
@@ -243,7 +245,7 @@ const SearchBar = ({updatePartValues, updateSearchFunction} : SearchBarProps) =>
                                     <Select
                                         className="py-2 max-w-sm col-span-1"
                                         placeholder="Select a Manufacturer"
-                                        onChange={(option : tableType) => {setSelectedManufacturer(option ? option.name : '');}}
+                                        onChange={(option: SingleValue<tableType>) => {setSelectedManufacturer(option ? option.name : '');}}
                                         styles={customStyles}
                                         options={manufacturerList}
                                         getOptionLabel={(option : tableType) => option.name}
@@ -262,7 +264,7 @@ const SearchBar = ({updatePartValues, updateSearchFunction} : SearchBarProps) =>
                                 <Select 
                                     className="py-2 max-w-sm" 
                                     placeholder="Select a Location"
-                                    onChange={(option : tableType) => {setSelectedLocation(option ? option.name : '');}}
+                                    onChange={(option: SingleValue<tableType>) => {setSelectedLocation(option ? option.name : '');}}
                                     styles={customStyles}
                                     options={locationList}
                                     getOptionLabel={(option : tableType) => option.name}
@@ -282,7 +284,7 @@ const SearchBar = ({updatePartValues, updateSearchFunction} : SearchBarProps) =>
                                 <Select 
                                     className="py-2 max-w-sm" 
                                     placeholder="Select a Part Type"
-                                    onChange={(option : tableType) => {setSelectedPartType(option ? option.name : '');}}
+                                    onChange={(option: SingleValue<tableType>) => {setSelectedPartType(option ? option.name : '');}}
                                     styles={customStyles}
                                     options={partTypes}
                                     getOptionLabel={(option : tableType) => option.name}
