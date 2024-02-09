@@ -40,7 +40,7 @@ const PartForm = ({ sendPart, closeForm, defaultValues } : PartFormProps) => {
                 description: defaultValues["description"],
                 quantity: defaultValues["quantity"],
                 price: defaultValues["price"],
-                part_type: defaultValues["part_type_id"], 
+                part_type_id: defaultValues["part_type_id"], 
                 supplier_id: defaultValues["supplier_id"],
                 manufacturer_id: defaultValues["manufacturer_id"],
                 location_id: defaultValues["location_id"]

@@ -3,7 +3,7 @@ import PartForm from "./PartForm";
 
 import {useEffect} from 'react';
 import Modal from "react-bootstrap/esm/Modal";
-import { Part, PartValues } from "@/types";
+import { PartValues } from "@/types";
 import axios from "@/lib/axios";
 
 type EditFormProps = {
@@ -20,14 +20,14 @@ const EditForm = ({showEditForm, closeEditForm, defaultValues, searchFunction} :
         console.log(defaultValues);
     }, [defaultValues])
 
-    const sendPart = (part : Part) => {
+    const sendPart = (part : PartValues) => {
 
         // get part id
         // data definition is trolling you since i sent a partObject for simplicity but it has diff field name formatting.
         const part_id = defaultValues.id;
-        console.log(defaultValues);
-        console.log('TEST PART ID:');
-        console.log(part_id);
+        // console.log(defaultValues);
+        // console.log('TEST PART ID:');
+        // console.log(part_id);
 
         const requestOptions = {
             method: 'PUT',
