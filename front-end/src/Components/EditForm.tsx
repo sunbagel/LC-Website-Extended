@@ -3,7 +3,7 @@ import PartForm from "./PartForm";
 
 import {useEffect} from 'react';
 import Modal from "react-bootstrap/esm/Modal";
-import { PartValues } from "@/types";
+import { Part, PartValues } from "@/types";
 
 type EditFormProps = {
     showEditForm: boolean;
@@ -19,18 +19,7 @@ const EditForm = ({showEditForm, closeEditForm, defaultValues, searchFunction} :
         console.log(defaultValues);
     }, [defaultValues])
 
-    const sendPart = (e) => {
-        const part = {
-            part_number: e.PartNum,
-            part_name: e.PartName,
-            description: e.Description,
-            quantity: e.Quantity,
-            price: e.Price,
-            part_type_id: e.PartType,
-            supplier_id: e.Supplier,
-            manufacturer_id: e.Manufacturer,
-            location_id: e.Location
-        }
+    const sendPart = (part : Part) => {
 
         // get part id
         // data definition is trolling you since i sent a partObject for simplicity but it has diff field name formatting.

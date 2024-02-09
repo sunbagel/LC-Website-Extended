@@ -1,8 +1,6 @@
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Container from 'react-bootstrap/Container';
-import Col from 'react-bootstrap/Col';
-import Row from 'react-bootstrap/Row';
 
 
 import { useForm } from "react-hook-form";
@@ -36,15 +34,15 @@ const PartForm = ({ sendPart, closeForm, defaultValues } : PartFormProps) => {
     useEffect(() => {
         if(defaultValues){
             const defaultValuesList = {
-                PartNum: defaultValues["part_number"],
-                PartName: defaultValues["part_name"],
-                Description: defaultValues["description"],
-                Quantity: defaultValues["quantity"],
-                Price: defaultValues["price"],
-                PartType: defaultValues["part_type_id"],
-                Supplier: defaultValues["supplier_id"],
-                Manufacturer: defaultValues["manufacturer_id"],
-                Location: defaultValues["location_id"]
+                part_number: defaultValues["part_number"],
+                part_name: defaultValues["part_name"],
+                description: defaultValues["description"],
+                quantity: defaultValues["quantity"],
+                price: defaultValues["price"],
+                part_type: defaultValues["part_type_id"], 
+                supplier: defaultValues["supplier_id"],
+                manufacturer: defaultValues["manufacturer_id"],
+                location: defaultValues["location_id"]
             };
             // defaultValuesList.Supplier = defaultValues["supplier_id"];
             reset({ ...defaultValuesList });
@@ -93,12 +91,12 @@ const PartForm = ({ sendPart, closeForm, defaultValues } : PartFormProps) => {
                                             className="w-full"
                                         
                                             type="text"
-                                            {...register("PartNum",
+                                            {...register("part_number",
                                                 {required: "Part Number is required"})}
-                                            name="PartNum"
+                                            name="part_number"
                                             placeholder="Enter Part Number"
                                         />
-                                        {errors.PartNum && <p className="errorMsg">{errors.PartNum.message}</p>}
+                                        {errors.part_number && <p className="errorMsg">{errors.part_number.message}</p>}
                                     </div>
 
                                 
@@ -109,11 +107,11 @@ const PartForm = ({ sendPart, closeForm, defaultValues } : PartFormProps) => {
                                         <Form.Control
                                             className="w-full"
                                             type="text"
-                                            {...register("PartName", { required: "Part Name is required" })}
-                                            name="PartName"
+                                            {...register("part_name", { required: "Part Name is required" })}
+                                            name="part_name"
                                             placeholder="Enter Part Name"
                                         />
-                                        {errors.PartName && <p className="errorMsg">{errors.PartName.message}</p>}
+                                        {errors.part_name && <p className="errorMsg">{errors.part_name.message}</p>}
                                     </div>
 
                                 
@@ -122,11 +120,11 @@ const PartForm = ({ sendPart, closeForm, defaultValues } : PartFormProps) => {
                                     <Form.Control
                                         as='textarea'
                                         className="w-full h-24 max-w-xl" 
-                                        {...register("Description", { required: "Description is required" })}
-                                        name="Description"
+                                        {...register("description", { required: "Description is required" })}
+                                        name="description"
                                         placeholder="Enter Description"
                                     />
-                                    {errors.Description && <p className="errorMsg">{errors.Description.message}</p>}
+                                    {errors.description && <p className="errorMsg">{errors.description.message}</p>}
                                 </div>
                             
 
@@ -135,11 +133,11 @@ const PartForm = ({ sendPart, closeForm, defaultValues } : PartFormProps) => {
                                     <Form.Control
                                         className=""
                                         type="number"
-                                        {...register("Quantity", { required: "Quantity is required" })}
-                                        name="Quantity"
+                                        {...register("quantity", { required: "Quantity is required" })}
+                                        name="quantity"
                                         placeholder="Enter Quantity"
                                     />
-                                    {errors.Quantity && <p className="errorMsg">{errors.Quantity.message}</p>}
+                                    {errors.quantity && <p className="errorMsg">{errors.quantity.message}</p>}
                                 </div>
                                 
                                 <div>
@@ -148,11 +146,11 @@ const PartForm = ({ sendPart, closeForm, defaultValues } : PartFormProps) => {
                                         className=""
                                         type="number"
                                         step="0.01"
-                                        {...register("Price", { required: "Price is required" })}
-                                        name="Price"
+                                        {...register("price", { required: "Price is required" })}
+                                        name="price"
                                         placeholder="Enter Price"
                                     />
-                                    {errors.Price && <p className="errorMsg">{errors.Price.message}</p>}
+                                    {errors.price && <p className="errorMsg">{errors.price.message}</p>}
                                 </div>
                             
                             
@@ -162,15 +160,15 @@ const PartForm = ({ sendPart, closeForm, defaultValues } : PartFormProps) => {
                                     <Form.Select
                                         className="my-2"
                                         aria-label="Part Type Selection Dropdown"
-                                        {...register("PartType", {required: true})}
-                                        name="PartType"
+                                        {...register("part_type", {required: true})}
+                                        name="part_type"
                                     >
                                             <option value="">Select a Part Type</option>
                                             {partTypes.map( (partType : tableType) => (
                                                 <option key={partType.id} value={partType.id}>{partType.name}</option>
                                             ))}
                                     </Form.Select>
-                                    {errors.PartType && <p className="errorMsg">Please select part type</p>}
+                                    {errors.part_type && <p className="errorMsg">Please select part type</p>}
                                 </div>
 
                                 <div>
@@ -178,7 +176,7 @@ const PartForm = ({ sendPart, closeForm, defaultValues } : PartFormProps) => {
                                     <Form.Select
                                         className="my-2"
                                         aria-label="Supplier Selection Dropdown"
-                                        {...register("Supplier", {
+                                        {...register("supplier", {
                                             required: true,
                                         })}
                                     >
@@ -191,7 +189,7 @@ const PartForm = ({ sendPart, closeForm, defaultValues } : PartFormProps) => {
                                             ))}
                                     
                                     </Form.Select>
-                                    {errors.Supplier && <p className="errorMsg">Please select a supplier</p>}
+                                    {errors.supplier && <p className="errorMsg">Please select a supplier</p>}
                                 </div>
                             
                             
@@ -200,8 +198,8 @@ const PartForm = ({ sendPart, closeForm, defaultValues } : PartFormProps) => {
                                     <Form.Select
                                         className="my-2"
                                         aria-label="Manufacturer Selection Dropdown"
-                                        {...register("Manufacturer", {required: true})}
-                                        name="Manufacturer"
+                                        {...register("manufacturer", {required: true})}
+                                        name="manufacturer"
                                     >
                                             <option value="">Select a Manufacturer</option>
                                             {manufacturerList.map( (manufacturer : tableType) => (
@@ -212,7 +210,7 @@ const PartForm = ({ sendPart, closeForm, defaultValues } : PartFormProps) => {
                                             ))}
                                     </Form.Select>
                                     
-                                    {errors.Manufacturer && <p className="errorMsg">Please select a manufacturer</p>}
+                                    {errors.manufacturer && <p className="errorMsg">Please select a manufacturer</p>}
                                 </div>
 
                                 <div>
@@ -220,8 +218,8 @@ const PartForm = ({ sendPart, closeForm, defaultValues } : PartFormProps) => {
                                     <Form.Select
                                         className="my-2"
                                         aria-label="Location Selection Dropdown"
-                                        {...register("Location", {required: true})}
-                                        name="Location"
+                                        {...register("location", {required: true})}
+                                        name="location"
                                     >
                                             <option value="">Select a Location</option>
                                             {locationList.map( (location : tableType) => (
@@ -231,7 +229,7 @@ const PartForm = ({ sendPart, closeForm, defaultValues } : PartFormProps) => {
                                     
                                             ))}
                                     </Form.Select>
-                                    {errors.Location && <p className="errorMsg">Please select a location</p>}
+                                    {errors.location && <p className="errorMsg">Please select a location</p>}
                                 </div>
 
                             </div>
