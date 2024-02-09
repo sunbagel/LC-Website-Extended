@@ -15,9 +15,6 @@ import AddPartPage from "./pages/AddPartPage";
 import LoginPage from "./pages/LoginPage";
 import RequireAuth from "./components/auth/RequireAuth";
 import { AuthProvider } from "./context/AuthProvider";
-import { useEffect } from "react";
-import useAuth from "./hooks/useAuth";
-import useCSRF from "./hooks/useCSRF";
 
 function App() {
   
