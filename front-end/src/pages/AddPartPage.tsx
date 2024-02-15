@@ -35,7 +35,7 @@ const AddPartPage = () => {
     const sendPart = (part : PartValues) => {
         console.log(part);
 
-        axios.post('http://localhost:8080/parts', part, {
+        axios.post('/parts', part, {
             withCredentials : true
         })
         .catch(err => console.log(err))

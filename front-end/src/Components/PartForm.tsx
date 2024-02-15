@@ -54,16 +54,16 @@ const PartForm = ({ sendPart, closeForm, defaultValues } : PartFormProps) => {
         const axiosOptions = {
             withCredentials: true
         }
-        axios.get('http://localhost:8080/part_types', axiosOptions)
+        axios.get('/part_types', axiosOptions)
         .then( res => setPartTypes(res.data))
 
-        axios.get('http://localhost:8080/suppliers', axiosOptions)
+        axios.get('/suppliers', axiosOptions)
         .then( res => setSupplierList(res.data))
 
-        axios.get('http://localhost:8080/manufacturers', axiosOptions)
+        axios.get('/manufacturers', axiosOptions)
         .then( res => setManufacturerList(res.data))
 
-        axios.get('http://localhost:8080/locations', axiosOptions)
+        axios.get('/locations', axiosOptions)
         .then( res => setLocationList(res.data))
     }, [])
 

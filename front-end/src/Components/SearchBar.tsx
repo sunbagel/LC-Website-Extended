@@ -119,27 +119,27 @@ const SearchBar = ({updatePartValues, updateSearchFunction} : SearchBarProps) =>
     // updating selection for suppliers
     useEffect(() => {
 
-        axios.get('http://localhost:8080/part_types',{
+        axios.get('/part_types',{
             withCredentials: true
         })
         .then(res => setPartTypes(res.data))
 
 
-        axios.get('http://localhost:8080/suppliers', {
+        axios.get('/suppliers', {
             withCredentials: true
         })
         .then(response => {
             setSupplierList(response.data);
         });
 
-        axios.get('http://localhost:8080/manufacturers', {
+        axios.get('/manufacturers', {
             withCredentials: true
         })
         .then(response => {
             setManufacturerList(response.data);
         });
 
-        axios.get('http://localhost:8080/locations', {
+        axios.get('/locations', {
             withCredentials: true
         })
         .then(response => {

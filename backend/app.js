@@ -91,9 +91,9 @@ app.use(passport.session());
 // app.use(ensureAuthenticated);
 
 // auth routes
-app.use('/auth', authRoutes);
+app.use('/api/auth', authRoutes);
 
-app.use('', dbRoutes);
+app.use('/api', dbRoutes);
 
 app.use((err, req, res, next) => {
     console.error(err.stack)
