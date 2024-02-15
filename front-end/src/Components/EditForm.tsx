@@ -29,7 +29,7 @@ const EditForm = ({showEditForm, closeEditForm, defaultValues, searchFunction} :
         // console.log('TEST PART ID:');
         // console.log(part_id);
 
-        axios.put(`http://localhost:8080/parts/${part_id}`, part, {
+        axios.put(`/parts/${part_id}`, part, {
             withCredentials : true
         })
         // .then(res=>console.log(res.data))
