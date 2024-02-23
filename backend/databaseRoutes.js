@@ -147,8 +147,6 @@ router.put("/parts/:id", async (req, res) =>{
         manufacturer_id: 'manufacturer_id',
         location_id: 'location_id',
     };
-
-    // console.log(req.body[partName]);
     
     const part_id = req.params.id;
     const conditions = [];
