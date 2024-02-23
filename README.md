@@ -1,6 +1,8 @@
 # Website / Web App for LC Industrial
 
 The _public-facing_ side of the website is meant to draw in more customers and facilitate easier communication with LC Industrial. For members of the company, there is also access to the **inventory management web app.** The app is only accessible by logging in. For the authentication system, I implemented session-based Single Factor Authentication using Passport.js. By configuring CORS, cookie settings, and setting up CSRF tokens, I ensured that data was safe against common web vulnerabilities like Cross-Site Scripting and CSRF, following guidelines from [OWASP](https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html#synchronizer-token-pattern).
+
+I deployed this website to a DigitalOcean server using Apache. You can check it out at [lcindustrial.ca](https://lcindustrial.ca)!
 ## Home Page:
 ![image](readme-images/Home1.png)
 
