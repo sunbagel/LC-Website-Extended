@@ -1,4 +1,4 @@
-import { Image, Container, Row, Col, Button } from 'react-bootstrap'
+import { Image, Container, Row, Col } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import '../App.css';
 import './HeroSection.css';

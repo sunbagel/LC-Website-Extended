@@ -43,8 +43,11 @@ const NavBar = () => {
                         
                         <Nav.Link  as={NavLink} to="/contact_us" eventKey="2">Contact Us</Nav.Link>
                         
-                        <Nav.Link as={NavLink} to="/app-home" eventKey="3">Inventory App</Nav.Link>
+                        <Nav.Link as={NavLink} to="/careers" eventKey="3">Careers</Nav.Link>
 
+                        <Nav.Link as={NavLink} to="/app-home" eventKey="4">Inventory App</Nav.Link>
+
+                        
                         {/* <Nav.Link eventKey="3">
                             Get a Quote
                         </Nav.Link> */}

@@ -1,5 +1,5 @@
 
-import { Button, Form } from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
 import emailjs from "emailjs-com";
 
 const EmailForm = () => {

@@ -4,7 +4,7 @@ import "./FooterV2.css";
 const FooterV2 = () => {
   return (
     
-    <div className = 'footer py-3'>
+    <div className = 'footer py-3 font-raleway'>
         <div className='container justify-content-center'>
             <div className='row '>
                 <div className='col-md-4 col-sm-auto'>
