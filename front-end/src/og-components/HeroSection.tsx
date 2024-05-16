@@ -29,7 +29,7 @@ const HeroSection = () => {
               </p>
               <div className="text-center my-4">
               <Link to="/contact_us">
-                <Button id="quote-button">Get a Quote</Button>
+                    <button className="default-btn" id="quote-button">Get a Quote</button>
               </Link>
               
               </div>

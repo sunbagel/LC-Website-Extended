@@ -1,5 +1,5 @@
 
-import { Container, Col } from 'react-bootstrap';
+
 import EmailForm from '../EmailForm';
 
 const Contact = () => {

@@ -46,9 +46,9 @@ const EmailForm = () => {
           <Form.Control name="message" as="textarea" rows={10} placeholder="How can we help you?"/>
         </Form.Group>
         
-        <Button variant="primary" type="submit">
+        <button className='default-btn' type="submit">
           Submit
-        </Button>
+        </button>
       </Form>
     </div>
   )

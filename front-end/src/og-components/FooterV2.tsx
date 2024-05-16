@@ -21,7 +21,6 @@ const FooterV2 = () => {
                     
                     <ul className='list-unstyled'>
                         <li>Phone Number: (905) 696-0378</li>
-                        <br></br>
                         <li>Email Address: info@lcindustrial.ca</li>
                     </ul>
                 </div>
