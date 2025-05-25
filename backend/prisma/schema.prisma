@@ -1,0 +1,67 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model locations {
+  id    Int    @id @default(autoincrement())
+  name  String
+  parts parts[]
+}
+
+model manufacturers {
+  id    Int     @id @default(autoincrement())
+  name  String?
+  parts parts[]
+}
+
+model part_type {
+  id    Int    @id @default(autoincrement())
+  name  String
+  parts parts[]
+}
+
+model parts {
+  id              Int            @id @default(autoincrement())
+  part_name       String?
+  supplier_id     Int?
+  part_number     String?
+  description     String?
+  price           Decimal?
+  quantity        Int?
+  part_type_id    Int?
+  manufacturer_id Int?
+  location_id     Int?
+
+  locations       locations?     @relation(fields: [location_id], references: [id])
+  manufacturers   manufacturers? @relation(fields: [manufacturer_id], references: [id])
+  part_type       part_type?     @relation(fields: [part_type_id], references: [id])
+  suppliers       suppliers?     @relation(fields: [supplier_id], references: [id])
+
+  @@index([location_id])
+  @@index([manufacturer_id])
+  @@index([part_type_id])
+  @@index([supplier_id])
+}
+
+model sessions {
+  session_id String @id
+  expires    Int
+  data       String?
+}
+
+model suppliers {
+  id    Int    @id @default(autoincrement())
+  name  String?
+  parts parts[]
+}
+
+model users {
+  id       Int    @id @default(autoincrement()) @unique
+  username String @unique
+  password String
+}

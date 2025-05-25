@@ -1,0 +1,67 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model locations {
+  id    Int     @id @default(autoincrement())
+  name  String  @db.VarChar(255)
+  parts parts[]
+}
+
+model manufacturers {
+  id    Int     @id @default(autoincrement())
+  name  String? @db.VarChar(255)
+  parts parts[]
+}
+
+model part_type {
+  id    Int     @id @default(autoincrement())
+  name  String  @db.VarChar(255)
+  parts parts[]
+}
+
+model parts {
+  id              Int            @id @default(autoincrement())
+  part_name       String?        @db.VarChar(255)
+  supplier_id     Int?
+  part_number     String?        @db.VarChar(100)
+  description     String?        @db.VarChar(350)
+  price           Decimal?       @db.Decimal(10, 2)
+  quantity        Int?
+  part_type_id    Int?
+  manufacturer_id Int?
+  location_id     Int?
+  locations       locations?     @relation(fields: [location_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_location_id")
+  manufacturers   manufacturers? @relation(fields: [manufacturer_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_manufacturer_id")
+  part_type       part_type?     @relation(fields: [part_type_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_part_type_id")
+  suppliers       suppliers?     @relation(fields: [supplier_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_supplier_id")
+
+  @@index([location_id], map: "fk_location_id")
+  @@index([manufacturer_id], map: "fk_manufacturer_id")
+  @@index([part_type_id], map: "fk_part_type_id")
+  @@index([supplier_id], map: "fk_supplier_id")
+}
+
+model sessions {
+  session_id String  @id @db.VarChar(128)
+  expires    Int     @db.UnsignedInt
+  data       String? @db.MediumText
+}
+
+model suppliers {
+  id    Int     @id @default(autoincrement())
+  name  String? @db.VarChar(255)
+  parts parts[]
+}
+
+model users {
+  id       Int    @id @unique(map: "id_UNIQUE") @default(autoincrement())
+  username String @unique(map: "name_UNIQUE") @db.VarChar(45)
+  password String @db.VarChar(255)
+}

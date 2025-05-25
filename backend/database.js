@@ -1,231 +1,142 @@
-import mysql from 'mysql2'
+// database.js  (ES‑module version)
+// Unified data‑access layer using Prisma ORM (SQLite)
+// ---------------------------------------------------
+//  * Requires: "type": "module" in package.json  *or*  save this file as .mjs
+//  * All exports are now proper ES named exports, so you can
+//    `import { prisma, getParts } from './database.js'` everywhere.
 
-import dotenv from 'dotenv'
-dotenv.config();
+import { PrismaClient, Prisma } from '@prisma/client'
 
-// pool of connections to database, can be reused
-// promises so we can use async await
-const pool = mysql.createPool({
-    host: process.env.MSQL_HOST,
-    user: process.env.MYSQL_USER,
-    password: process.env.MYSQL_PASSWORD,
-    database: process.env.MYSQL_DATABASE
-}).promise();
+export const prisma = new PrismaClient()
 
-export async function getParts(){
-    const [rows] = await pool.query("SELECT * FROM parts");
-    return rows;
+// ---------------------------------------------------------------------------
+// Internal helpers
+// ---------------------------------------------------------------------------
+
+const includePartRelations = {
+  locations: true,
+  manufacturers: true,
+  part_type: true,
+  suppliers: true
 }
 
-export async function getPart(part_id){
-    const [rows] = await pool.query(`
-        SELECT * 
-        FROM parts 
-        WHERE id = ?
-    `, [part_id]);
-
-    return rows[0];
+function toDecimal (val) {
+  return val == null ? null : new Prisma.Decimal(Number(val).toFixed(2))
 }
 
-export async function searchParts(query, values){
-    const [rows] = await pool.query(query, values);
-
-    return rows;
+function toMatchablePart(part) {
+  return {
+    ...part,
+    price: part?.price?.toFixed ? part.price.toFixed(2) : part.price
+  }
 }
 
-export async function createPart(part_name, supplier_id, part_number, description, price, 
-                                quantity, part_type_id, manufacturer_id, location_id){
-    const [result] = await pool.query(`
-        INSERT INTO parts (part_name, supplier_id, part_number, description, price, 
-            quantity, part_type_id, manufacturer_id, location_id)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
-        `, [part_name, supplier_id, part_number, description, price, 
-            quantity, part_type_id, manufacturer_id, location_id]);
+// ---------------------------------------------------------------------------
+// Parts CRUD + search
+// ---------------------------------------------------------------------------
 
-    // can't return part since we don't know what the id is lol.
-    return result;
+export async function getParts () {
+  const parts = await prisma.parts.findMany({ include: includePartRelations })
+  return parts.map(toMatchablePart)
 }
 
-export async function editPart(query, values){
-    const [rows] = await pool.query(query, values);
-    return rows;
+export async function getPart (id) {
+  const part = await prisma.parts.findUnique({
+    where: { id: Number(id) },
+    include: includePartRelations
+  })
+  return toMatchablePart(part)
 }
 
-// Part Type
-export async function getPartTypes(){
-    const [rows] = await pool.query("SELECT * FROM part_type");
-    return rows;
+export async function searchParts (filters = {}) {
+  const where = {}
+
+  // LIKE filters for text fields
+  ;['part_name', 'part_number', 'description'].forEach((f) => {
+    if (filters[f]) where[f] = { contains: filters[f] }
+  })
+
+  ;['supplier_id', 'part_type_id', 'manufacturer_id', 'location_id'].forEach(
+    (f) => {
+      if (filters[f]) where[f] = Number(filters[f])
+    }
+  )
+
+  if (filters.price_min || filters.price_max) {
+    where.price = {}
+    if (filters.price_min) where.price.gte = new Prisma.Decimal(filters.price_min)
+    if (filters.price_max) where.price.lte = new Prisma.Decimal(filters.price_max)
+  }
+
+  if (filters.quantity_min || filters.quantity_max) {
+    where.quantity = {}
+    if (filters.quantity_min) where.quantity.gte = Number(filters.quantity_min)
+    if (filters.quantity_max) where.quantity.lte = Number(filters.quantity_max)
+  }
+
+  const results = await prisma.parts.findMany({ where, include: includePartRelations })
+  return results.map(toMatchablePart)
 }
 
-export async function getPartType(id){
-    const [rows] = await pool.query(`
-        SELECT * 
-        FROM part_type 
-        WHERE id = ?
-    `, [id]);
-
-    return rows[0];
+export async function createPart (data) {
+  const clean = { ...data, price: toDecimal(data.price) }
+  const part = await prisma.parts.create({ data: clean })
+  return toMatchablePart(part)
 }
 
-export async function createPartType(name){
-    const [result] = await pool.query(`
-        INSERT INTO part_type (name)
-        VALUES (?)
-        `, [name]);
-
-    const id = result.insertId;
-    return getPartType(id);
+export async function editPart (id, data) {
+  const clean = { ...data }
+  if (data.price != null) clean.price = toDecimal(data.price)
+  const part = await prisma.parts.update({ where: { id: Number(id) }, data: clean })
+  return toMatchablePart(part)
 }
 
+// ---------------------------------------------------------------------------
+// Part types
+// ---------------------------------------------------------------------------
+
+export const getPartTypes = () => prisma.part_type.findMany()
+export const getPartType = (id) => prisma.part_type.findUnique({ where: { id: Number(id) } })
+export const createPartType = (name) => prisma.part_type.create({ data: { name } })
+
+// ---------------------------------------------------------------------------
 // Manufacturers
-export async function getManufacturers(){
-    const [rows] = await pool.query("SELECT * FROM manufacturers");
-    return rows;
-}
+// ---------------------------------------------------------------------------
 
-export async function getManufacturer(id){
-    const [rows] = await pool.query(`
-        SELECT * 
-        FROM manufacturers 
-        WHERE id = ?
-    `, [id]);
+export const getManufacturers = () => prisma.manufacturers.findMany()
+export const getManufacturer = (id) => prisma.manufacturers.findUnique({ where: { id: Number(id) } })
+export const createManufacturer = (name) => prisma.manufacturers.create({ data: { name } })
 
-    return rows[0];
-}
+// ---------------------------------------------------------------------------
+// Locations
+// ---------------------------------------------------------------------------
 
-export async function createManufacturer(name){
-    const [result] = await pool.query(`
-        INSERT INTO manufacturers (name)
-        VALUES (?)
-        `, [name]);
+export const getLocations = () => prisma.locations.findMany()
+export const getLocation = (id) => prisma.locations.findUnique({ where: { id: Number(id) } })
+export const createLocation = (name) => prisma.locations.create({ data: { name } })
 
-    const id = result.insertId;
-    return getManufacturer(id);
-}
-
-// Location
-export async function getLocations() {
-    const [rows] = await pool.query("SELECT * FROM locations");
-    return rows;
-}
-
-export async function getLocation(id) {
-    const [rows] = await pool.query(`
-        SELECT * 
-        FROM locations 
-        WHERE id = ?
-    `, [id]);
-
-    return rows[0];
-}
-
-export async function createLocation(location_name) {
-    const [result] = await pool.query(`
-        INSERT INTO locations (name)
-        VALUES (?)
-        `, [location_name]);
-
-    const id = result.insertId;
-    return getLocation(id);
-}
-
-
+// ---------------------------------------------------------------------------
 // Suppliers
+// ---------------------------------------------------------------------------
 
-export async function getSuppliers(){
-    const [rows] = await pool.query("SELECT * FROM suppliers");
-    return rows;
+export const getSuppliers = () => prisma.suppliers.findMany()
+export const getSupplier = (id) => prisma.suppliers.findUnique({ where: { id: Number(id) } })
+export const createSupplier = (name) => prisma.suppliers.create({ data: { name } })
+
+// ---------------------------------------------------------------------------
+// Users
+// ---------------------------------------------------------------------------
+
+export const getUser = (username) => prisma.users.findUnique({ where: { username } })
+export const createUser = ({ username, password }) => prisma.users.create({ data: { username, password } })
+
+// ---------------------------------------------------------------------------
+// Graceful shutdown
+// ---------------------------------------------------------------------------
+
+if (process.env.NODE_ENV !== 'production') {
+  process.on('SIGINT', async () => {
+    await prisma.$disconnect()
+    process.exit(0)
+  })
 }
-
-export async function getSupplier(id){
-    const [rows] = await pool.query(`
-        SELECT * 
-        FROM suppliers 
-        WHERE id = ?
-    `, [id]);
-
-    return rows[0];
-}
-
-export async function createSupplier(name){
-    const [result] = await pool.query(`
-        INSERT INTO suppliers (name)
-        VALUES (?)
-        `, [name]);
-
-    const id = result.insertId;
-    return getSupplier(id);
-}
-
-// return user with name (unique)
-async function getUserByID(id){
-
-    const [result] = await pool.query(`
-        SELECT *
-        FROM users
-        WHERE id = ?
-    `, [id]);
-
-    // expecting unique user
-    return result[0];
-
-}
-
-// return user with name (unique)
-export async function getUser(username){
-
-    const [result] = await pool.query(`
-        SELECT *
-        FROM users
-        WHERE username = ?
-    `, [username]);
-
-    // expecting unique user
-    return result[0];
-
-}
-
-//
-export async function createUser(user){
-
-    const {username, password} = user;
-    const [result] = await pool.query(`
-        INSERT INTO users (username, password)
-        VALUES (?, ?)
-        `, [username, password]);
-
-    const id = result.insertId;
-    return getUserByID(id);
-
-}
-
-// export async function getNotes(){
-//     // destructuring function (sets rows to the first item of the query result)
-//     const [rows] = await pool.query("SELECT * FROM notes");
-//     return rows;
-// }
-
-// export async function getNote(id) {
-//     // should not embed id into query - untrusted value from user, can be used to get unrestricted data access
-//     // "SQL injection attack", could use the id as a query instead of purely a value
-//     // use prepared statements (placeholders)
-//     const [rows] = await pool.query(`
-//     SELECT * 
-//     FROM notes 
-//     WHERE id = ?
-//     `, [id]);
-
-//     return rows[0];
-// }
-
-// export async function createNote(title, contents){
-//     const [result] = await pool.query(`
-//         INSERT INTO notes (title, contents)
-//         VALUES (?, ?)
-//         `, [title, contents]);
-
-//     const id = result.insertId;
-//     return getNote(id);
-// }
-
-
