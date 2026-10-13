@@ -22,23 +22,26 @@ function App() {
   return ( <>
       <AuthProvider>
         <Router>
-          <NavBar/>
-          <Routes>
-            <Route path = '/' element = {<Home/>}/>
-            <Route path = '/contact_us' element = {<Contact/>}/>
-            <Route path='/careers' element={<Careers/>} />
-            <Route element={<RequireAuth/>}>
-              <Route path = 'app-home' element = {<InventoryAppMain/>}>
-                  <Route index element={<SearchPage/>}/>
-                  <Route path='search-page' element={<SearchPage/>}/>
-                  <Route path ='add-parts' element = {<AddPartPage/>}/>
-              </Route>
-            </Route>
-            <Route path = '/login' element = {<LoginPage/>}/>
-          </Routes>
-          
+          <div className="flex flex-col min-h-screen bg-grey">
+            <NavBar/>
+            <div className="flex-1">
+              <Routes>
+                <Route path = '/' element = {<Home/>}/>
+                <Route path = '/contact_us' element = {<Contact/>}/>
+                <Route path='/careers' element={<Careers/>} />
+                <Route element={<RequireAuth/>}>
+                  <Route path = 'app-home' element = {<InventoryAppMain/>}>
+                      <Route index element={<SearchPage/>}/>
+                      <Route path='search-page' element={<SearchPage/>}/>
+                      <Route path ='add-parts' element = {<AddPartPage/>}/>
+                  </Route>
+                </Route>
+                <Route path = '/login' element = {<LoginPage/>}/>
+              </Routes>
+            </div>
+            <FooterV2/>
+          </div>
         </Router>
-      <FooterV2/>
       </AuthProvider>
     </>
   );

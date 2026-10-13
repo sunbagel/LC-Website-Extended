@@ -10,7 +10,7 @@ const Careers = () => {
               <h2 className="font-semibold text-xl">Senior CNC Field Service Engineer</h2>
 
               <p className="text-md text-gray-700">Location: Mississauga, ON</p>
-              <p className="text-md text-gray-700">Employment Type: Full-time (40+ hours per week)</p>
+              <p className="text-md text-gray-700">Employment Type: Full-time (30+ hours per week)</p>
 
               <h3 className="text-lg mt-4 mb-2 font-semibold">About the Role:</h3>
               <p>We are seeking an experienced <strong>Senior CNC Field Service Engineer</strong> to join our technical

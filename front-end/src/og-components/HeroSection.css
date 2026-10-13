@@ -31,9 +31,9 @@
     color: black;
     font-family: "Raleway";
     font-weight: 700;
-    margin-left: 1rem;
-    margin-right: 1rem;
-    padding: 3rem 1rem;
+    margin-left: 0;
+    margin-right: 0;
+    padding: 3rem 0 1rem 0;
 }
 
 /* .hero-container {

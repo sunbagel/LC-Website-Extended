@@ -21,10 +21,10 @@ const HeroSection = () => {
               <h1 className="header">
               Your Local CNC Machine & Industrial Electronics Service Provider
               </h1>
-              <p className="body text-dark mx-3">
+              <p className="body text-dark">
               LC Industrial is a team that provides fast, reliable, and quality service and parts for all kinds of industrial      electronics at a competitive price. We are based in Mississauga and have customers all around the GTA, and elsewhere in North America. From PCBs to servo drives and controllers, we can repair any make or model of electronics you use in your operations.
               </p>
-              <p className="body text-dark mx-3">
+              <p className="body text-dark">
               We invite you to contact us today!
               </p>
               <div className="text-center my-4">
