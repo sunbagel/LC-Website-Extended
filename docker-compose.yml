@@ -1,0 +1,22 @@
+services:
+  frontend:
+    build:
+      context: ./front-end
+      dockerfile: Dockerfile
+    ports:
+      # localhost:5173 → container:5173
+      - "5173:5173"
+    volumes:
+      # Mount your local source so edits hot-reload without rebuilding the image.
+      # node_modules stays inside the container (not overwritten by the host mount).
+      - ./front-end/src:/app/src
+      - ./front-end/public:/app/public
+      - ./front-end/index.html:/app/index.html
+      - ./front-end/vite.config.ts:/app/vite.config.ts
+      - ./front-end/tsconfig.json:/app/tsconfig.json
+      - ./front-end/tailwind.config.js:/app/tailwind.config.js
+      - ./front-end/postcss.config.js:/app/postcss.config.js
+    environment:
+      # Tell Vite to use polling for file-change detection.
+      # Required on macOS because inotify doesn't work across the Docker VM boundary.
+      - CHOKIDAR_USEPOLLING=true

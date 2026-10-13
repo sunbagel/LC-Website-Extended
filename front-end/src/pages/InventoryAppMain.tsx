@@ -8,7 +8,7 @@ import AppNavBar from '@/components/AppNavBar';
 const InventoryAppMain = () =>{
 
     return (
-        <>
+        <div>
 
             <AppNavBar/>
             {/* could use this for styling/containing purposes */}
@@ -17,7 +17,7 @@ const InventoryAppMain = () =>{
             </div>
             
         
-        </>
+        </div>
 
     )
 
