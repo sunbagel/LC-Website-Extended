@@ -107,8 +107,7 @@ const Careers = () => {
     <div className="py-12 bg-grey">
       <div className="container">
         <div className="max-w-7xl mx-auto">
-          <h1 className="text-black text-5xl font-bold mb-2">Careers at LC Industrial</h1>
-          <p className="text-gray-600 mb-8">Click a role to see the full job description.</p>
+          <h1 className="text-black text-5xl font-bold mb-8">Careers at LC Industrial</h1>
 
           <div className="space-y-4">
 
